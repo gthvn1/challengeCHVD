@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>README Challenge CHVD devel</title>
+    <style type="text/css">
+        body {
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 14px; 
+            color: #121212;
+            background-color: #F9F9F9; 
+        }
+
+        h1 { 
+            font-family: Georgia, "Times New Roman", Times, serif; 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #000000; 
+        } 
+	
+        h2 { 
+            font-family: Georgia, "Times New Roman", Times, serif; 
+            font-size: 16px;
+            background: #5f9be3;
+            color: #fff;
+            font-weight: bold; 
+        }
+
+    </style>
+</head>
+<body>
+
+<h1> Challange CHVD 2012 - Développements</h1>
+
+<h2> Les choix techniques</h2>
+<p>
+J'ai choisi de rester le plus simple possible. Le choix s'est donc porté sur HTML, PHP et SQlite3. 
+</p>
+<h2> Ce qui fonctionne </h2>
+
+<ul>
+    <li> Un script PHP permet de générer les différentes bases de données utilisées à partir du fichier CSV des
+    sommets 2011. Ce script initialise les tables <b>SOMMETS</b> et <b>MASSIFS</b> décrites dans le point suivant.
+    </li>
+     
+     <li> La tables utilisées sont les suivantes:<br>
+         <dl>
+             <dt> SOMMETS </dt>
+             <dd>SID: INTEGER, la clé</dd>
+             <dd>NOM: TEXT, le nom du sommet</dd>
+             <dd>MID: INTEGER, la clé du massif associé au sommet</dd>
+             <dd>ALTITUDE: INTEGER, utilisé à titre indicatif</dd>
+             <dd>POINTS: INTEGER, les points rapporté par le sommet</dd>
+             <dd>ANNEE: INTEGER, utilisé dans le calcul du bonus des nouveaux sommets</dd>
+
+             <dt> MASSIFS </dt>
+             <dd>MID: INTEGER, la clé</dd>
+             <dd>NOM: TEXT, le nom du massif</dd>
+     
+             <dt> PILOTES </dt>
+             <dd>PID: INTEGER, la clé</dd>
+             <dd>NOM: TEXT, le nom du pilote</dd>
+             <dd>PRENOM: TEXT, le prénom du pilote</dd>
+             <dd>PSEUDO: TEXT, le pseudo utilisé pour l'affichage des résultats</dd>
+         
+             <dt> VOLSRANDOS </dt>
+             <dd>VID: INTEGER, la clé</dd>
+             <dd>SID: INTEGER, la clé du sommet associé au vol</dd>
+             <dd>PID: INTEGER, la clé du pilote associé au vol</dd>
+             <dd>DATE: INTEGER, utilisation des timestamps Unix</dd>
+             <dd>BIPLACE: INTEGER, vol effectué en biplace, utilisé pour la bonification</dd>
+             <dd>BUT: REAL, compte pour 1/2 point de bonification</dd>
+             <dd>CARBONE: INTEGER, 0 = mobilite douce, 1: pas douce. Utilisé à titre informatif</dd>
+             <dd>COMMENTAIRE: TEXT, utilisé par pilote pour donner des infos sur un nouveau déco ou faire une réclamation</dd>
+         </dl>
+    </li>
+    
+    <li> La page principale <i>index.php</i> est écrite en HTML + PHP. Sa mise en page et son contenu sont décrits dans <a href="#MiseEnPage">"Mise en page et contenu des pages"</a>.
+    </li>
+    
+</ul>
+
+</p>
+<h2> Ce qu'il reste à faire </h2>
+
+<h2> <a name="MiseEnPage">Mise en page et contenu des pages</a> </h2>
+
+<p>
+J'ai tout séparé en trois pages. 
+<ul>
+    <li>Une page principale (PHP + HTML) qui a pour but d'afficher le réglement, une zone de saisie et l'affichage des résultats. </li>
+    <li>Une page de réglement (HTML) qui affiche ... le réglement 2012</li>
+    <li>Une page en PHP qui permet de gérer l'ajout de nouveaux massifs et de nouveaux pilotes.</li>
+</ul>
+</p>
+
+<h3> La page principale </h3>
+
+<p> La page principales est décomposée en trois zones. Une zone "bandeau" qui permet de faire une introduction, une
+zone "contenu" qui sera la zone principale pour la saisie des données et l'affichage des résultats et enfin une troisième
+zone permettant d'afficher le copyright qui n'existe pas.
+</p>
+
+<h4>Le bandeau</h4>
+
+<p> Il contient le message de bienvenue, un lien vers le réglement du concours et une autre lien vers ce fichier </p>
+
+<h4> Le contenu </h4>
+
+<p> C'est THE element de notre application. Il contient une partie gauche qui permettra de saisir les informations 
+du vol et une zone de droite permettant d'afficher les deux tableaux: classement général et liste de tous les vols
+</p>
+
+<h4> Le pied </h4>
+
+<p> Qui ne sert à rien. </p>
+
+<h3> Le réglement </h3>
+
+<h3> La page de traitement des saisies des nouveaux sommets et des nouveaux pilotes </h3>
+
+</body>
+</html>

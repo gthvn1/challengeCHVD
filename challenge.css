@@ -1,0 +1,87 @@
+ /* Generic Selectors */
+
+body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #F9F9F9;
+}
+
+div#bandeau {
+   background-color:#FF9590;
+}
+
+div#contenu {
+	background-color:#91C1C1;
+}
+
+div#piedpage {
+	background-color:#83FF99;
+	clear: both;
+}
+
+div#gauche {
+	background-color:#FFA770;
+	float: left;
+	width: 40%;	
+}
+
+div#saisie {
+	background-color:#8FA7F0;
+}
+
+div#status {
+    font-size: 10px;
+    background-color: yellow;
+}
+
+
+p {	width: 80%; }
+p.green { color: green; font-weight: bold; }
+
+h1 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+	
+h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    border-bottom: 1px solid #C6EC8C;
+}
+
+table {
+	border: medium solid #6495ed;
+	border-collapse: collapse;
+}
+
+table#invisible { border: 0; }
+td#invisible {
+    border: 0;
+    text-align: left;
+    align: left;
+}
+
+th {
+	font-family: monospace;
+    font-weight: bold;
+	border: thin solid #6495ed;
+	padding: 5px;
+	background-color: #D0E3FA;
+}
+
+td {
+	font-family: sans-serif;
+	border: thin solid #6495ed;
+	padding: 5px;
+	text-align: center;
+	background-color: #ffffff;
+}
+
+caption {
+	font-family: sans-serif;
+}
