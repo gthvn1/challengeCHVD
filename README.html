@@ -34,8 +34,12 @@
 
 <h2> Les choix techniques</h2>
 <p>
-J'ai choisi de rester le plus simple possible. Le choix s'est donc porté sur HTML, PHP et SQlite3. 
+J'ai choisi de rester le plus simple possible. Le choix s'est donc porté sur HTML, PHP et SQlite3. Un peu d'AJAX histoire
+de et le tour est joué. <br />
+Le code est disponible sur <a href="https://github.com/gthouvenin/challengeCHVD">
+https://github.com/gthouvenin/challengeCHVD</a>.
 </p>
+
 <h2> Ce qui fonctionne </h2>
 
 <ul>
@@ -77,11 +81,29 @@ J'ai choisi de rester le plus simple possible. Le choix s'est donc porté sur HTM
     
     <li> La page principale <i>index.php</i> est écrite en HTML + PHP. Sa mise en page et son contenu sont décrits dans <a href="#MiseEnPage">"Mise en page et contenu des pages"</a>.
     </li>
-    
+
+    <li> La saisie est pour l'instant récupérée via une fonction en javascript. Pour l'instant les infos sont affichées dans la zone de "status"
+    </li>    
 </ul>
 
 </p>
+
 <h2> Ce qu'il reste à faire </h2>
+
+<ul>
+    <li> La vérification par la fonction checkVolrando() des informations passées. Si les infos sont bonnes on envoit le vol au serveur pour
+    l'ajout dans la base de donnée.
+    </li>
+
+    <li> L'affichage des vols et du classement.
+    </li>
+
+    <li> Pouvoir afficher selon les pilotes, les sommets ou les massifs.
+    </li>
+
+    <li> Améliorer le tout...
+    </li>
+</ul>
 
 <h2> <a name="MiseEnPage">Mise en page et contenu des pages</a> </h2>
 

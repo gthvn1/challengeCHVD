@@ -225,8 +225,8 @@ Note CSS: Les zone de saisie et de status font parties de la zone
           PIEDPAGE 
      *******************-->
 <div id="piedpage">
-  <p> Pas de copyright, pompez, diffusez, faite bien ce que vous voulez avec le code qui est dispo sur
-  github...bientôt.
+  <p> Pas de copyright, pompez, diffusez, faite bien ce que vous voulez avec le code qui est
+  <a href=https://github.com/gthouvenin/challengeCHVD>dispo sur github</a>.
   </p>
 </div>
 
