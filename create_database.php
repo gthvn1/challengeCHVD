@@ -16,6 +16,7 @@
  *   - ALTITUDE  # INTEGER
  *   - POINTS    # INTEGER
  *   - ANNEE     # INTEGER
+ *   - COMMENTAIRE # TEXT
  *
  * OBJET: MASSIF
  *   - MID       # Cle == massif ID
@@ -35,23 +36,24 @@
  *   - BIPLACE   # INTEGER => 0: solo, 1: biplace
  *   - BUT       # REAL    => 0.5 si un but au sommet
  *   - CARBONE   # INTEGER => 0: mobilite douce, 1: Emmission de CO2
- *   - COMMENT   # TEXT
+ *   - COMMENTAIRE   # TEXT
  */
 
 function ajouter_sommets($dbh) {
     /*
      * Rappel, le format du fichier csv est le suivant:
-     * Massif, Nom du sommet, Altitude, Points, Annee
+     * Massif, Nom du sommet, Altitude, Points, Annee, Commentaire
      *     => $line[0] = "Nom"
      *     => $line[1] = "Massif"
      *     => $line[2] = "Altitude"
      *     => $line[3] = "Points"
      *     => $line[4] = "Annee"
-     *  et donc count($line) == 5
+     *     => $line[5] = "Commentaire"
+     *  et donc count($line) == 6
      */
 
     $filecsv = "./sommets_2011.csv";
-    $esize = 5; // An entry has 5 elements
+    $esize = 6; // An entry has 6 elements
     
     $fh = fopen($filecsv, "r");
 
@@ -92,8 +94,8 @@ function ajouter_sommets($dbh) {
                 $qry->execute(array($line[1]));
                 $massifID = $qry->fetch();
                 
-                $qry = $dbh->prepare('INSERT INTO sommets (nom, mid, altitude, points, annee) VALUES (?,?,?,?,?);');
-                $qry->execute(array($line[0], $massifID[0], $line[2], $line[3], $line[4]));
+                $qry = $dbh->prepare('INSERT INTO sommets (nom, mid, altitude, points, annee, commentaire) VALUES (?,?,?,?,?,?);');
+                $qry->execute(array($line[0], $massifID[0], $line[2], $line[3], $line[4], $line[5]));
 
                 // sommet ajoute
                 echo ".";
@@ -113,7 +115,8 @@ function ajouter_sommets($dbh) {
 function ajouter_pilotes($dbh) {
 
     $pilotes[0] = array("Guillaume", "Thouvenin", "Guillaume");
-    $pilotes[1] = array("Laurence", "Elliautou", "Loulou38");
+    $pilotes[1] = array("MisterX", "Smith", "Afond");
+    $pilotes[2] = array("Toto", "Cotounio", "Latete");
     $nbpilotes = count($pilotes);
 
     for ($i = 0; $i < $nbpilotes; $i++) {
@@ -140,7 +143,8 @@ try {
                     mid INTEGER,
                     altitude INTEGER,
                     points INTEGER,
-                    annee INTEGER);');
+                    annee INTEGER,
+                    commentaire TEXT);');
     $dbh->exec('CREATE TABLE IF NOT EXISTS massifs (
                     mid INTEGER PRIMARY KEY,
                     nom TEXT);');
@@ -157,7 +161,7 @@ try {
                     biplace INTEGER,
                     but REAL,
                     carbone INTEGER,
-                    comment TEXT);');
+                    commentaire TEXT);');
 
     ajouter_sommets($dbh); // la table massif est remplie egalement
     ajouter_pilotes($dbh);
