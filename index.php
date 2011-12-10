@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<!-- On commence par recupere les quatres tables qui nous serviront 
-     pour les differents affichage. Pour le traitement des differents
-     ajouts ou des differents tri nous utiliserons AJAX
+<!-- On commence par recuperer les quatre tables qui nous serviront 
+     pour les differents affichages. Pour le traitement des differents
+     ajouts ou des differents tri nous utiliserons AJAX.
 -->
 <?php
     //open database file
@@ -33,8 +33,7 @@ catch (PDOException $e) {
 La page est découpée de la façon suivante:
 
 Note CSS: Les zone de saisie et de status font parties de la zone
-          dite "gauche". La zone de présentation fait partie de la
-          zone dite "droite".
+          dite "gauche". 
           
            ----  -------------------------------------
  BANDEAU ->     |            message d'intro
