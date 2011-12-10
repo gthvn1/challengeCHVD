@@ -31,8 +31,8 @@ div#saisie {
 }
 
 div#status {
-    font-size: 10px;
-    background-color: yellow;
+    background-color: black;
+    color: green;
 }
 
 
