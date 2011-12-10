@@ -150,7 +150,8 @@ Note CSS: Les zone de saisie et de status font parties de la zone
             <option value="O">Ajoutez un nouveau pilote</option>
             <option value="">-------------------------</option>
             <option value="1">Guillaume</option>
-            <option value="2">Laurence</option>
+            <option value="2">MisterX</option>
+            <option value="3">Toto</option>
             </select>
           </td>
         </tr>
