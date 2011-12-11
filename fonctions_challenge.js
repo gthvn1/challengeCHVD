@@ -1,26 +1,48 @@
-function afficher_table ()
+/*
+ * 
+ */
+function requete_ajax(callback)
 {
-    var xmlhttp;
+    var xhr;
 
     if (window.XMLHttpRequest) {
         // Code for IE7+, firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-    } else  {
+        xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
         // code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
+        return;
     }
 
-    xmlhttp.onreadystatechange=function()
+    xhr.onreadystatechange = function()
     {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
         {
-            document.getElementById("resultats").innerHTML=xmlhttp.responseText;
+            // On recupere les donnees sous forme de texte brut
+            callback(xhr.responseText);
         }
     }
-    xmlhttp.open("GET","get_tables.php",true);
-    xmlhttp.send();
+
+    // true => mode de transfert asynchrone
+    xhr.open("GET","get_tables.php",true);
+    xhr.send();
 }
 
+/*
+ * Callback utilise pour traiter les donnees retournees lors du GET
+ * de la requete AJAX.
+ */
+function get_tables(oData) {
+    document.getElementById("resultats").innerHTML = oData;
+}
+
+/*
+ * Cette fonction permet de valider un minimum les donnees passees
+ * en parametre du vol rando avant d'envoyer la requete d'ajout
+ * dans la base de donnee au serveur
+ */
 function check_volrando()
 {
     var x = document.getElementById("saisieVolrando"),

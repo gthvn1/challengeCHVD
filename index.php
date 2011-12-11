@@ -70,9 +70,6 @@ Note CSS: Les zone de saisie et de status font parties de la zone
     <div id="saisie">
       <h2> Zone de saisie des VolRandos </h2>
 
-      <!--
-      <form name="saisieVolrando" method="POST" action="index.php">
-      -->
       <form id="saisieVolrando">
         <table id="invisible">
         <tr> <!-- Choix du sommet -->
@@ -119,8 +116,9 @@ Note CSS: Les zone de saisie et de status font parties de la zone
         <input type="checkbox" name="mobilitedouce" />
         Vol effectué en mobilité dite douce (c'est à titre indicatif)<br />
 
-        Un commentaire sur le vol (sur une seule ligne)
-        <input type="text" size=50 name="commentaire" />
+        Un commentaire sur le vol <br />
+        (sur une seule ligne mais qui peut être longue)
+        <input type="text" size=40 name="commentaire" />
         <br />
 
         <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
@@ -138,7 +136,9 @@ Note CSS: Les zone de saisie et de status font parties de la zone
 
   <h2> Affichage des résultats </h2>
   <div id="resultats">
-    <button type="button" onclick="afficher_table()">Afficher la table des sommets</button>
+    <script type="text/javascript">
+        requete_ajax(get_tables); 
+    </script>
   </div> <!-- Fin de resultats -->
 
 </div> <!-- Fin de contenu -->
