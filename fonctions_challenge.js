@@ -1,4 +1,12 @@
 /*
+ * On recupere nos quatre tables sous forme de chaine JSON
+ * pour pouvoir les manipuler cote client.
+ * On recupere ces valeurs des le chargement de la page. On
+ * les mettra a jour si on modifie une table.
+ */
+var sommets_json = "";
+
+/*
  * 
  */
 function requete_ajax(callback)
@@ -27,6 +35,7 @@ function requete_ajax(callback)
 
     // true => mode de transfert asynchrone
     xhr.open("GET","get_tables.php",true);
+    //xhr.open("GET","results.json",true);
     xhr.send();
 }
 
@@ -35,7 +44,15 @@ function requete_ajax(callback)
  * de la requete AJAX.
  */
 function get_tables(oData) {
-    document.getElementById("resultats").innerHTML = oData;
+    
+    try {
+        sommets_json = eval('(' + oData + ')');
+        alert('done');
+    } catch (e) {
+        alert('FATAL: Not a json string');
+    }
+
+    //document.getElementById("resultats").innerHTML = oData;
 }
 
 /*
