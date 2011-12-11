@@ -1,27 +1,33 @@
 <?php
 
-function get_table_sommet($db)
+function lire_table($db, $requete)
 {
-    $qry = $db->prepare('SELECT * FROM sommets');
-    if ($qry->execute() == 1) {
-        $table_sommets = $qry->fetchAll();
-    } else {
-        echo "TABLE DES SOMMETS: ERROR";
-    }
-
-    $fp = fopen('results.json', 'w');
-    fwrite($fp, json_encode($table_sommets));
-    fclose($fp);
-
-    echo json_encode($table_sommets);
-
+    $qry = $db->prepare($requete);
+    $qry->execute();
+    return $qry->fetchAll();
 }
 
 //open database file
 try {
     $db = new PDO('sqlite:challengeCHVD.sqlite3');
 
-    get_table_sommet($db);
+    $table_sommets   = lire_table($db, 'SELECT * FROM sommets');
+    $table_massifs   = lire_table($db, 'SELECT * FROM massifs');
+    $table_pilotes   = lire_table($db, 'SELECT * FROM pilotes');
+    $table_volrandos = lire_table($db, 'SELECT * FROM volrandos');
+
+    $tables = array(
+        "sommets"   => $table_sommets,
+        "massifs"   => $table_massifs,
+        "pilotes"   => $table_pilotes,
+        "volrandos" => $table_volrandos
+    );
+
+    //$fp = fopen('results.json', 'w');
+    //fwrite($fp, json_encode($tables));
+    //fclose($fp);
+    
+    echo json_encode($tables);
 
     // et c'est tout
     $db = NULL;
