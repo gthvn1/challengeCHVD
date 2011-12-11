@@ -46,28 +46,30 @@ function get_tables(oData) {
 function check_volrando()
 {
     var x = document.getElementById("saisieVolrando"),
-        monTexte = "  ===== INFO DU VOL ===== <br />";
+        monTexte = "  -={ VERIFICATION DU VOL }=- <br />";
 
-    // Il y a 7 elements dans cet ordre:
-    //  0) sommet
-    //  1) pilote
-    //  2) date
-    //  3) biplace
-    //  4) co2
-    //  5) commentaire
-    //  6) soumettre le volrando
+    // Il y a 7 elements:
+    //  sommet, pilote, date, biplace, co2, commentaire et
+    //  soumettre_le_volrando
     if (x.length != 7) {
         alert('Fatal Error');
         return false;
     }
 
-    monTexte = monTexte +
-           x.elements[0].name + ' : ' + x.elements[0].selectedIndex + '<br />' +
-           x.elements[1].name + ' : ' + x.elements[1].selectedIndex + '<br />' +
-           x.elements[2].name + ' : ' + x.elements[2].value + '<br />' +
-           x.elements[3].name + ' : ' + x.elements[3].checked + '<br />' +
-           x.elements[4].name + ' : ' + x.elements[4].checked + '<br />' +
-           x.elements[5].name + ' : ' + x.elements[5].value + '<br />';
+    var sommet   = x.elements["sommet"],
+        pilote   = x.elements["pilote"],
+        datevol  = x.elements["datevol"],
+        biplace  = x.elements["biplace"],
+        mobdouce = x.elements["mobilitedouce"],
+        comment  = x.elements["commentaire"];
+
+    monTexte = monTexte  +
+           sommet.name   + ' : ' + sommet.selectedIndex + '<br />' +
+           pilote.name   + ' : ' + pilote.selectedIndex + '<br />' +
+           datevol.name  + ' : ' + datevol.value        + '<br />' +
+           biplace.name  + ' : ' + biplace.checked      + '<br />' +
+           mobdouce.name + ' : ' + mobdouce.checked     + '<br />' +
+           comment.name  + ' : ' + comment.value        + '<br />';
 
     //alert(monTexte);
     document.getElementById('status').innerHTML= monTexte;

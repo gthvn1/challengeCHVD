@@ -104,7 +104,7 @@ Note CSS: Les zone de saisie et de status font parties de la zone
         <!-- Choix de la date -->
         <tr>
           <td id="invisible"> Date (JJ/MM/YY) </td>
-          <td id="invisible"> <input type="text" name="dateVol" id="dateVol"> </td>
+          <td id="invisible"> <input type="text" name="datevol" id="datevol"> </td>
         </tr>
         </table>
 
