@@ -1,3 +1,26 @@
+function afficher_table ()
+{
+    var xmlhttp;
+
+    if (window.XMLHttpRequest) {
+        // Code for IE7+, firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else  {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("resultats").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","get_tables.php",true);
+    xmlhttp.send();
+}
+
 function checkVolrando()
 {
     var x = document.getElementById("saisieVolrando"),
