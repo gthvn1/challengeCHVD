@@ -4,7 +4,6 @@
  * On recupere ces valeurs des le chargement de la page. On
  * les mettra a jour si on modifie une table.
  */
-var sommets_json = "";
 
 /*
  * 
@@ -43,16 +42,25 @@ function requete_ajax(callback)
  * Callback utilise pour traiter les donnees retournees lors du GET
  * de la requete AJAX.
  */
-function get_tables(oData) {
-    
+function get_tables(oData)
+{
     try {
-        sommets_json = eval('(' + oData + ')');
-        alert('done');
+        var tables_json = eval('(' + oData + ')');
+        display_tables(tables_json);
     } catch (e) {
         alert('FATAL: Not a json string');
     }
 
     //document.getElementById("resultats").innerHTML = oData;
+}
+
+function display_tables(tables)
+{
+    var tableSommets = tables["sommets"];
+
+    s = tableSommets[0];
+    affichage = s["nom"];
+    document.getElementById('resultats').innerHTML= affichage;
 }
 
 /*
