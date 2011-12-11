@@ -21,7 +21,7 @@ function afficher_table ()
     xmlhttp.send();
 }
 
-function checkVolrando()
+function check_volrando()
 {
     var x = document.getElementById("saisieVolrando"),
         monTexte = "  ===== INFO DU VOL ===== <br />";

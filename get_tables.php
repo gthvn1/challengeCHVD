@@ -45,11 +45,12 @@ try {
         echo '</tr>';
     }
    	echo '</table>', "\n";
-    
+
     // et c'est tout
     $db = NULL;
 }
 catch (PDOException $e) {
     echo 'Erreur: ' , $e->getMessage() , '<br />';
 }
-  ?>
+
+?>

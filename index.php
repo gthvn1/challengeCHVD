@@ -123,7 +123,7 @@ Note CSS: Les zone de saisie et de status font parties de la zone
         <input type="text" size=50 name="commentaire" />
         <br />
 
-        <input type="button" value="Soumettre votre volrando" onclick="checkVolrando()">
+        <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
       </form>
     </div> <!-- Fin de saisie -->
 
@@ -138,6 +138,7 @@ Note CSS: Les zone de saisie et de status font parties de la zone
 
   <h2> Affichage des résultats </h2>
   <div id="resultats">
+    <button type="button" onclick="afficher_table()">Afficher la table des sommets</button>
   </div> <!-- Fin de resultats -->
 
 </div> <!-- Fin de contenu -->
