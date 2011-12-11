@@ -7,6 +7,10 @@ body {
     background-color: #F9F9F9;
 }
 
+div {
+    margin: 5px;
+}
+
 div#bandeau {
    background-color:#FF9590;
 }
@@ -33,6 +37,7 @@ div#saisie {
 div#status {
     background-color: black;
     color: green;
+    min-height: 200px;
 }
 
 
