@@ -135,6 +135,11 @@ Dans la partie droite on affichera les résutlats
   <h2> Affichage des résultats </h2>
 
     <p id="resultats">
+    <!--
+        Au chargement de la page, on recupere les tables dans la base de donnees
+        et on affiche directement le tableau des resultats. Ensuite les mises a jour
+        viendront ecraser cette zone en utilisant l'id "resultat".
+    -->
     <script type="text/javascript">
         requete_ajax(get_tables); 
     </script>
