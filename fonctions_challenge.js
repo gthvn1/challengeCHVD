@@ -33,8 +33,8 @@ function requete_ajax(callback)
     }
 
     // true => mode de transfert asynchrone
-    xhr.open("GET","get_tables.php",true);
     //xhr.open("GET","results.json",true);
+    xhr.open("GET","get_tables.php",true);
     xhr.send();
 }
 
@@ -51,7 +51,7 @@ function get_tables(oData)
         alert('FATAL: Not a json string');
     }
 
-    //document.getElementById("resultats").innerHTML = oData;
+    document.getElementById("resultats").innerHTML = "Programmation en cours...";
 }
 
 function display_tables(tables)

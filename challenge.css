@@ -8,40 +8,42 @@ body {
 }
 
 div {
-    margin: 5px;
+	margin:5px
+	padding:5px;
 }
 
-div#bandeau {
+div#div_haut {
    background-color:#FF9590;
 }
 
-div#contenu {
+div#div_gauche {
 	background-color:#91C1C1;
+	float: left;
+	width: 40%;
 }
 
-div#piedpage {
+div#div_droite {
+	background-color:#FFA770;
+	float: right;
+	width: 55%;
+}
+
+div#div_bas {
 	background-color:#83FF99;
 	clear: both;
 }
 
-div#gauche {
-	background-color:#FFA770;
-	float: left;
-	width: 40%;	
-}
-
-div#saisie {
-	background-color:#8FA7F0;
-}
-
-div#status {
-    background-color: black;
+#status {
+	margin:5px
+	padding:5px;
+	border:2px solid gray;
+    background-color: #000;
     color: green;
     min-height: 200px;
 }
 
 
-p {	width: 80%; }
+p {	width: 90%; }
 p.green { color: green; font-weight: bold; }
 
 h1 {
