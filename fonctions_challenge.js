@@ -50,16 +50,36 @@ function get_tables(oData)
     } catch (e) {
         alert('FATAL: Not a json string');
     }
-
-    document.getElementById("resultats").innerHTML = "Programmation en cours...";
 }
 
 function display_tables(tables)
 {
+    var affichage, i, s;
     var tableSommets = tables["sommets"];
+    var tabsize = tableSommets.length;
 
-    s = tableSommets[0];
-    affichage = s["nom"];
+    affichage = "<table>";
+    affichage += "<tr>";
+    affichage += "<th>Nom du sommet</th>";
+    affichage += "<th>Massif ID</th>";
+    affichage += "<th>Altitude</th>";
+    affichage += "<th>Points</th>";
+    affichage += "<th>Annee</th>";
+    affichage += "<th>Commentaire</th>";
+    affichage += "</tr>";
+    for (i = 0; i < tabsize; i++) {
+        s = tableSommets[i];
+        affichage += "<tr>";
+        affichage += "<td>" + s["nom"] + "</td>";
+        affichage += "<td>" + s["mid"] + "</td>";
+        affichage += "<td>" + s["altitude"] + "</td>";
+        affichage += "<td>" + s["points"] + "</td>";
+        affichage += "<td>" + s["annee"] + "</td>";
+        affichage += "<td>" + s["commentaire"] + "</td>";
+        affichage += "</tr>";
+    }
+    affichage += "</table>";
+
     document.getElementById('resultats').innerHTML= affichage;
 }
 
@@ -89,12 +109,12 @@ function check_volrando()
         comment  = x.elements["commentaire"];
 
     monTexte = monTexte  +
-           sommet.name   + ' : ' + sommet.selectedIndex + '<br />' +
-           pilote.name   + ' : ' + pilote.selectedIndex + '<br />' +
-           datevol.name  + ' : ' + datevol.value        + '<br />' +
-           biplace.name  + ' : ' + biplace.checked      + '<br />' +
-           mobdouce.name + ' : ' + mobdouce.checked     + '<br />' +
-           comment.name  + ' : ' + comment.value        + '<br />';
+        sommet.name   + ' : ' + sommet.selectedIndex + '<br />' +
+        pilote.name   + ' : ' + pilote.selectedIndex + '<br />' +
+        datevol.name  + ' : ' + datevol.value        + '<br />' +
+        biplace.name  + ' : ' + biplace.checked      + '<br />' +
+        mobdouce.name + ' : ' + mobdouce.checked     + '<br />' +
+        comment.name  + ' : ' + comment.value        + '<br />';
 
     //alert(monTexte);
     document.getElementById('status').innerHTML= monTexte;
