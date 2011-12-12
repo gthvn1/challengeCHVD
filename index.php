@@ -11,29 +11,26 @@
 <!--
 La page est découpée de la façon suivante:
 
-Note CSS: Les zone de saisie et de status font parties de la zone
-          dite "gauche".
+           ----  ---------------------------------
+ BANDEAU ->     |             div_haut
+           ---- |---------------------------------
+                |                |
+ CONTENU ->     |   div_gauche   |   div_droite
+                |                |
+           ---- |---------------------------------
+ PIED PAGE ->   |             div_bas 
+           ----  ---------------------------------
 
-           ----  -------------------------------------
- BANDEAU ->     |            message d'intro
-                |
-                |
-           ---- |-------------------------------------
-                |                |
-                | Zone de saisie |
- CONTENU ->     |                |    resultats
-                |                |
-                |----------------|
-                | Zone de status |
-           ---- |-------------------------------------
- PIED PAGE ->   | Remerciements et autres blah blah
-           ----  -------------------------------------
+Dans la partie gauche on retrouvera la zone de saisies des vols ainsi
+qu'une zone console pour les messages d'erreurs.
+
+Dans la partie droite on affichera les résutlats
 -->
 
 <!-- *******************
             BANDEAU
      *******************-->
-<div id="bandeau">
+<div id="div_haut">
 
   <h1> Bienvenue au challenge VolRando 2012 du CHVD </h1>
 
@@ -57,18 +54,15 @@ Note CSS: Les zone de saisie et de status font parties de la zone
 
   <p>Bonnes randos et bons vols </p>
 
-</div>
+</div> <!-- Fin de div_haut -->
 
 
 <!-- *******************
             CONTENU
      *******************-->
-<div id="contenu">
+<div id="div_gauche">
 
-  <div id="gauche">
-
-    <div id="saisie">
-      <h2> Zone de saisie des VolRandos </h2>
+  <h2> Zone de saisie des VolRandos </h2>
 
       <form id="saisieVolrando">
         <table id="invisible">
@@ -116,41 +110,41 @@ Note CSS: Les zone de saisie et de status font parties de la zone
         <input type="checkbox" name="mobilitedouce" />
         Vol effectué en mobilité dite douce (c'est à titre indicatif)<br />
 
+		<br />
         Un commentaire sur le vol <br />
-        (sur une seule ligne mais qui peut être longue)
+        (sur une seule ligne mais qui peut être longue) <br />
         <input type="text" size=40 name="commentaire" />
         <br />
 
         <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
       </form>
-    </div> <!-- Fin de saisie -->
 
     <h2> Console </h2>
-      <div id="status">
+      <p id="status">
        En attente de la déclaration d'un vol...
-      </div> <!-- Fin de status -->
+      </p> <!-- Fin de status -->
 
-  </div> <!-- Fin de gauche -->
+</div> <!-- Fin de div_gauche -->
 
-  <!-- Affichage des resultats -->
+<div id="div_droite">
 
   <h2> Affichage des résultats </h2>
-  <div id="resultats">
+    <p id="resultats">
     <script type="text/javascript">
         requete_ajax(get_tables); 
     </script>
-  </div> <!-- Fin de resultats -->
+    </p>
 
-</div> <!-- Fin de contenu -->
+</div> <!-- Fin de div_droite -->
 
 <!-- *******************
           PIEDPAGE
      *******************-->
-<div id="piedpage">
+<div id="div_bas">
   <p> Pas de copyright, pompez, diffusez, faite bien ce que vous voulez avec le code qui est
   <a href=https://github.com/gthouvenin/challengeCHVD>dispo sur github</a>.
   </p>
-</div>
+</div> <!-- Fin de div_bas -->
 
 </body>
 </html>
