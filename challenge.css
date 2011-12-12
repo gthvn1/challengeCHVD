@@ -8,7 +8,8 @@ body {
 }
 
 div {
-	padding:10px;
+	margin:5px
+	padding:5px;
 }
 
 div#div_haut {
@@ -18,12 +19,13 @@ div#div_haut {
 div#div_gauche {
 	background-color:#91C1C1;
 	float: left;
+	width: 40%;
 }
 
 div#div_droite {
 	background-color:#FFA770;
 	float: right;
-	width: 60%;	
+	width: 55%;
 }
 
 div#div_bas {

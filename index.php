@@ -64,15 +64,18 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Zone de saisie des VolRandos </h2>
 
+     <p> Si votre sommet n'apparait pas dans la liste, soumettez votre vol
+	 en choisissant l'option "Nouveau vol" (c'est l'option par défault. De
+	 la même façon si vous n'apparaissez pas dans la liste des pilotes, vous
+	 pouvez vous créer un profil en laissant l'option par défaut "Nouveau pilote".
+	 </p>
       <form id="saisieVolrando">
         <table id="invisible">
         <tr> <!-- Choix du sommet -->
           <td id="invisible"> Sommets </td>
           <td id="invisible">
             <select name="sommet">
-            <option value="">-------------------------</option>
-            <option value="0">Declarer un nouveau sommet</option>
-            <option value="">-------------------------</option>
+            <option value="0">Nouveau sommet</option>
             <option value="1">Chartreuse - Dent de Crolles</option>
             <option value="2">Chartreuse - La Grande Sure</option>
             <option value="3">Belledonne - Le Jas du lievre</option>
@@ -85,9 +88,7 @@ Dans la partie droite on affichera les résutlats
           <td id="invisible"> Pilote </td>
           <td id="invisible">
             <select name="pilote">
-            <option value="">-------------------------</option>
-            <option value="O">Ajoutez un nouveau pilote</option>
-            <option value="">-------------------------</option>
+            <option value="O">Nouveau pilote</option>
             <option value="1">Guillaume</option>
             <option value="2">MisterX</option>
             <option value="3">Toto</option>
