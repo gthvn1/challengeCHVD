@@ -8,7 +8,7 @@ body {
 }
 
 div {
-	margin:5px
+	margin:5px;
 	padding:5px;
 }
 
@@ -34,7 +34,7 @@ div#div_bas {
 }
 
 #status {
-	margin:5px
+	margin:5px;
 	padding:5px;
 	border:2px solid gray;
     background-color: #000;
@@ -67,10 +67,10 @@ table {
 }
 
 table#invisible { border: 0; }
+
 td#invisible {
     border: 0;
     text-align: left;
-    align: left;
 }
 
 th {
