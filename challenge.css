@@ -8,7 +8,7 @@ body {
 }
 
 div {
-    margin: 5px;
+	padding:10px;
 }
 
 div#div_haut {
@@ -36,6 +36,9 @@ div#div_bas {
 }
 
 #status {
+	margin:5px
+	padding:5px;
+	border:2px solid gray;
     background-color: #000;
     color: green;
     min-height: 200px;
