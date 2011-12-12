@@ -64,11 +64,13 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Zone de saisie des VolRandos </h2>
 
-     <p> Si votre sommet n'apparait pas dans la liste, soumettez votre vol
-	 en choisissant l'option "Nouveau vol" (c'est l'option par défault. De
-	 la même façon si vous n'apparaissez pas dans la liste des pilotes, vous
-	 pouvez vous créer un profil en laissant l'option par défaut "Nouveau pilote".
-	 </p>
+    <p> Si votre sommet n'apparait pas dans la liste, soumettez votre vol
+	en choisissant l'option "Nouveau vol" (c'est l'option par défault. De
+	la même façon si vous n'apparaissez pas dans la liste des pilotes, vous
+	pouvez vous créer un profil en laissant l'option par défaut "Nouveau pilote".
+    </p>
+
+    <p id="saisie"> 
       <form id="saisieVolrando">
         <table id="invisible">
         <tr> <!-- Choix du sommet -->
@@ -119,10 +121,11 @@ Dans la partie droite on affichera les résutlats
 
         <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
       </form>
+    </p>
 
     <h2> Console </h2>
       <p id="status">
-       En attente de la déclaration d'un vol...
+      En attente de la déclaration d'un vol...
       </p> <!-- Fin de status -->
 
 </div> <!-- Fin de div_gauche -->
@@ -130,10 +133,12 @@ Dans la partie droite on affichera les résutlats
 <div id="div_droite">
 
   <h2> Affichage des résultats </h2>
+
     <p id="resultats">
     <script type="text/javascript">
         requete_ajax(get_tables); 
     </script>
+
     </p>
 
 </div> <!-- Fin de div_droite -->
