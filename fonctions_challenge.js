@@ -25,11 +25,15 @@ function requete_ajax(callback)
 
     xhr.onreadystatechange = function()
     {
-        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
-        {
-            // On recupere les donnees sous forme de texte brut
-            callback(xhr.responseText);
-        }
+        if (xhr.readyState == 4) { 
+			if ((xhr.status == 200 || xhr.status == 0)) {
+            	// On recupere les donnees sous forme de texte brut
+            	//callback(xhr.responseText);
+            	callback(xhr.responseXML);
+        	} else {
+				alert('Error: status =' + xhr.status);
+			}
+		}
     }
 
     // true => mode de transfert asynchrone
@@ -44,12 +48,15 @@ function requete_ajax(callback)
  */
 function get_tables(oData)
 {
+    document.getElementById('resultats').innerHTML= 'Fichier XML des tables recuperes';
+	/*
     try {
         var tables_json = eval('(' + oData + ')');
         display_tables(tables_json);
     } catch (e) {
         alert('FATAL: Not a json string');
     }
+	*/
 }
 
 function display_tables(tables)
