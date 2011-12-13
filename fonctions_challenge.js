@@ -5,9 +5,6 @@
  * les mettra a jour si on modifie une table.
  */
 
-/*
- * 
- */
 function requete_ajax(callback)
 {
     var xhr;
@@ -25,20 +22,19 @@ function requete_ajax(callback)
 
     xhr.onreadystatechange = function()
     {
-        if (xhr.readyState == 4) { 
-			if ((xhr.status == 200 || xhr.status == 0)) {
-            	// On recupere les donnees sous forme de texte brut
-            	//callback(xhr.responseText);
-            	callback(xhr.responseXML);
-        	} else {
-				alert('Error: status =' + xhr.status);
-			}
-		}
+        if (xhr.readyState == 4) {
+            if ((xhr.status == 200 || xhr.status == 0)) {
+                // On recupere les donnees sous forme de texte brut
+                //callback(xhr.responseText);
+                callback(xhr.responseXML);
+            } else {
+                alert('Error: status =' + xhr.status);
+            }
+        }
     }
 
     // true => mode de transfert asynchrone
-    //xhr.open("GET","results.json",true);
-    xhr.open("GET","get_tables.php",true);
+    xhr.open("GET","generate_xml.php", true);
     xhr.send();
 }
 
@@ -46,20 +42,20 @@ function requete_ajax(callback)
  * Callback utilise pour traiter les donnees retournees lors du GET
  * de la requete AJAX.
  */
-function get_tables(oData)
+function get_tables(xmlDoc)
 {
-    document.getElementById('resultats').innerHTML= 'Fichier XML des tables recuperes';
-	/*
-    try {
-        var tables_json = eval('(' + oData + ')');
-        display_tables(tables_json);
-    } catch (e) {
-        alert('FATAL: Not a json string');
-    }
-	*/
+    ts = xmlDoc.getElementsByTagName("sommet");
+    tm = xmlDoc.getElementsByTagName("massif");
+
+    infos = ts.length + " sommets dans la base <br />";
+    infos += tm.length + " massifs dans la base <br />";
+
+    document.getElementById('status').innerHTML= infos;
+
+    //TODO: display_tables
 }
 
-function display_tables(tables)
+function display_tables(ts, tm)
 {
     var affichage, i, s;
     var tableSommets = tables["sommets"];
