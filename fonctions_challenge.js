@@ -5,6 +5,8 @@
  * les mettra a jour si on modifie une table.
  */
 
+var affichage = "Empty";
+
 function requete_ajax(callback)
 {
     var xhr;
@@ -44,30 +46,29 @@ function requete_ajax(callback)
  */
 function get_tables(xmlDoc)
 {
-    ts = xmlDoc.getElementsByTagName("sommet");
-    tm = xmlDoc.getElementsByTagName("massif");
-    tp = xmlDoc.getElementsByTagName("pilote");
-    tv = xmlDoc.getElementsByTagName("volrando");
+    init_sommets_table(xmlDoc.getElementsByTagName("sommet"));
 
-    infos = "<b>Infos extraites de la base: </b>";
-    infos += "<ul>";
-    infos += "<li>" + ts.length + " sommets </li>";
-    infos += "<li>" + tm.length + " massifs </li>";
-    infos += "<li>" + tp.length + " pilotes </li>";
-    infos += "<li>" + tv.length + " volrandos </li>";
-    infos += "</ul>";
-
-    document.getElementById('status').innerHTML= infos;
-
-    //TODO: display_tables
+    document.getElementById('status').innerHTML= "Les tables ont ete generees";
+    document.getElementById('resultats').innerHTML= affichage;
 }
 
-function display_tables(ts, tm)
+function init_sommets_table(s)
 {
-    var affichage, i, s;
-    var tableSommets = tables["sommets"];
-    var tabsize = tableSommets.length;
-
+    /*
+     * La representation XML c'est:
+     *
+     *   s ---> Sommet 1  ---> TEXT   x
+     *                    ---> SID  --->  1
+     *                    ---> TEXT   x
+     *                    ---> NOM  --->  Dent de Crolles  
+     *                    ---> TEXT   x
+     *                    ...
+     *                    ---> COMMENTAIRE
+     *                    ---> TEXT   x
+     *     ---> Sommet 2
+     *     ...
+     *     ---> Sommet 101
+     */  
     affichage = "<table>";
     affichage += "<tr>";
     affichage += "<th>Nom du sommet</th>";
@@ -77,20 +78,52 @@ function display_tables(ts, tm)
     affichage += "<th>Annee</th>";
     affichage += "<th>Commentaire</th>";
     affichage += "</tr>";
-    for (i = 0; i < tabsize; i++) {
-        s = tableSommets[i];
+
+    for (var i = 0; i < s.length; i++)
+    {
+        sommet = s[i];
+        // le premier enfant contient du texte pour sommet. On ne l'utilise pas
+        // donc on peut le passer.
+        // Ensuite on va avoir comme enfants:
+        //   1 -> SID
+        //   2 -> TEXT
+        //   3 -> NOM
+        //   4 -> TEXT
+        //   5...
+        // Les textes sont toujours nuls dans notre cas. Donc on va regarder un
+        // enfants sur 2.
+        //
         affichage += "<tr>";
-        affichage += "<td>" + s["nom"] + "</td>";
-        affichage += "<td>" + s["mid"] + "</td>";
-        affichage += "<td>" + s["altitude"] + "</td>";
-        affichage += "<td>" + s["points"] + "</td>";
-        affichage += "<td>" + s["annee"] + "</td>";
-        affichage += "<td>" + s["commentaire"] + "</td>";
+        for (var j = 1; j < s[i].childNodes.length; j = j + 2) {
+
+            // le sid sera utilise pour le stockage dans le table donc pour l'instant
+            // on peut juste le skipper tant que la table n'est pas construite
+            if (j == 1) continue;
+
+            // On verifie le node type (1 => ELEMENT; 3 => TEXT_NODE)
+            champs = sommet.childNodes[j];
+            //affichage += "&nbsp;&nbsp; nodeName: <b>" + champs.nodeName + "</b>";
+            //affichage += " nodeType: " + champs.nodeType;
+            //affichage += " nodeValue: " + champs.nodeValue ;
+            //affichage += " childNodes: " + champs.childNodes.length ;
+            //affichage += "<br />";
+
+            // on va lire la valeur du champs nodeName:
+            valeur = champs.childNodes[0];
+            if (valeur) {
+                //affichage += "&nbsp;&nbsp;&nbsp;&nbsp; #"+ j +" nodeName: <b>" + valeur.nodeName + "</b>";
+                //affichage += " nodeType: " + valeur.nodeType;
+                //affichage += " nodeValue: <b>" + valeur.nodeValue + "</b>"; 
+                affichage += "<td>" + valeur.nodeValue + "</td>";
+            } else {
+                // commentaire vide
+                affichage += "<td>  </td>";
+            }
+            //affichage += "<br />";
+        }
+        
         affichage += "</tr>";
     }
-    affichage += "</table>";
-
-    document.getElementById('resultats').innerHTML= affichage;
 }
 
 /*
@@ -101,7 +134,7 @@ function display_tables(ts, tm)
 function check_volrando()
 {
     var x = document.getElementById("saisieVolrando"),
-        monTexte = "  -={ VERIFICATION DU VOL }=- <br />";
+        monTexte = "  <b> VERIFICATION DU VOL </b> <br />";
 
     // Il y a 7 elements:
     //  sommet, pilote, date, biplace, co2, commentaire et
