@@ -8,8 +8,8 @@ body {
 }
 
 div {
-	margin:5px;
-	padding:5px;
+    margin:5px;
+    padding:5px;
 }
 
 div#div_haut {
@@ -17,34 +17,34 @@ div#div_haut {
 }
 
 div#div_gauche {
-	background-color:#91C1C1;
-	float: left;
-	width: 40%;
+    background-color:#91C1C1;
+    float: left;
+    width: 40%;
 }
 
 div#div_droite {
-	background-color:#FFA770;
-	float: right;
-	width: 55%;
+    background-color:#FFA770;
+    float: right;
+    width: 55%;
 }
 
 div#div_bas {
-	background-color:#83FF99;
-	clear: both;
+    background-color:#83FF99;
+    clear: both;
 }
 
 #status {
-	margin:5px;
-	padding:5px;
-	border:2px solid gray;
+    margin:5px;
+    padding:5px;
+    border:2px solid gray;
     background-color: #000;
     color: green;
     min-height: 200px;
 }
 
-
-p {	width: 90%; }
-p.green { color: green; font-weight: bold; }
+p {
+    width: 90%;
+}
 
 h1 {
     font-family: Georgia, "Times New Roman", Times, serif;
@@ -52,7 +52,7 @@ h1 {
     font-weight: bold;
     color: #000000;
 }
-	
+
 h2 {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 16px;
@@ -62,33 +62,31 @@ h2 {
 }
 
 table {
-	border: medium solid #6495ed;
-	border-collapse: collapse;
+    border: medium solid #6495ed;
+    border-collapse: collapse;
 }
 
-table#invisible { border: 0; }
+table.invisible {
+    border: 0;
+}
 
-td#invisible {
+td.invisible {
     border: 0;
     text-align: left;
 }
 
 th {
-	font-family: monospace;
+    font-family: monospace;
     font-weight: bold;
-	border: thin solid #6495ed;
-	padding: 5px;
-	background-color: #D0E3FA;
+    border: thin solid #6495ed;
+    padding: 5px;
+    background-color: #D0E3FA;
 }
 
 td {
-	font-family: sans-serif;
-	border: thin solid #6495ed;
-	padding: 5px;
-	text-align: center;
-	background-color: #ffffff;
-}
-
-caption {
-	font-family: sans-serif;
+    font-family: sans-serif;
+    border: thin solid #6495ed;
+    padding: 5px;
+    text-align: center;
+    background-color: #ffffff;
 }

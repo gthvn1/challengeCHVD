@@ -18,7 +18,7 @@ La page est découpée de la façon suivante:
  CONTENU ->     |   div_gauche   |   div_droite
                 |                |
            ---- |---------------------------------
- PIED PAGE ->   |             div_bas 
+ PIED PAGE ->   |             div_bas
            ----  ---------------------------------
 
 Dans la partie gauche on retrouvera la zone de saisies des vols ainsi
@@ -70,12 +70,12 @@ Dans la partie droite on affichera les résutlats
 	pouvez vous créer un profil en laissant l'option par défaut "Nouveau pilote".
     </p>
 
-    <p id="saisie"> 
+    <p id="saisie">
       <form id="saisieVolrando">
-        <table id="invisible">
+        <table class="invisible">
         <tr> <!-- Choix du sommet -->
-          <td id="invisible"> Sommets </td>
-          <td id="invisible">
+          <td class="invisible"> Sommets </td>
+          <td class="invisible">
             <select name="sommet">
             <option value="0">Nouveau sommet</option>
             <option value="1">Chartreuse - Dent de Crolles</option>
@@ -87,8 +87,8 @@ Dans la partie droite on affichera les résutlats
         </tr>
 
         <tr> <!-- Choix du pilote -->
-          <td id="invisible"> Pilote </td>
-          <td id="invisible">
+          <td class="invisible"> Pilote </td>
+          <td class="invisible">
             <select name="pilote">
             <option value="O">Nouveau pilote</option>
             <option value="1">Guillaume</option>
@@ -100,8 +100,8 @@ Dans la partie droite on affichera les résutlats
 
         <!-- Choix de la date -->
         <tr>
-          <td id="invisible"> Date (JJ/MM/YY) </td>
-          <td id="invisible"> <input type="text" name="datevol" id="datevol"> </td>
+          <td class="invisible"> Date (JJ/MM/YY) </td>
+          <td class="invisible"> <input type="text" name="datevol" id="datevol"> </td>
         </tr>
         </table>
 
@@ -141,7 +141,7 @@ Dans la partie droite on affichera les résutlats
         viendront ecraser cette zone en utilisant l'id "resultat".
     -->
     <script type="text/javascript">
-        requete_ajax(get_tables); 
+        requete_ajax(get_tables);
     </script>
 
     </p>
