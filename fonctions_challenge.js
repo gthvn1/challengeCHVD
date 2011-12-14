@@ -46,9 +46,16 @@ function get_tables(xmlDoc)
 {
     ts = xmlDoc.getElementsByTagName("sommet");
     tm = xmlDoc.getElementsByTagName("massif");
+    tp = xmlDoc.getElementsByTagName("pilote");
+    tv = xmlDoc.getElementsByTagName("volrando");
 
-    infos = ts.length + " sommets dans la base <br />";
-    infos += tm.length + " massifs dans la base <br />";
+    infos = "<b>Infos extraites de la base: </b>";
+    infos += "<ul>";
+    infos += "<li>" + ts.length + " sommets </li>";
+    infos += "<li>" + tm.length + " massifs </li>";
+    infos += "<li>" + tp.length + " pilotes </li>";
+    infos += "<li>" + tv.length + " volrandos </li>";
+    infos += "</ul>";
 
     document.getElementById('status').innerHTML= infos;
 
