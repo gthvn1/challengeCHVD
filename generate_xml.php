@@ -1,6 +1,14 @@
 <?php
 
-function ajout_donnees($table, $name, $etiquettes)
+function get_and_convert($db, $rq, $name, $etiquettes)
+{
+    $qry = $db->prepare($rq);
+    $qry->execute();
+    $table_sql = $qry->fetchAll();
+    add_data($table_sql, $name, $etiquettes);
+}
+
+function add_data($table, $name, $etiquettes)
 {
     $nbm = count($table);
 
@@ -51,43 +59,24 @@ try {
 
     echo "<challenge>\n";
 
-    // Recuperation de la table sommets et
-    // generation du XML pour les sommets
-    $qry = $dbh->prepare('SELECT * FROM sommets');
-    $qry->execute();
-    $table_sql = $qry->fetchAll();
-
+    // Recuperation des sommets
     $etiquettes = array('sid', 'nom', 'mid', 'altitude',
                         'points', 'annee', 'commentaire');
-    ajout_donnees($table_sql, 'sommet', $etiquettes);
+    get_and_convert($dbh, 'SELECT * FROM sommets', 'sommet', $etiquettes);
 
-    // Recuperation de la table massifs et
-    // generation du XML pour les massifs
-    $qry = $dbh->prepare('SELECT * FROM massifs');
-    $qry->execute();
-    $table_sql = $qry->fetchAll();
 
+    // Recuperation des massifs
     $etiquettes = array('mid', 'nom');
-    ajout_donnees($table_sql, 'massif', $etiquettes);
+    get_and_convert($dbh, 'SELECT * FROM massifs', 'massif', $etiquettes);
 
-    // Recuperation de la table pilotes et
-    // generation du XML pour les pilotes
-    $qry = $dbh->prepare('SELECT * FROM pilotes');
-    $qry->execute();
-    $table_sql = $qry->fetchAll();
-
+    // Recuperation des pilotes
     $etiquettes = array('pid', 'nom', 'prenom', 'pseudo');
-    ajout_donnees($table_sql, 'pilote', $etiquettes);
+    get_and_convert($dbh, 'SELECT * FROM pilotes', 'pilote', $etiquettes);
 
-    // Recuperation de la table volrandos et
-    // generation du XML pour les volrandos
-    $qry = $dbh->prepare('SELECT * FROM volrandos');
-    $qry->execute();
-    $table_sql = $qry->fetchAll();
-
+    // Recuperation des volrandos
     $etiquettes = array('vid', 'sid', 'pid', 'date', 'biplace',
                         'but', 'carbonne', 'commentaire');
-    ajout_donnees($table_sql, 'volrando', $etiquettes);
+    get_and_convert($dbh, 'SELECT * FROM volrandos', 'volrando', $etiquettes);
 
     echo "</challenge>\n";
 
