@@ -5,7 +5,12 @@
  * les mettra a jour si on modifie une table.
  */
 
-var affichage = "Empty";
+// Les variables globales
+affichage = "Empty";
+tab_s = new Array;  // tableau des sommets
+tab_m = new Array;  // tableau des massifs
+tab_p = new Array;  // tableau des pilotes
+tab_v = new Array;  // tableau des volrandos
 
 function requete_ajax(callback)
 {
@@ -81,7 +86,7 @@ function init_sommets_table(s)
 
     for (var i = 0; i < s.length; i++)
     {
-        sommet = s[i];
+        var sommet = s[i];
         // le premier enfant contient du texte pour sommet. On ne l'utilise pas
         // donc on peut le passer.
         // Ensuite on va avoir comme enfants:
