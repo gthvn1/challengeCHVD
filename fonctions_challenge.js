@@ -229,27 +229,27 @@ function init_volrandos_table(v)
 
             if (volrando.childNodes[j].nodeName == 'sid') {
                 tab_v[vid]["sid"] =
-                    volrando.childNodes[j].childNodes[0].nodeValue;
+                    Number(volrando.childNodes[j].childNodes[0].nodeValue);
             }
             else if (volrando.childNodes[j].nodeName == 'pid') {
                 tab_v[vid]["pid"] =
-                    volrando.childNodes[j].childNodes[0].nodeValue;
+                    Number(volrando.childNodes[j].childNodes[0].nodeValue);
             }
             else if (volrando.childNodes[j].nodeName == 'date') {
                 tab_v[vid]["date"] =
-                    volrando.childNodes[j].childNodes[0].nodeValue;
+                    Number(volrando.childNodes[j].childNodes[0].nodeValue);
             }
             else if (volrando.childNodes[j].nodeName == 'biplace') {
                 tab_v[vid]["biplace"] =
-                    volrando.childNodes[j].childNodes[0].nodeValue;
+                    Number(volrando.childNodes[j].childNodes[0].nodeValue);
             }
             else if (volrando.childNodes[j].nodeName == 'but') {
                 tab_v[vid]["but"] =
-                    volrando.childNodes[j].childNodes[0].nodeValue;
+                    Number(volrando.childNodes[j].childNodes[0].nodeValue);
             }
             else if (volrando.childNodes[j].nodeName == 'carbone') {
                 tab_v[vid]["carbone"] =
-                    volrando.childNodes[j].childNodes[0].nodeValue;
+                    Number(volrando.childNodes[j].childNodes[0].nodeValue);
             }
             else if (volrando.childNodes[j].nodeName == 'commentaire') {
                 // Un commentaire peut etre vide
@@ -323,19 +323,19 @@ function init_sommets_table(s)
             }
             else if (sommet.childNodes[j].nodeName == 'mid') {
                 tab_s[sid]["mid"] =
-                    sommet.childNodes[j].childNodes[0].nodeValue;
+                    Number(sommet.childNodes[j].childNodes[0].nodeValue);
             }
             else if (sommet.childNodes[j].nodeName == 'altitude') {
                 tab_s[sid]["altitude"] =
-                    sommet.childNodes[j].childNodes[0].nodeValue;
+                    Number(sommet.childNodes[j].childNodes[0].nodeValue);
             }
             else if (sommet.childNodes[j].nodeName == 'points') {
                 tab_s[sid]["points"] =
-                    sommet.childNodes[j].childNodes[0].nodeValue;
+                    Number(sommet.childNodes[j].childNodes[0].nodeValue);
             }
             else if (sommet.childNodes[j].nodeName == 'annee') {
                 tab_s[sid]["annee"] =
-                    sommet.childNodes[j].childNodes[0].nodeValue;
+                    Number(sommet.childNodes[j].childNodes[0].nodeValue);
             }
             else if (sommet.childNodes[j].nodeName == 'commentaire') {
                 // Un commentaire peut etre vide
