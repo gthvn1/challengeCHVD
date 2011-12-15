@@ -146,6 +146,42 @@ function init_pilotes_table(p)
      *                       "pseudo" => GTh,
      *                      ]
      */
+    for (var i = 0; i < p.length; i++) {
+        var pilote = p[i];
+        var pid;
+
+        // le sid est utilise comme index pour le stockage dans le table
+        if ("pid" != pilote.childNodes[1].nodeName) {
+            logs += "Erreur: PID not found <br />";
+            return false;
+        }
+
+        pid = Number(pilote.childNodes[1].childNodes[0].nodeValue);
+        tab_p[pid] = new Array();
+
+        for (var j = 3; j < p[i].childNodes.length; j = j + 2) {
+
+            if (pilote.childNodes[j].nodeName == 'nom') {
+                tab_p[pid]["nom"] =
+                    pilote.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (pilote.childNodes[j].nodeName == 'prenom') {
+                tab_p[pid]["prenom"] =
+                    pilote.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (pilote.childNodes[j].nodeName == 'pseudo') {
+                tab_p[pid]["altitude"] =
+                    pilote.childNodes[j].childNodes[0].nodeValue;
+            }
+            else {
+                logs += "Erreur: Champs " +
+                       pilote.childNodes[j].nodeName +
+                       " inconnu dans pilote <br />";
+                return false;
+            }
+        }
+    }
+
 
     return true;
 }
