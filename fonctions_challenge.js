@@ -10,7 +10,7 @@ logs = "Pas de logs";
 
 /*
  * La table des sommets est indexee par les SID. L'entree 0 n'est donc
- * pas utilise. 
+ * pas utilise.
  * Pour la table des massifs, nous rajoutons un champ qui contiendra la
  * liste des sommets associes pour faciliter l'logs dans les choix
  * de saisie.
@@ -59,12 +59,62 @@ function requete_ajax(callback)
  */
 function get_tables(xmlDoc)
 {
+    // On initialise les logs
+    logs = "";
+    /*
+     * On initialise la table des massifs en premier car nous aurons allons
+     * ensuite ajouter une liste de sommet associe au massif. Il faut donc
+     * que les massifs soient connus au moment d'initialiser les sommets
+     */
+    init_massifs_table(xmlDoc.getElementsByTagName("massif"));
     init_sommets_table(xmlDoc.getElementsByTagName("sommet"));
     // Comme l'entree 0 n'est pas utilise, un tableau a une taille + 1
-    logs = "La table sommets contient " + (tab_s.length - 1) + " sommets <br />";
+    var infos = "La table massifs contient " + (tab_m.length - 1) + " massifs <br />" +
+                "La table sommets contient " + (tab_s.length - 1) + " sommets <br />";
 
-    document.getElementById('status').innerHTML= "Affichage en cours de developpement";
-    document.getElementById('resultats').innerHTML= logs;
+    document.getElementById('status').innerHTML= logs;
+    document.getElementById('resultats').innerHTML= infos;
+}
+
+function init_massifs_table(m)
+{
+    /*
+     * La representation XML c'est:
+     *
+     *   s ---> massif 1  ---> 0: TEXT   x
+     *                    ---> 1: MID  --->  1
+     *                    ---> 2: TEXT   x
+     *                    ---> 3: NOM  --->  Chartreuse
+     *                    ---> 4: TEXT   x
+     *     ---> massif 2  ...
+     *     ...
+     *  La table sera:
+     *
+     *    tab_m[MassifID][0] = ["nom"]
+     *    tab_m[MassifID][1] = ["nom sommet1", "nom sommet2", ...]
+     *
+     *  La liste des sommets sera remplie en parcourant la table
+     *  des sommets
+     */
+    for (var i = 0; i < m.length; i++) {
+        var massif = m[i];
+        var mid;
+
+        // le sid est utilise comme index pour le stockage dans le table
+        if ("mid" != massif.childNodes[1].nodeName) {
+            logs += "Erreur: MID not found <br />";
+            return false;
+        }
+
+        mid = Number(massif.childNodes[1].childNodes[0].nodeValue);
+        tab_m[mid] = new Array();
+
+        // On met le nom directement
+        tab_m[mid][0] = massif.childNodes[3].childNodes[0].nodeValue;
+        logs += "Massif " + tab_m[mid][0] + " ajoute dans la table <br />";
+    }
+
+    return true;
 }
 
 function init_sommets_table(s)
@@ -75,7 +125,7 @@ function init_sommets_table(s)
      *   s ---> Sommet 1  ---> 0: TEXT   x
      *                    ---> 1: SID  --->  1
      *                    ---> 2: TEXT   x
-     *                    ---> 3: NOM  --->  Dent de Crolles  
+     *                    ---> 3: NOM  --->  Dent de Crolles
      *                    ---> 4: TEXT   x
      *                    ---> 5: MID
      *                    ---> 6: TEXT   x
@@ -88,18 +138,25 @@ function init_sommets_table(s)
      *     ---> Sommet 2
      *     ...
      *     ---> Sommet 101
-     */ 
-    logs = ""; 
+     *
+     *  La table sera:
+     *
+     *    tab_s[SommetID] = ["nom" => nomDuSommet,
+     *                       "mid" => massif ID,
+     *                       "altitude" => altitude du sommet,
+     *                       ...
+     *                       ]
+     */
     for (var i = 0; i < s.length; i++) {
         var sommet = s[i];
         var sid;
-        
+
         // le sid est utilise comme index pour le stockage dans le table
         if ("sid" != sommet.childNodes[1].nodeName) {
-            logs = "Erreur: SID not found ";
+            logs += "Erreur: SID not found <br />";
             return false;
         }
-        
+
         sid = Number(sommet.childNodes[1].childNodes[0].nodeValue);
         tab_s[sid] = new Array();
 
@@ -135,14 +192,14 @@ function init_sommets_table(s)
                 }
             }
             else {
-                logs = "Erreur: Champs " +
+                logs += "Erreur: Champs " +
                        sommet.childNodes[j].nodeName +
-                       " inconnu dans sommet ";
+                       " inconnu dans sommet <br />";
                 return false;
             }
         }
     }
-    
+
     return true;
 }
 
@@ -155,7 +212,7 @@ function XXX_sommets_table(s)
      *   s ---> Sommet 1  ---> TEXT   x
      *                    ---> SID  --->  1
      *                    ---> TEXT   x
-     *                    ---> NOM  --->  Dent de Crolles  
+     *                    ---> NOM  --->  Dent de Crolles
      *                    ---> TEXT   x
      *                    ...
      *                    ---> COMMENTAIRE
@@ -163,7 +220,7 @@ function XXX_sommets_table(s)
      *     ---> Sommet 2
      *     ...
      *     ---> Sommet 101
-     */  
+     */
     logs = "<table>";
     logs += "<tr>";
     logs += "<th>Nom du sommet</th>";
@@ -208,7 +265,7 @@ function XXX_sommets_table(s)
             if (valeur) {
                 //logs += "&nbsp;&nbsp;&nbsp;&nbsp; #"+ j +" nodeName: <b>" + valeur.nodeName + "</b>";
                 //logs += " nodeType: " + valeur.nodeType;
-                //logs += " nodeValue: <b>" + valeur.nodeValue + "</b>"; 
+                //logs += " nodeValue: <b>" + valeur.nodeValue + "</b>";
                 logs += "<td>" + valeur.nodeValue + "</td>";
             } else {
                 // commentaire vide
@@ -216,7 +273,7 @@ function XXX_sommets_table(s)
             }
             //logs += "<br />";
         }
-        
+
         logs += "</tr>";
     }
 }
