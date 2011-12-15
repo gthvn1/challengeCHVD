@@ -72,13 +72,15 @@ function get_tables(xmlDoc)
     init_volrandos_table(xmlDoc.getElementsByTagName("volrando"));
 
     // Comme l'entree 0 n'est pas utilise, un tableau a une taille + 1
-    var infos = "La table massifs contient   " + (tab_m.length - 1) + " massifs <br />" +
-                "La table sommets contient   " + (tab_s.length - 1) + " sommets <br />" +
-                "La table pilotes contient   " + (tab_p.length - 1) + " pilotes <br />" +
-                "La table volrandos contient " + (tab_v.length - 1) + " volrandos <br />";
+    logs = "La table massifs contient   " + (tab_m.length - 1) + " massifs <br />" +
+           "La table sommets contient   " + (tab_s.length - 1) + " sommets <br />" +
+           "La table pilotes contient   " + (tab_p.length - 1) + " pilotes <br />" +
+           "La table volrandos contient " + (tab_v.length - 1) + " volrandos <br />" +
+           "<br />" + logs;
 
     document.getElementById('status').innerHTML= logs;
-    document.getElementById('resultats').innerHTML= infos;
+    
+    document.getElementById('resultats').innerHTML = default_display();
 }
 
 function init_massifs_table(m)
@@ -97,9 +99,6 @@ function init_massifs_table(m)
      *
      *    tab_m[MassifID][0] = ["nom"]
      *    tab_m[MassifID][1] = ["nom sommet1", "nom sommet2", ...]
-     *
-     *  La liste des sommets sera remplie en parcourant la table
-     *  des sommets
      */
     for (var i = 0; i < m.length; i++) {
         var massif = m[i];
@@ -112,10 +111,13 @@ function init_massifs_table(m)
         }
 
         mid = Number(massif.childNodes[1].childNodes[0].nodeValue);
-        tab_m[mid] = new Array();
 
-        // On met le nom directement
-        tab_m[mid][0] = massif.childNodes[3].childNodes[0].nodeValue;
+        // le nom => massif.childNodes[3].childNodes[0].nodeValue;
+        tab_m[mid] = new Array(massif.childNodes[3].childNodes[0].nodeValue,
+                               new Array());
+        //  NOTE: La liste des sommets sera remplie en parcourant la table
+        // des sommets
+
         logs += "Massif " + tab_m[mid][0] + " ajoute dans la table <br />";
     }
 
@@ -324,6 +326,7 @@ function init_sommets_table(s)
             else if (sommet.childNodes[j].nodeName == 'mid') {
                 tab_s[sid]["mid"] =
                     Number(sommet.childNodes[j].childNodes[0].nodeValue);
+                
             }
             else if (sommet.childNodes[j].nodeName == 'altitude') {
                 tab_s[sid]["altitude"] =
@@ -353,84 +356,38 @@ function init_sommets_table(s)
                 return false;
             }
         }
+
+        // Il reste a ajouter le nom du sommet dans la liste des sommets
+        // du massif correspondant.
+        tab_m[tab_s[sid]['mid']][1].push(tab_s[sid]['nom']);
     }
 
     return true;
 }
 
-// Ancienne fonction d'affichage. A remplacer par un parcours de tableau
-function XXX_sommets_table(s)
+/*
+ * Fonction d'affichage par defaut. On affiche la tables des massifs et la
+ * liste des sommets des massifs.
+ */
+function default_display()
 {
-    /*
-     * La representation XML c'est:
-     *
-     *   s ---> Sommet 1  ---> TEXT   x
-     *                    ---> SID  --->  1
-     *                    ---> TEXT   x
-     *                    ---> NOM  --->  Dent de Crolles
-     *                    ---> TEXT   x
-     *                    ...
-     *                    ---> COMMENTAIRE
-     *                    ---> TEXT   x
-     *     ---> Sommet 2
-     *     ...
-     *     ---> Sommet 101
-     */
-    logs = "<table>";
-    logs += "<tr>";
-    logs += "<th>Nom du sommet</th>";
-    logs += "<th>Massif ID</th>";
-    logs += "<th>Altitude</th>";
-    logs += "<th>Points</th>";
-    logs += "<th>Annee</th>";
-    logs += "<th>Commentaire</th>";
-    logs += "</tr>";
+    var affichage = "<b> Liste des sommets par massifs </b> <br />";
 
-    for (var i = 0; i < s.length; i++)
+    for (var i = 1; i < tab_m.length; i++)
     {
-        var sommet = s[i];
-        // le premier enfant contient du texte pour sommet. On ne l'utilise pas
-        // donc on peut le passer.
-        // Ensuite on va avoir comme enfants:
-        //   1 -> SID
-        //   2 -> TEXT
-        //   3 -> NOM
-        //   4 -> TEXT
-        //   5...
-        // Les textes sont toujours nuls dans notre cas. Donc on va regarder un
-        // enfants sur 2.
-        //
-        logs += "<tr>";
-        for (var j = 1; j < s[i].childNodes.length; j = j + 2) {
+        var liste_s;  // liste des sommets sous forme de tableau
 
-            // le sid sera utilise pour le stockage dans le table donc pour l'instant
-            // on peut juste le skipper tant que la table n'est pas construite
-            if (j == 1) continue;
+        // Le nom du massif
+        affichage += tab_m[i][0] + " <br />";
 
-            // On verifie le node type (1 => ELEMENT; 3 => TEXT_NODE)
-            champs = sommet.childNodes[j];
-            //logs += "&nbsp;&nbsp; nodeName: <b>" + champs.nodeName + "</b>";
-            //logs += " nodeType: " + champs.nodeType;
-            //logs += " nodeValue: " + champs.nodeValue ;
-            //logs += " childNodes: " + champs.childNodes.length ;
-            //logs += "<br />";
+        liste_s = tab_m[i][1];  // liste des sommets sous forme de tableau
+        liste_s.sort();
+        for (var j = 0; j < liste_s.length; j++)
+            affichage += " > " + liste_s[j] + "<br />";
 
-            // on va lire la valeur du champs nodeName:
-            valeur = champs.childNodes[0];
-            if (valeur) {
-                //logs += "&nbsp;&nbsp;&nbsp;&nbsp; #"+ j +" nodeName: <b>" + valeur.nodeName + "</b>";
-                //logs += " nodeType: " + valeur.nodeType;
-                //logs += " nodeValue: <b>" + valeur.nodeValue + "</b>";
-                logs += "<td>" + valeur.nodeValue + "</td>";
-            } else {
-                // commentaire vide
-                logs += "<td>  </td>";
-            }
-            //logs += "<br />";
-        }
-
-        logs += "</tr>";
     }
+
+    return affichage;
 }
 
 /*
