@@ -68,9 +68,14 @@ function get_tables(xmlDoc)
      */
     init_massifs_table(xmlDoc.getElementsByTagName("massif"));
     init_sommets_table(xmlDoc.getElementsByTagName("sommet"));
+    init_pilotes_table(xmlDoc.getElementsByTagName("pilote"));
+    init_volrandos_table(xmlDoc.getElementsByTagName("volrando"));
+
     // Comme l'entree 0 n'est pas utilise, un tableau a une taille + 1
-    var infos = "La table massifs contient " + (tab_m.length - 1) + " massifs <br />" +
-                "La table sommets contient " + (tab_s.length - 1) + " sommets <br />";
+    var infos = "La table massifs contient   " + (tab_m.length - 1) + " massifs <br />" +
+                "La table sommets contient   " + (tab_s.length - 1) + " sommets <br />" +
+                "La table pilotes contient   " + (tab_p.length - 1) + " pilotes <br />" +
+                "La table volrandos contient " + (tab_v.length - 1) + " volrandos <br />";
 
     document.getElementById('status').innerHTML= logs;
     document.getElementById('resultats').innerHTML= infos;
@@ -81,7 +86,7 @@ function init_massifs_table(m)
     /*
      * La representation XML c'est:
      *
-     *   s ---> massif 1  ---> 0: TEXT   x
+     *   m ---> massif 1  ---> 0: TEXT   x
      *                    ---> 1: MID  --->  1
      *                    ---> 2: TEXT   x
      *                    ---> 3: NOM  --->  Chartreuse
@@ -113,6 +118,64 @@ function init_massifs_table(m)
         tab_m[mid][0] = massif.childNodes[3].childNodes[0].nodeValue;
         logs += "Massif " + tab_m[mid][0] + " ajoute dans la table <br />";
     }
+
+    return true;
+}
+
+function init_pilotes_table(p)
+{
+    /*
+     * La representation XML c'est:
+     *
+     *   p ---> pilote 1  ---> 0: TEXT   x
+     *                    ---> 1: PID  --->  1
+     *                    ---> 2: TEXT   x
+     *                    ---> 3: NOM  --->  Guillaume
+     *                    ---> 4: TEXT   x
+     *                    ---> 5: PRENOM  --->  Thouvenin
+     *                    ---> 6: TEXT   x
+     *                    ---> 7: PSEUDO  --->  GTh
+     *                    ---> 8: TEXT   x
+     *     ---> pilote 2  ...
+     *     ...
+     *
+     *  La table sera:
+     *
+     *    tab_p[PiloteID] = ["nom" => Guillaume,
+     *                       "prenom" => Thouvenin,
+     *                       "pseudo" => GTh,
+     *                      ]
+     */
+
+    return true;
+}
+
+function init_volrandos_table(v)
+{
+    /*
+     * La representation XML c'est:
+     *
+     *   v ---> volrando 1  ---> 0: TEXT   x
+     *                      ---> 1: VID  --->  Vol ID
+     *                      ---> 2: TEXT   x
+     *                      ---> 3: SID  --->  Sommet ID
+     *                      ---> 4: TEXT   x
+     *                      ---> 5: PID  --->  Pilote ID
+     *                      ---> 6: TEXT   x
+     *                      ---> 7: DATE  --->  11/11/11
+     *                      ---> 8: TEXT   x
+     *                      ...
+     *     ---> volrando 2  ...
+     *     ...
+     *
+     *  La table sera:
+     *
+     *    tab_v[VolrandoID] = ["vid" => Vol ID,
+     *                         "sid" => Sommet ID,
+     *                         "pid" => Pilote ID,
+     *                         ...
+     *                        ]
+     */
 
     return true;
 }
