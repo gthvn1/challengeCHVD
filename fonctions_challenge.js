@@ -6,7 +6,15 @@
  */
 
 // Les variables globales
-affichage = "Empty";
+logs = "Pas de logs";
+
+/*
+ * La table des sommets est indexee par les SID. L'entree 0 n'est donc
+ * pas utilise. 
+ * Pour la table des massifs, nous rajoutons un champ qui contiendra la
+ * liste des sommets associes pour faciliter l'logs dans les choix
+ * de saisie.
+ */
 tab_s = new Array;  // tableau des sommets
 tab_m = new Array;  // tableau des massifs
 tab_p = new Array;  // tableau des pilotes
@@ -52,12 +60,94 @@ function requete_ajax(callback)
 function get_tables(xmlDoc)
 {
     init_sommets_table(xmlDoc.getElementsByTagName("sommet"));
+    // Comme l'entree 0 n'est pas utilise, un tableau a une taille + 1
+    logs = "La table sommets contient " + (tab_s.length - 1) + " sommets <br />";
 
-    document.getElementById('status').innerHTML= "Les tables ont ete generees";
-    document.getElementById('resultats').innerHTML= affichage;
+    document.getElementById('status').innerHTML= "Affichage en cours de developpement";
+    document.getElementById('resultats').innerHTML= logs;
 }
 
 function init_sommets_table(s)
+{
+    /*
+     * La representation XML c'est:
+     *
+     *   s ---> Sommet 1  ---> 0: TEXT   x
+     *                    ---> 1: SID  --->  1
+     *                    ---> 2: TEXT   x
+     *                    ---> 3: NOM  --->  Dent de Crolles  
+     *                    ---> 4: TEXT   x
+     *                    ---> 5: MID
+     *                    ---> 6: TEXT   x
+     *                    ---> 8: ALTITUDE
+     *                    ---> TEXT   x
+     *                    ---> 7: COMMENTAIRE
+     *                    ---> TEXT   x
+     *                    ---> 7: COMMENTAIRE
+     *                    ---> TEXT   x
+     *     ---> Sommet 2
+     *     ...
+     *     ---> Sommet 101
+     */ 
+    logs = ""; 
+    for (var i = 0; i < s.length; i++) {
+        var sommet = s[i];
+        var sid;
+        
+        // le sid est utilise comme index pour le stockage dans le table
+        if ("sid" != sommet.childNodes[1].nodeName) {
+            logs = "Erreur: SID not found ";
+            return false;
+        }
+        
+        sid = Number(sommet.childNodes[1].childNodes[0].nodeValue);
+        tab_s[sid] = new Array();
+
+        for (var j = 3; j < s[i].childNodes.length; j = j + 2) {
+
+            if (sommet.childNodes[j].nodeName == 'nom') {
+                tab_s[sid]["nom"] =
+                    sommet.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (sommet.childNodes[j].nodeName == 'mid') {
+                tab_s[sid]["mid"] =
+                    sommet.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (sommet.childNodes[j].nodeName == 'altitude') {
+                tab_s[sid]["altitude"] =
+                    sommet.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (sommet.childNodes[j].nodeName == 'points') {
+                tab_s[sid]["points"] =
+                    sommet.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (sommet.childNodes[j].nodeName == 'annee') {
+                tab_s[sid]["annee"] =
+                    sommet.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (sommet.childNodes[j].nodeName == 'commentaire') {
+                // Un commentaire peut etre vide
+                var c = sommet.childNodes[j].childNodes[0];
+                if (c) {
+                    tab_s[sid]["commentaire"] = c.nodeValue;
+                } else {
+                    tab_s[sid]["commentaire"] = "";
+                }
+            }
+            else {
+                logs = "Erreur: Champs " +
+                       sommet.childNodes[j].nodeName +
+                       " inconnu dans sommet ";
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+
+// Ancienne fonction d'affichage. A remplacer par un parcours de tableau
+function XXX_sommets_table(s)
 {
     /*
      * La representation XML c'est:
@@ -74,15 +164,15 @@ function init_sommets_table(s)
      *     ...
      *     ---> Sommet 101
      */  
-    affichage = "<table>";
-    affichage += "<tr>";
-    affichage += "<th>Nom du sommet</th>";
-    affichage += "<th>Massif ID</th>";
-    affichage += "<th>Altitude</th>";
-    affichage += "<th>Points</th>";
-    affichage += "<th>Annee</th>";
-    affichage += "<th>Commentaire</th>";
-    affichage += "</tr>";
+    logs = "<table>";
+    logs += "<tr>";
+    logs += "<th>Nom du sommet</th>";
+    logs += "<th>Massif ID</th>";
+    logs += "<th>Altitude</th>";
+    logs += "<th>Points</th>";
+    logs += "<th>Annee</th>";
+    logs += "<th>Commentaire</th>";
+    logs += "</tr>";
 
     for (var i = 0; i < s.length; i++)
     {
@@ -98,7 +188,7 @@ function init_sommets_table(s)
         // Les textes sont toujours nuls dans notre cas. Donc on va regarder un
         // enfants sur 2.
         //
-        affichage += "<tr>";
+        logs += "<tr>";
         for (var j = 1; j < s[i].childNodes.length; j = j + 2) {
 
             // le sid sera utilise pour le stockage dans le table donc pour l'instant
@@ -107,27 +197,27 @@ function init_sommets_table(s)
 
             // On verifie le node type (1 => ELEMENT; 3 => TEXT_NODE)
             champs = sommet.childNodes[j];
-            //affichage += "&nbsp;&nbsp; nodeName: <b>" + champs.nodeName + "</b>";
-            //affichage += " nodeType: " + champs.nodeType;
-            //affichage += " nodeValue: " + champs.nodeValue ;
-            //affichage += " childNodes: " + champs.childNodes.length ;
-            //affichage += "<br />";
+            //logs += "&nbsp;&nbsp; nodeName: <b>" + champs.nodeName + "</b>";
+            //logs += " nodeType: " + champs.nodeType;
+            //logs += " nodeValue: " + champs.nodeValue ;
+            //logs += " childNodes: " + champs.childNodes.length ;
+            //logs += "<br />";
 
             // on va lire la valeur du champs nodeName:
             valeur = champs.childNodes[0];
             if (valeur) {
-                //affichage += "&nbsp;&nbsp;&nbsp;&nbsp; #"+ j +" nodeName: <b>" + valeur.nodeName + "</b>";
-                //affichage += " nodeType: " + valeur.nodeType;
-                //affichage += " nodeValue: <b>" + valeur.nodeValue + "</b>"; 
-                affichage += "<td>" + valeur.nodeValue + "</td>";
+                //logs += "&nbsp;&nbsp;&nbsp;&nbsp; #"+ j +" nodeName: <b>" + valeur.nodeName + "</b>";
+                //logs += " nodeType: " + valeur.nodeType;
+                //logs += " nodeValue: <b>" + valeur.nodeValue + "</b>"; 
+                logs += "<td>" + valeur.nodeValue + "</td>";
             } else {
                 // commentaire vide
-                affichage += "<td>  </td>";
+                logs += "<td>  </td>";
             }
-            //affichage += "<br />";
+            //logs += "<br />";
         }
         
-        affichage += "</tr>";
+        logs += "</tr>";
     }
 }
 
