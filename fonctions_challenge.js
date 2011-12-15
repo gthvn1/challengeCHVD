@@ -212,6 +212,62 @@ function init_volrandos_table(v)
      *                         ...
      *                        ]
      */
+    for (var i = 0; i < v.length; i++) {
+        var volrando = v[i];
+        var vid;
+
+        // le vid est utilise comme index pour le stockage dans le table
+        if ("vid" != volrando.childNodes[1].nodeName) {
+            logs += "Erreur: VID not found <br />";
+            return false;
+        }
+
+        vid = Number(volrando.childNodes[1].childNodes[0].nodeValue);
+        tab_v[vid] = new Array();
+
+        for (var j = 3; j < v[i].childNodes.length; j = j + 2) {
+
+            if (volrando.childNodes[j].nodeName == 'sid') {
+                tab_v[vid]["sid"] =
+                    volrando.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (volrando.childNodes[j].nodeName == 'pid') {
+                tab_v[vid]["pid"] =
+                    volrando.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (volrando.childNodes[j].nodeName == 'date') {
+                tab_v[vid]["date"] =
+                    volrando.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (volrando.childNodes[j].nodeName == 'biplace') {
+                tab_v[vid]["biplace"] =
+                    volrando.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (volrando.childNodes[j].nodeName == 'but') {
+                tab_v[vid]["but"] =
+                    volrando.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (volrando.childNodes[j].nodeName == 'carbone') {
+                tab_v[vid]["carbone"] =
+                    volrando.childNodes[j].childNodes[0].nodeValue;
+            }
+            else if (volrando.childNodes[j].nodeName == 'commentaire') {
+                // Un commentaire peut etre vide
+                var c = volrando.childNodes[j].childNodes[0];
+                if (c) {
+                    tab_v[vid]["commentaire"] = c.nodeValue;
+                } else {
+                    tab_v[vid]["commentaire"] = "";
+                }
+            }
+            else {
+                logs += "Erreur: Champs " +
+                       volrando.childNodes[j].nodeName +
+                       " inconnu dans volrando <br />";
+                return false;
+            }
+        }
+    }
 
     return true;
 }
