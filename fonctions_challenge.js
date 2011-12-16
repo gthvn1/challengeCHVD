@@ -32,14 +32,7 @@ function ask_to_server(arg)
     }
 
     // true => mode de transfert asynchrone
-    if (arg == "pilotes") {
-        xhr.open("GET","get_pilots.php", true);
-    } else if (arg == "massifs") {
-        xhr.open("GET","get_massifs.php", true);
-    } else {
-        // like ask for 'sommets'
-        xhr.open("GET","get_sommets.php", true);
-    }
+    xhr.open("GET","server_queries.php?param=" + arg, true);
     xhr.send();
 }
 
