@@ -3,20 +3,20 @@
 try {
     $dbh = new PDO('sqlite:challengeCHVD.sqlite3');
 
-    $result = $dbh->query('SELECT * FROM sommets');
+    $result = $dbh->query('SELECT * FROM pilotes');
 
     echo '<table>';
     echo '<tr>';
-    echo '<th> Nom du sommet </th>';
-    echo '<th> Altitude </th>';
-    echo '<th> Points </th>';
+    echo '<th> Nom  </th>';
+    echo '<th> Prenom </th>';
+    echo '<th> Pseudo </th>';
     echo '</tr>';
 
-    foreach ($result as $sommet) {
+    foreach ($result as $pilote) {
         echo '<tr>';
-        echo '<td>', $sommet['nom'], '</td>';
-        echo '<td>', $sommet['altitude'], '</td>';
-        echo '<td>', $sommet['points'], '</td>';
+        echo '<td>', $pilote['nom'], '</td>';
+        echo '<td>', $pilote['prenom'], '</td>';
+        echo '<td>', $pilote['pseudo'], '</td>';
         echo '</tr>';
     }
     echo '</table>';

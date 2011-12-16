@@ -5,7 +5,7 @@
  * les mettra a jour si on modifie une table.
  */
 
-function get_peaks()
+function ask_to_server(arg)
 {
     var xhr;
 
@@ -32,7 +32,14 @@ function get_peaks()
     }
 
     // true => mode de transfert asynchrone
-    xhr.open("GET","get_peaks.php", true);
+    if (arg == "pilotes") {
+        xhr.open("GET","get_pilots.php", true);
+    } else if (arg == "massifs") {
+        xhr.open("GET","get_massifs.php", true);
+    } else {
+        // like ask for 'sommets'
+        xhr.open("GET","get_sommets.php", true);
+    }
     xhr.send();
 }
 
