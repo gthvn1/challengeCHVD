@@ -73,7 +73,26 @@ Dans la partie droite on affichera les résutlats
     <p id="saisie">
       <form id="saisieVolrando">
         <table class="invisible">
-        <tr> <!-- Choix du sommet -->
+
+        <tr> <!-- Choix du massif -->
+            <?php
+                $dbh = new PDO('sqlite:challengeCHVD.sqlite3');
+                $result = $dbh->query('SELECT * FROM massifs');
+
+                echo '<td class="invisible"> Choix du massif </td>';
+                echo '<td class="invisible">';
+                echo '<select name="massif">';
+                echo '<option> Nouveau Massif </option>';
+                foreach ($result as $massif) {
+                    echo '<option>', $massif['nom'], '</option>';
+                }
+                echo '</select>';
+                echo '</td>';
+
+            ?>
+        </tr>
+
+        <tr>
           <td class="invisible"> Sommets </td>
           <td class="invisible">
             <select name="sommet">

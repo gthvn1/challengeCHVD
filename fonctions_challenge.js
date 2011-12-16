@@ -46,15 +46,8 @@ function check_volrando()
     var x = document.getElementById("saisieVolrando"),
         monTexte = "  <b> VERIFICATION DU VOL </b> <br />";
 
-    // Il y a 7 elements:
-    //  sommet, pilote, date, biplace, co2, commentaire et
-    //  soumettre_le_volrando
-    if (x.length != 7) {
-        alert('Fatal Error');
-        return false;
-    }
-
-    var sommet   = x.elements["sommet"],
+    var massif   = x.elements["massif"],
+        sommet   = x.elements["sommet"],
         pilote   = x.elements["pilote"],
         datevol  = x.elements["datevol"],
         biplace  = x.elements["biplace"],
@@ -62,6 +55,7 @@ function check_volrando()
         comment  = x.elements["commentaire"];
 
     monTexte = monTexte  +
+        massif.name   + ' : ' + massif.selectedIndex + '<br />' +
         sommet.name   + ' : ' + sommet.selectedIndex + '<br />' +
         pilote.name   + ' : ' + pilote.selectedIndex + '<br />' +
         datevol.name  + ' : ' + datevol.value        + '<br />' +

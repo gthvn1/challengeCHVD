@@ -1,5 +1,21 @@
 <?php
 
+function choix_massif($dbh)
+{
+    $result = $dbh->query('SELECT * FROM massifs');
+
+    echo '<td class="invisible"> Choix du massif </td>';
+    echo '<td class="invisible">';
+    echo '<select name="massif">';
+    echo '<option> Nouveau Massif </option>';
+    foreach ($result as $massif) {
+        echo '<option>', $massif['nom'], '</option>';
+    }
+    echo '</select>';
+    echo '</td>';
+}
+
+
 function pilotes_to_html($dbh)
 {
     $result = $dbh->query('SELECT * FROM pilotes');
@@ -18,6 +34,7 @@ function pilotes_to_html($dbh)
         echo '<td>', $pilote['pseudo'], '</td>';
         echo '</tr>';
     }
+    echo '</table>';
 }
 
 function massifs_to_html($dbh)
@@ -39,6 +56,7 @@ function massifs_to_html($dbh)
 
 function sommets_to_html($dbh)
 {
+    echo '<table>';
     echo '<tr>';
     echo '<th> Nom du sommet </th>';
     echo '<th> Altitude </th>';
@@ -58,6 +76,7 @@ function sommets_to_html($dbh)
         echo '<td>', $sommet['commentaire'], '</td>';
         echo '</tr>';
     }
+    echo '</table>';
 }
 
 function volrandos_to_html($dbh)
@@ -82,18 +101,21 @@ try {
 
     $val =  $_GET['param'];
 
-    echo '<table>';
-
-    if (0 == strcmp($val, "pilotes")) {
+    if (0 == strcmp($val, "choix_massif")) {
+        choix_massif($dbh);
+    }
+    elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);
-    } elseif (0 == strcmp($val, "massifs")) {
+    }
+    elseif (0 == strcmp($val, "massifs")) {
         massifs_to_html($dbh);
-    } elseif (0 == strcmp($val, "sommets")) {
+    }
+    elseif (0 == strcmp($val, "sommets")) {
        sommets_to_html($dbh);
-    } else {
+    }
+    else {
         volrandos_to_html($dbh);
     }
-    echo '</table>';
 
     $dbh = NULL;
 }
