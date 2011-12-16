@@ -1,3 +1,36 @@
+function menu_deroulant_sommets()
+{
+    var xhr;
+
+    if (window.XMLHttpRequest) {
+        // Code for IE7+, firefox, Chrome, Opera, Safari
+        xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        // code for IE6, IE5
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
+        return;
+    }
+
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState == 4) {
+            if ((xhr.status == 200 || xhr.status == 0)) {
+                document.getElementById('sommet').innerHTML = xhr.responseText;
+            } else {
+                alert('Error choix sommet: status =' + xhr.status);
+            }
+        }
+    }
+
+    // true => mode de transfert asynchrone
+    var e =  document.getElementById("choixMassif");
+    xhr.open("GET","server_queries.php?param=choix_sommets&massif=" + e.selectedIndex, true);
+    xhr.send();
+}
+
+
 /*
  * On recupere nos quatre tables sous forme de chaine JSON
  * pour pouvoir les manipuler cote client.

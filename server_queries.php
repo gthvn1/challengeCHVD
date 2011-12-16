@@ -1,15 +1,19 @@
 <?php
 
-function choix_massif($dbh)
+function choix_sommets($dbh, $massif)
 {
-    $result = $dbh->query('SELECT * FROM massifs');
+    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ?');
+//    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ?');
+    $qry->execute(array($massif));
+    $res = $qry->fetchAll();
 
-    echo '<td class="invisible"> Choix du massif </td>';
+
+    echo '<td class="invisible"> Choix du sommet </td>';
     echo '<td class="invisible">';
-    echo '<select name="massif">';
-    echo '<option> Nouveau Massif </option>';
-    foreach ($result as $massif) {
-        echo '<option>', $massif['nom'], '</option>';
+    echo '<select name="sommet">';
+    echo '<option value="0"> Nouveau Sommet </option>';
+    foreach ($res as $sommet) {
+        echo '<option value="', $sommet['sid'], '>', $sommet['nom'], '</option>';
     }
     echo '</select>';
     echo '</td>';
@@ -100,9 +104,10 @@ try {
     $dbh = new PDO('sqlite:challengeCHVD.sqlite3');
 
     $val =  $_GET['param'];
+    $massif =  $_GET['massif'];
 
-    if (0 == strcmp($val, "choix_massif")) {
-        choix_massif($dbh);
+    if (0 == strcmp($val, "choix_sommets")) {
+        choix_sommets($dbh, $massif);
     }
     elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);

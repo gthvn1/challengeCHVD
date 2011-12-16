@@ -81,35 +81,25 @@ Dans la partie droite on affichera les résutlats
 
                 echo '<td class="invisible"> Choix du massif </td>';
                 echo '<td class="invisible">';
-                echo '<select name="massif">';
+                echo '<select name="massif" id="choixMassif" onChange="menu_deroulant_sommets()">';
                 echo '<option> Nouveau Massif </option>';
                 foreach ($result as $massif) {
-                    echo '<option>', $massif['nom'], '</option>';
+                    echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
                 }
                 echo '</select>';
                 echo '</td>';
-
+                $dbh = null;
             ?>
         </tr>
 
-        <tr>
-          <td class="invisible"> Sommets </td>
-          <td class="invisible">
-            <select name="sommet">
-            <option value="0">Nouveau sommet</option>
-            <option value="1">Chartreuse - Dent de Crolles</option>
-            <option value="2">Chartreuse - La Grande Sure</option>
-            <option value="3">Belledonne - Le Jas du lievre</option>
-            <option value="4">Vercors - Le belevedere</option>
-            </select>
-          </td>
+        <tr id="sommet">
         </tr>
 
         <tr> <!-- Choix du pilote -->
           <td class="invisible"> Pilote </td>
           <td class="invisible">
             <select name="pilote">
-            <option value="O">Nouveau pilote</option>
+            <option value="0">Nouveau pilote</option>
             <option value="1">Guillaume</option>
             <option value="2">MisterX</option>
             <option value="3">Toto</option>
