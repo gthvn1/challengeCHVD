@@ -141,7 +141,7 @@ Dans la partie droite on affichera les résutlats
         viendront ecraser cette zone en utilisant l'id "resultat".
     -->
     <script type="text/javascript">
-        requete_ajax(get_tables);
+        get_peaks();
     </script>
 
     </p>
