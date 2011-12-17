@@ -51,20 +51,20 @@ function select_pilotes($dbh)
 
 function pilotes_to_html($dbh)
 {
-    $result = $dbh->query('SELECT * FROM pilotes');
+    $result = $dbh->query('SELECT * FROM pilotes ORDER BY pseudo');
 
     echo '<table>';
     echo '<tr>';
+    echo '<th> Pseudo </th>';
     echo '<th> Nom  </th>';
     echo '<th> Prenom </th>';
-    echo '<th> Pseudo </th>';
     echo '</tr>';
 
     foreach ($result as $pilote) {
         echo '<tr>';
+        echo '<td>', $pilote['pseudo'], '</td>';
         echo '<td>', $pilote['nom'], '</td>';
         echo '<td>', $pilote['prenom'], '</td>';
-        echo '<td>', $pilote['pseudo'], '</td>';
         echo '</tr>';
     }
     echo '</table>';
@@ -72,7 +72,7 @@ function pilotes_to_html($dbh)
 
 function massifs_to_html($dbh)
 {
-    $result = $dbh->query('SELECT * FROM massifs');
+    $result = $dbh->query('SELECT * FROM massifs ORDER BY nom');
 
     echo '<table>';
     echo '<tr>';
@@ -99,7 +99,7 @@ function sommets_to_html($dbh)
     echo '<th> Commentaire </th>';
     echo '</tr>';
    
-    $result = $dbh->query('SELECT * FROM sommets');
+    $result = $dbh->query('SELECT * FROM sommets ORDER BY nom');
 
     foreach ($result as $sommet) {
         echo '<tr>';
