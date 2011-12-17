@@ -100,12 +100,8 @@ function gmd_sommets()
 
 /********************************************************************
  *
- * Fonctions d'envoie des requetes au serveur
- *
- * On recupere nos quatre tables sous forme de chaine JSON
- * pour pouvoir les manipuler cote client.
- * On recupere ces valeurs des le chargement de la page. On
- * les mettra a jour si on modifie une table.
+ * Fonctions d'envoie des requetes d'affichage des resultats au
+ * serveur
  */
 
 function ask_to_server(arg)
@@ -127,7 +123,7 @@ function ask_to_server(arg)
     {
         if (xhr.readyState == 4) {
             if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById('resultats').innerHTML = xhr.responseText;
+                document.getElementById('zone_resultats').innerHTML = xhr.responseText;
             } else {
                 alert('Error: status =' + xhr.status);
             }
@@ -170,5 +166,5 @@ function check_volrando()
         comment.name  + ' : ' + comment.value        + '<br />';
 
     //alert(monTexte);
-    document.getElementById('status').innerHTML= monTexte;
+    document.getElementById('zone_status').innerHTML= monTexte;
 }

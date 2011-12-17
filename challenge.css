@@ -23,7 +23,7 @@ div#div_gauche {
     background-color:#91C1C1;
     */
     float: left;
-    width: 40%;
+    width: 45%;
 }
 
 div#div_droite {
@@ -31,7 +31,7 @@ div#div_droite {
     background-color:#FFA770;
     */
     float: right;
-    width: 55%;
+    width: 50%;
 }
 
 div#div_bas {
@@ -41,7 +41,7 @@ div#div_bas {
     clear: both;
 }
 
-#status {
+#zone_status {
     margin:5px;
     padding:5px;
     border:2px solid gray;

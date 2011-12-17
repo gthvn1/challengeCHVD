@@ -18,7 +18,6 @@ function select_massifs($dbh)
 function select_sommets($dbh, $massif)
 {
     $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ? ORDER BY nom');
-//    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ?');
     $qry->execute(array($massif));
     $res = $qry->fetchAll();
 
@@ -93,6 +92,7 @@ function sommets_to_html($dbh)
     echo '<table>';
     echo '<tr>';
     echo '<th> Nom du sommet </th>';
+    echo '<th> Id du massif </th>';
     echo '<th> Altitude </th>';
     echo '<th> Points </th>';
     echo '<th> Année </th>';
@@ -104,6 +104,7 @@ function sommets_to_html($dbh)
     foreach ($result as $sommet) {
         echo '<tr>';
         echo '<td>', $sommet['nom'], '</td>';
+        echo '<td>', $sommet['mid'], '</td>';
         echo '<td>', $sommet['altitude'], '</td>';
         echo '<td>', $sommet['points'], '</td>';
         echo '<td>', $sommet['annee'], '</td>';

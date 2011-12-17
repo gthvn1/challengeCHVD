@@ -74,33 +74,34 @@ Dans la partie droite on affichera les résutlats
       <form id="formulaire_volrando">
         <table class="invisible">
 
-        <tr id="zone_saisie_massif"> <!-- Choix du massif -->
+          <tr id="zone_saisie_massif"> <!-- Choix du massif -->
             <script type="text/javascript">
                 gmd_massifs();
             </script>
-        </tr>
+          </tr>
 
-        <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix du massif -->
-          <td class="invisible"> Choix du sommet </td>
-          <td class="invisible">
-            <select name="choix_sommet_name">
-            <option value="0">----------</option>
-            </select>
-          </td>
-        </tr>
+          <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix du massif -->
+            <td class="invisible"> Choix du sommet </td>
+            <td class="invisible">
+              <select name="choix_sommet_name">
+                <option value="0">----------</option>
+              </select>
+            </td>
+          </tr>
 
-        <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
-          <script type="text/javascript">
+          <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
+            <script type="text/javascript">
               gmd_pilotes();
-          </script>
-        </tr>
+            </script>
+          </tr>
 
-        <!-- Choix de la date -->
-        <tr>
-          <td class="invisible"> Date (JJ/MM/YY) </td>
-          <td class="invisible">
-            <input type="text" name="choix_date_name"> </td>
-        </tr>
+          <!-- Choix de la date -->
+          <tr>
+            <td class="invisible"> Date (JJ/MM/YY) </td>
+            <td class="invisible">
+              <input type="text" name="choix_date_name">
+            </td>
+          </tr>
         </table>
 
         <!-- Bonus biplace -->
@@ -122,8 +123,8 @@ Dans la partie droite on affichera les résutlats
     </p>
 
     <h2> Console </h2>
-      <p id="status">
-      En attente de la déclaration d'un vol...
+      <p id="zone_status">
+        En attente de la déclaration d'un vol...
       </p> <!-- Fin de status -->
 
 </div> <!-- Fin de div_gauche -->
@@ -132,7 +133,7 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Affichage des résultats </h2>
 
-    <p id="resultats">
+    <p id="zone_resultats">
     <!--
         Au chargement de la page, on recupere les tables dans la base de donnees
         et on affiche directement le tableau des resultats. Ensuite les mises a jour
