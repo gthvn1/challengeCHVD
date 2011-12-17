@@ -27,7 +27,7 @@ function select_sommets($dbh, $massif)
     echo '<select name="choix_sommet_name">';
     echo '<option value="0"> Nouveau Sommet </option>';
     foreach ($res as $sommet) {
-        echo '<option value="', $sommet['sid'], '>', $sommet['nom'], '</option>';
+        echo '<option value="', $sommet['sid'], '">', $sommet['nom'], '</option>';
     }
     echo '</select>';
     echo '</td>';
