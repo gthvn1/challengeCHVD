@@ -2,7 +2,7 @@
 
 function choix_sommets($dbh, $massif)
 {
-    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ?');
+    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ? ORDER BY nom');
 //    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ?');
     $qry->execute(array($massif));
     $res = $qry->fetchAll();
@@ -10,7 +10,7 @@ function choix_sommets($dbh, $massif)
 
     echo '<td class="invisible"> Choix du sommet </td>';
     echo '<td class="invisible">';
-    echo '<select name="sommet">';
+    echo '<select name="choix_sommet_name">';
     echo '<option value="0"> Nouveau Sommet </option>';
     foreach ($res as $sommet) {
         echo '<option value="', $sommet['sid'], '>', $sommet['nom'], '</option>';

@@ -71,17 +71,19 @@ Dans la partie droite on affichera les résutlats
     </p>
 
     <p id="saisie">
-      <form id="saisieVolrando">
+      <form id="formulaire_volrando">
         <table class="invisible">
 
         <tr> <!-- Choix du massif -->
             <?php
                 $dbh = new PDO('sqlite:challengeCHVD.sqlite3');
-                $result = $dbh->query('SELECT * FROM massifs');
+                $result = $dbh->query('SELECT * FROM massifs ORDER BY nom');
 
                 echo '<td class="invisible"> Choix du massif </td>';
                 echo '<td class="invisible">';
-                echo '<select name="massif" id="choixMassif" onChange="menu_deroulant_sommets()">';
+                echo '<select id="choix_massif_id" 
+                              name="choix_massif_name"
+                              onChange="gmd_sommets()">';
                 echo '<option> Nouveau Massif </option>';
                 foreach ($result as $massif) {
                     echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
@@ -92,13 +94,21 @@ Dans la partie droite on affichera les résutlats
             ?>
         </tr>
 
-        <tr id="sommet">
+        <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix 
+                                          du massif -->
+            
+          <td class="invisible"> Choix du sommet </td>
+          <td class="invisible">
+            <select name="choix_sommet_name">
+            <option value="0">----------</option>
+            </select>
+          </td>
         </tr>
 
         <tr> <!-- Choix du pilote -->
           <td class="invisible"> Pilote </td>
           <td class="invisible">
-            <select name="pilote">
+            <select name="choix_pilote_name">
             <option value="0">Nouveau pilote</option>
             <option value="1">Guillaume</option>
             <option value="2">MisterX</option>
@@ -110,22 +120,23 @@ Dans la partie droite on affichera les résutlats
         <!-- Choix de la date -->
         <tr>
           <td class="invisible"> Date (JJ/MM/YY) </td>
-          <td class="invisible"> <input type="text" name="datevol" id="datevol"> </td>
+          <td class="invisible">
+            <input type="text" name="choix_date_name"> </td>
         </tr>
         </table>
 
         <!-- Bonus biplace -->
-        <input type="checkbox" name="biplace" />
+        <input type="checkbox" name="choix_biplace_name" />
         Vol effectué en biplace (1 point de bonus)<br />
 
         <!-- Info sur mobilite douce -->
-        <input type="checkbox" name="mobilitedouce" />
+        <input type="checkbox" name="choix_mobilitedouce_name" />
         Vol effectué en mobilité dite douce (c'est à titre indicatif)<br />
 
 		<br />
         Un commentaire sur le vol <br />
         (sur une seule ligne mais qui peut être longue) <br />
-        <input type="text" size=40 name="commentaire" />
+        <input type="text" size=40 name="choix_commentaire_name" />
         <br />
 
         <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">

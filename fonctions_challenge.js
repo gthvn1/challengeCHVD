@@ -1,4 +1,9 @@
-function menu_deroulant_sommets()
+/********************************************************************
+ * Les fonctions gmd_ sont les fonctions de Generation de Menus
+ * Deroulants
+ */
+
+function gmd_sommets()
 {
     var xhr;
 
@@ -17,7 +22,7 @@ function menu_deroulant_sommets()
     {
         if (xhr.readyState == 4) {
             if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById('sommet').innerHTML = xhr.responseText;
+                document.getElementById('zone_saisie_sommet').innerHTML = xhr.responseText;
             } else {
                 alert('Error choix sommet: status =' + xhr.status);
             }
@@ -25,13 +30,16 @@ function menu_deroulant_sommets()
     }
 
     // true => mode de transfert asynchrone
-    var e =  document.getElementById("choixMassif");
+    var e =  document.getElementById("choix_massif_id");
     xhr.open("GET","server_queries.php?param=choix_sommets&massif=" + e.selectedIndex, true);
     xhr.send();
 }
 
 
-/*
+/********************************************************************
+ *
+ * Fonctions d'envoie des requetes au serveur
+ *
  * On recupere nos quatre tables sous forme de chaine JSON
  * pour pouvoir les manipuler cote client.
  * On recupere ces valeurs des le chargement de la page. On
@@ -69,23 +77,26 @@ function ask_to_server(arg)
     xhr.send();
 }
 
-/*
+/********************************************************************
+ *
+ * Fonction de validation des champs du volrando declare
+ *
  * Cette fonction permet de valider un minimum les donnees passees
  * en parametre du vol rando avant d'envoyer la requete d'ajout
  * dans la base de donnee au serveur
  */
 function check_volrando()
 {
-    var x = document.getElementById("saisieVolrando"),
+    var x = document.getElementById("formulaire_volrando"),
         monTexte = "  <b> VERIFICATION DU VOL </b> <br />";
 
-    var massif   = x.elements["massif"],
-        sommet   = x.elements["sommet"],
-        pilote   = x.elements["pilote"],
-        datevol  = x.elements["datevol"],
-        biplace  = x.elements["biplace"],
-        mobdouce = x.elements["mobilitedouce"],
-        comment  = x.elements["commentaire"];
+    var massif   = x.elements["choix_massif_name"],
+        sommet   = x.elements["choix_sommet_name"],
+        pilote   = x.elements["choix_pilote_name"],
+        datevol  = x.elements["choix_date_name"],
+        biplace  = x.elements["choix_biplace_name"],
+        mobdouce = x.elements["choix_mobilitedouce_name"],
+        comment  = x.elements["choix_commentaire_name"];
 
     monTexte = monTexte  +
         massif.name   + ' : ' + massif.selectedIndex + '<br />' +
