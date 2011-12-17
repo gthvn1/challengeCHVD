@@ -54,6 +54,10 @@ p {
     width: 90%;
 }
 
+p.invalide {
+    color: red;
+}
+
 h1 {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 18px;

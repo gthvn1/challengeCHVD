@@ -142,10 +142,27 @@ function ask_to_server(arg)
  * en parametre du vol rando avant d'envoyer la requete d'ajout
  * dans la base de donnee au serveur
  */
+function check_number(n)
+{
+    if (isNaN(n) || n == 0)
+        return false;
+    else
+        return true;
+}
+
+// on verifie seulement si la string n'est pas vide
+function check_date(d)
+{
+    if (d)
+        return true;
+    else
+        return false;
+}
+
 function check_volrando()
 {
     var x = document.getElementById("formulaire_volrando"),
-        monTexte = "  <b> VERIFICATION DU VOL </b> <br />";
+        volvalide, monTexte;
 
     // x contient tous les elements dans la FORM
     var e_massif   = x.elements["choix_massif_name"],
@@ -155,20 +172,52 @@ function check_volrando()
         e_biplace  = x.elements["choix_biplace_name"],
         e_mobdouce = x.elements["choix_mobilitedouce_name"],
         e_comment  = x.elements["choix_commentaire_name"];
-   
-    // on recupere les index de selection pour les trois listes 
-    var si_massif = e_massif.selectedIndex;
-        si_sommet = e_sommet.selectedIndex;
+
+    // on recupere les index de selection pour les trois listes
+    var si_massif = e_massif.selectedIndex,
+        si_sommet = e_sommet.selectedIndex,
         si_pilote = e_pilote.selectedIndex;
 
+    var mid = Number(e_massif.options[si_massif].value),
+        sid = Number(e_massif.options[si_sommet].value),
+        pid = Number(e_massif.options[si_pilote].value),
+        datevol = e_datevol.value,
+        biplace = (e_biplace.checked)  ? 1 : 0,
+        mobdouce = (e_mobdouce.checked) ? 1 : 0,
+        comment = e_comment.value;
+
+    if (check_number(mid) && check_number(sid) && check_number(pid) && check_date(datevol)) {
+        monTexte = ' <p> VOTRE VOL A ETE VALIDE </p>';
+        volvalide = true;
+     } else {
+        monTexte = ' <p class="invalide"> VOTRE VOL EST INVALIDE </p>';
+        volvalide = false;
+     }
+
+    if (check_number(mid))
+        monTexte += '<p> Massif ID #' + mid + ' : OK  </p>';
+    else
+        monTexte += '<p class="invalide"> Massif ID #' + mid + ' : KO </p>';
+
+    if (check_number(sid))
+        monTexte += '<p> Sommet ID #' + sid + ' : OK  </p>';
+    else
+        monTexte += '<p class="invalide"> Sommet ID #' + sid + ' : KO </p>';
+
+    if (check_number(pid))
+        monTexte += '<p> Pilot ID #' + pid + ' : OK  </p>';
+    else
+        monTexte += '<p class="invalide"> Pilot ID #' + pid + ' : KO </p>';
+
+    if (check_date(datevol))
+        monTexte += '<p> Date' + datevol + ' : OK </p>';
+    else
+        monTexte += '<p class="invalide"> Date ' + datevol + ' : KO </p>';
+
     monTexte = monTexte  +
-        'Massif ID : ' + e_massif.options[si_massif].value + '<br />' +
-        'Sommet ID : ' + e_sommet.options[si_sommet].value + '<br />' +
-        'Pilote ID : ' + e_pilote.options[si_pilote].value + '<br />' +
-        'Date vol : ' + e_datevol.value        + '<br />' +
-        'Biplace : ' + e_biplace.checked      + '<br />' +
-        'Mobilite douce : ' + e_mobdouce.checked     + '<br />' +
-        'Commentaire : ' + e_comment.value        + '<br />';
+        '<p> Biplace : '   + biplace + '</p>' +
+        '<p> Mobilite douce : ' + mobdouce + '</p>' +
+        '<p> Commentaire : ' + comment + '</p>';
 
     //alert(monTexte);
     document.getElementById('zone_status').innerHTML= monTexte;
