@@ -93,7 +93,7 @@ function gmd_sommets()
 
     // true => mode de transfert asynchrone
     var e =  document.getElementById("choix_massif_id");
-    xhr.open("GET","server_queries.php?param=select_sommets&massif=" + e.selectedIndex, true);
+    xhr.open("GET","server_queries.php?param=select_sommets&massif=" + e.options[e.selectedIndex].value, true);
     xhr.send();
 }
 
