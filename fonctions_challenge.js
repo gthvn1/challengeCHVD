@@ -178,6 +178,7 @@ function check_volrando()
         si_sommet = e_sommet.selectedIndex,
         si_pilote = e_pilote.selectedIndex;
 
+    // et maintenant on peut recuperer les valeurs
     var mid = Number(e_massif.options[si_massif].value),
         sid = Number(e_massif.options[si_sommet].value),
         pid = Number(e_massif.options[si_pilote].value),
