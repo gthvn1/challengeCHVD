@@ -140,7 +140,7 @@ try {
     if (0 == strcmp($val, "select_pilotes")) {
         select_pilotes($dbh);
     }
-    if (0 == strcmp($val, "select_massifs")) {
+    elseif (0 == strcmp($val, "select_massifs")) {
         select_massifs($dbh);
     }
     elseif (0 == strcmp($val, "select_sommets")) {
