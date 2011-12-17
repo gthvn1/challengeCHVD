@@ -84,7 +84,7 @@ Dans la partie droite on affichera les résutlats
             <td class="invisible"> Choix du sommet </td>
             <td class="invisible">
               <select name="choix_sommet_name">
-                <option value="0">----------</option>
+                <option value="none"> ------------- </option>;
               </select>
             </td>
           </tr>

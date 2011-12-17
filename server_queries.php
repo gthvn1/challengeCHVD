@@ -7,7 +7,8 @@ function select_massifs($dbh)
     echo '<td class="invisible"> Choix du massif </td>';
     echo '<td class="invisible">';
     echo '<select id="choix_massif_id" name="choix_massif_name" onChange="gmd_sommets()">';
-    echo '<option> Nouveau Massif </option>';
+    echo '<option value="none"> ------------- </option>';
+    echo '<option value="0"> Nouveau Massif </option>';
     foreach ($res as $massif) {
         echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
     }
@@ -25,6 +26,7 @@ function select_sommets($dbh, $massif)
     echo '<td class="invisible"> Choix du sommet </td>';
     echo '<td class="invisible">';
     echo '<select name="choix_sommet_name">';
+    echo '<option value="none"> ------------- </option>';
     echo '<option value="0"> Nouveau Sommet </option>';
     foreach ($res as $sommet) {
         echo '<option value="', $sommet['sid'], '">', $sommet['nom'], '</option>';
@@ -40,7 +42,8 @@ function select_pilotes($dbh)
     echo '<td class="invisible"> Choix du pilote </td>';
     echo '<td class="invisible">';
     echo '<select id="choix_pilote_id" name="choix_pilote_name">';
-    echo '<option> Nouveau pilote </option>';
+    echo '<option value="none"> ------------- </option>';
+    echo '<option value="0"> Nouveau pilote </option>';
     foreach ($res as $pilote) {
         echo '<option value="', $pilote['pid'], '">', $pilote['pseudo'], '</option>';
     }

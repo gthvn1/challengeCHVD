@@ -148,22 +148,28 @@ function check_volrando()
     var x = document.getElementById("formulaire_volrando"),
         monTexte = "  <b> VERIFICATION DU VOL </b> <br />";
 
-    var massif   = x.elements["choix_massif_name"],
-        sommet   = x.elements["choix_sommet_name"],
-        pilote   = x.elements["choix_pilote_name"],
-        datevol  = x.elements["choix_date_name"],
-        biplace  = x.elements["choix_biplace_name"],
-        mobdouce = x.elements["choix_mobilitedouce_name"],
-        comment  = x.elements["choix_commentaire_name"];
+    // x contient tous les elements dans la FORM
+    var e_massif   = x.elements["choix_massif_name"],
+        e_sommet   = x.elements["choix_sommet_name"],
+        e_pilote   = x.elements["choix_pilote_name"],
+        e_datevol  = x.elements["choix_date_name"],
+        e_biplace  = x.elements["choix_biplace_name"],
+        e_mobdouce = x.elements["choix_mobilitedouce_name"],
+        e_comment  = x.elements["choix_commentaire_name"];
+   
+    // on recupere les index de selection pour les trois listes 
+    var si_massif = e_massif.selectedIndex;
+        si_sommet = e_sommet.selectedIndex;
+        si_pilote = e_pilote.selectedIndex;
 
     monTexte = monTexte  +
-        massif.name   + ' : ' + massif.selectedIndex + '<br />' +
-        sommet.name   + ' : ' + sommet.selectedIndex + '<br />' +
-        pilote.name   + ' : ' + pilote.selectedIndex + '<br />' +
-        datevol.name  + ' : ' + datevol.value        + '<br />' +
-        biplace.name  + ' : ' + biplace.checked      + '<br />' +
-        mobdouce.name + ' : ' + mobdouce.checked     + '<br />' +
-        comment.name  + ' : ' + comment.value        + '<br />';
+        'Massif ID : ' + e_massif.options[si_massif].value + '<br />' +
+        'Sommet ID : ' + e_sommet.options[si_sommet].value + '<br />' +
+        'Pilote ID : ' + e_pilote.options[si_pilote].value + '<br />' +
+        'Date vol : ' + e_datevol.value        + '<br />' +
+        'Biplace : ' + e_biplace.checked      + '<br />' +
+        'Mobilite douce : ' + e_mobdouce.checked     + '<br />' +
+        'Commentaire : ' + e_comment.value        + '<br />';
 
     //alert(monTexte);
     document.getElementById('zone_status').innerHTML= monTexte;
