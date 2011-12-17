@@ -68,35 +68,50 @@ function gmd_massifs()
 function gmd_sommets()
 {
     var xhr;
+    var e =  document.getElementById("choix_massif_id");
+    var mid = e.options[e.selectedIndex].value;
 
-    if (window.XMLHttpRequest) {
-        // Code for IE7+, firefox, Chrome, Opera, Safari
-        xhr = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        // code for IE6, IE5
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    if (mid == 0) {
+        alert("nouveau massif detecte");    
     } else {
-        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
-        return;
-    }
 
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState == 4) {
-            if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById('zone_saisie_sommet').innerHTML = xhr.responseText;
-            } else {
-                alert('Error choix sommet: status =' + xhr.status);
+        if (window.XMLHttpRequest) {
+            // Code for IE7+, firefox, Chrome, Opera, Safari
+            xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            // code for IE6, IE5
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        } else {
+            alert("Votre navigateur ne supporte pas XMLHTTPRequest");
+            return;
+        }
+
+        xhr.onreadystatechange = function()
+        {
+            if (xhr.readyState == 4) {
+                if ((xhr.status == 200 || xhr.status == 0)) {
+                    document.getElementById('zone_saisie_sommet').innerHTML = xhr.responseText;
+                } else {
+                    alert('Error choix sommet: status =' + xhr.status);
+                }
             }
         }
-    }
 
-    // true => mode de transfert asynchrone
-    var e =  document.getElementById("choix_massif_id");
-    xhr.open("GET","server_queries.php?param=select_sommets&massif=" + e.options[e.selectedIndex].value, true);
-    xhr.send();
+        // true => mode de transfert asynchrone
+        xhr.open("GET","server_queries.php?param=select_sommets&massif=" + mid, true);
+        xhr.send();
+    }
 }
 
+function check_nouveau_sommet()
+{
+    var e =  document.getElementById("choix_sommet_id");
+    var sid = e.options[e.selectedIndex].value;
+
+    if (sid == 0) {
+        alert("nouveau sommet detecte");    
+    }
+}
 
 /********************************************************************
  * Fonctions d'envoie des requetes d'affichage des resultats au

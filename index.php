@@ -64,10 +64,17 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Zone de saisie des VolRandos </h2>
 
-    <p> Si votre sommet n'apparait pas dans la liste, soumettez votre vol
-	en choisissant l'option "Nouveau vol" (c'est l'option par défault. De
-	la même façon si vous n'apparaissez pas dans la liste des pilotes, vous
-	pouvez vous créer un profil en laissant l'option par défaut "Nouveau pilote".
+    <p> Si votre massif n'apparait pas dans la liste, soumettez votre vol
+    en choisissant "Nouveau Massif". Il vous sera alors proposé une zone
+    pour saisir le nom du nouveau massif et du nouveau sommet.
+    </p>
+    <p> Si le massif existe mais que le sommet n'est pas dans la liste,
+    choisissez l'option "Nouveau Sommet". Vous pourrez alors rentrer votre
+    sommet.
+    </p>
+    <p> Si vous n'êtes pas encore enregistré, votre nom n'appararîtera pas dans
+    la liste. Choisissez "Nouveau Pilote" et entrer au moins un pseudo. C'est lui
+    qui sera affiché dans le tableau des résultats.
     </p>
 
     <p id="saisie">
@@ -80,13 +87,13 @@ Dans la partie droite on affichera les résutlats
             </script>
           </tr>
 
+          <tr id="zone_saisie_nouveau_massif">
+          </tr>
+
           <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix du massif -->
-            <td class="invisible"> Choix du sommet </td>
-            <td class="invisible">
-              <select name="choix_sommet_name">
-                <option value="none"> ------------- </option>;
-              </select>
-            </td>
+          </tr>
+          
+          <tr id="zone_saisie_nouveau_sommet">
           </tr>
 
           <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
@@ -95,8 +102,10 @@ Dans la partie droite on affichera les résutlats
             </script>
           </tr>
 
-          <!-- Choix de la date -->
-          <tr>
+          <tr id="zone_saisie_nouveau_pilote">
+          </tr>
+
+          <tr> <!-- Choix de la date -->
             <td class="invisible"> Date (JJ/MM/YY) </td>
             <td class="invisible">
               <input type="text" name="choix_date_name">

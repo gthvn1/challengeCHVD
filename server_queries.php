@@ -22,10 +22,9 @@ function select_sommets($dbh, $massif)
     $qry->execute(array($massif));
     $res = $qry->fetchAll();
 
-
     echo '<td class="invisible"> Choix du sommet </td>';
     echo '<td class="invisible">';
-    echo '<select name="choix_sommet_name">';
+    echo '<select id="choix_sommet_id" name="choix_sommet_name" onChange="check_nouveau_sommet()">';
     echo '<option value="none"> ------------- </option>';
     echo '<option value="0"> Nouveau Sommet </option>';
     foreach ($res as $sommet) {
