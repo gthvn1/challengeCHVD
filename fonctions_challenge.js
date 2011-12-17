@@ -99,7 +99,6 @@ function gmd_sommets()
 
 
 /********************************************************************
- *
  * Fonctions d'envoie des requetes d'affichage des resultats au
  * serveur
  */

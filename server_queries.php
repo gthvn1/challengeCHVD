@@ -123,12 +123,24 @@ function volrandos_to_html($dbh)
 
     echo '<table>';
     echo '<tr>';
+    echo '<th> Vol ID </th>';
+    echo '<th> Sommet ID </th>';
+    echo '<th> Pilote ID </th>';
     echo '<th> Date </th>';
+    echo '<th> Biplace </th>';
+    echo '<th> Carbone </th>';
+    echo '<th> Commentaire </th>';
     echo '</tr>';
 
     foreach ($result as $volrando) {
         echo '<tr>';
+        echo '<td>', $volrando['vid'], '</td>';
+        echo '<td>', $volrando['sid'], '</td>';
+        echo '<td>', $volrando['pid'], '</td>';
         echo '<td>', $volrando['date'], '</td>';
+        echo '<td>', $volrando['biplace'], '</td>';
+        echo '<td>', $volrando['carbone'], '</td>';
+        echo '<td>', $volrando['commentaire'], '</td>';
         echo '</tr>';
     }
     echo '</table>';
