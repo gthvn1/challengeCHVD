@@ -3,6 +3,68 @@
  * Deroulants
  */
 
+function gmd_pilotes()
+{
+    var xhr;
+
+    if (window.XMLHttpRequest) {
+        // Code for IE7+, firefox, Chrome, Opera, Safari
+        xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        // code for IE6, IE5
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
+        return;
+    }
+
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState == 4) {
+            if ((xhr.status == 200 || xhr.status == 0)) {
+                document.getElementById('zone_saisie_pilote').innerHTML = xhr.responseText;
+            } else {
+                alert('Error choix pilote: status =' + xhr.status);
+            }
+        }
+    }
+
+    // true => mode de transfert asynchrone
+    xhr.open("GET","server_queries.php?param=select_pilotes", true);
+    xhr.send();
+}
+
+function gmd_massifs()
+{
+    var xhr;
+
+    if (window.XMLHttpRequest) {
+        // Code for IE7+, firefox, Chrome, Opera, Safari
+        xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        // code for IE6, IE5
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
+        return;
+    }
+
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState == 4) {
+            if ((xhr.status == 200 || xhr.status == 0)) {
+                document.getElementById('zone_saisie_massif').innerHTML = xhr.responseText;
+            } else {
+                alert('Error choix massif: status =' + xhr.status);
+            }
+        }
+    }
+
+    // true => mode de transfert asynchrone
+    xhr.open("GET","server_queries.php?param=select_massifs", true);
+    xhr.send();
+}
+
 function gmd_sommets()
 {
     var xhr;
@@ -31,7 +93,7 @@ function gmd_sommets()
 
     // true => mode de transfert asynchrone
     var e =  document.getElementById("choix_massif_id");
-    xhr.open("GET","server_queries.php?param=choix_sommets&massif=" + e.selectedIndex, true);
+    xhr.open("GET","server_queries.php?param=select_sommets&massif=" + e.selectedIndex, true);
     xhr.send();
 }
 

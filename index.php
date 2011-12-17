@@ -74,29 +74,13 @@ Dans la partie droite on affichera les résutlats
       <form id="formulaire_volrando">
         <table class="invisible">
 
-        <tr> <!-- Choix du massif -->
-            <?php
-                $dbh = new PDO('sqlite:challengeCHVD.sqlite3');
-                $result = $dbh->query('SELECT * FROM massifs ORDER BY nom');
-
-                echo '<td class="invisible"> Choix du massif </td>';
-                echo '<td class="invisible">';
-                echo '<select id="choix_massif_id" 
-                              name="choix_massif_name"
-                              onChange="gmd_sommets()">';
-                echo '<option> Nouveau Massif </option>';
-                foreach ($result as $massif) {
-                    echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
-                }
-                echo '</select>';
-                echo '</td>';
-                $dbh = null;
-            ?>
+        <tr id="zone_saisie_massif"> <!-- Choix du massif -->
+            <script type="text/javascript">
+                gmd_massifs();
+            </script>
         </tr>
 
-        <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix 
-                                          du massif -->
-            
+        <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix du massif -->
           <td class="invisible"> Choix du sommet </td>
           <td class="invisible">
             <select name="choix_sommet_name">
@@ -105,16 +89,10 @@ Dans la partie droite on affichera les résutlats
           </td>
         </tr>
 
-        <tr> <!-- Choix du pilote -->
-          <td class="invisible"> Pilote </td>
-          <td class="invisible">
-            <select name="choix_pilote_name">
-            <option value="0">Nouveau pilote</option>
-            <option value="1">Guillaume</option>
-            <option value="2">MisterX</option>
-            <option value="3">Toto</option>
-            </select>
-          </td>
+        <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
+          <script type="text/javascript">
+              gmd_pilotes();
+          </script>
         </tr>
 
         <!-- Choix de la date -->

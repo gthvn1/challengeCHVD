@@ -1,6 +1,21 @@
 <?php
 
-function choix_sommets($dbh, $massif)
+function select_massifs($dbh)
+{
+    $res = $dbh->query('SELECT * FROM massifs ORDER BY nom');
+
+    echo '<td class="invisible"> Choix du massif </td>';
+    echo '<td class="invisible">';
+    echo '<select id="choix_massif_id" name="choix_massif_name" onChange="gmd_sommets()">';
+    echo '<option> Nouveau Massif </option>';
+    foreach ($res as $massif) {
+        echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
+    }
+    echo '</select>';
+    echo '</td>';
+}
+
+function select_sommets($dbh, $massif)
 {
     $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ? ORDER BY nom');
 //    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ?');
@@ -14,6 +29,21 @@ function choix_sommets($dbh, $massif)
     echo '<option value="0"> Nouveau Sommet </option>';
     foreach ($res as $sommet) {
         echo '<option value="', $sommet['sid'], '>', $sommet['nom'], '</option>';
+    }
+    echo '</select>';
+    echo '</td>';
+}
+
+function select_pilotes($dbh)
+{
+    $res = $dbh->query('SELECT * FROM pilotes ORDER BY pseudo');
+
+    echo '<td class="invisible"> Choix du pilote </td>';
+    echo '<td class="invisible">';
+    echo '<select id="choix_pilote_id" name="choix_pilote_name">';
+    echo '<option> Nouveau pilote </option>';
+    foreach ($res as $pilote) {
+        echo '<option value="', $pilote['pid'], '">', $pilote['pseudo'], '</option>';
     }
     echo '</select>';
     echo '</td>';
@@ -106,8 +136,14 @@ try {
     $val =  $_GET['param'];
     $massif =  $_GET['massif'];
 
-    if (0 == strcmp($val, "choix_sommets")) {
-        choix_sommets($dbh, $massif);
+    if (0 == strcmp($val, "select_pilotes")) {
+        select_pilotes($dbh);
+    }
+    if (0 == strcmp($val, "select_massifs")) {
+        select_massifs($dbh);
+    }
+    elseif (0 == strcmp($val, "select_sommets")) {
+        select_sommets($dbh, $massif);
     }
     elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);
