@@ -78,13 +78,14 @@ function gmd_massifs()
  */
 function gmd_sommets()
 {
-    var xhr = getXhr();
     var e =  document.getElementById("choix_massif_id");
     var mid = e.options[e.selectedIndex].value;
 
     if (mid == 0) {
         alert("nouveau massif detecte");
     } else {
+    
+        var xhr = getXhr();
 
         xhr.onreadystatechange = function()
         {
@@ -114,7 +115,23 @@ function check_nouveau_sommet()
     var sid = e.options[e.selectedIndex].value;
 
     if (sid == 0) {
-        alert("nouveau sommet detecte");
+        var xhr = getXhr();
+
+        xhr.onreadystatechange = function()
+        {
+            if (xhr.readyState == 4) {
+                if ((xhr.status == 200 || xhr.status == 0)) {
+                    document.getElementById('zone_saisie_nouveau_sommet').innerHTML = 
+                        xhr.responseText;
+                } else {
+                    alert('Error choix nouveau sommet: status =' + xhr.status);
+                }
+            }
+        }
+
+        // true => mode de transfert asynchrone
+        xhr.open("GET","server_queries.php?param=text_nouveau_sommet", true);
+        xhr.send();
     }
 }
 
@@ -174,13 +191,15 @@ function check_volrando()
         volvalide, monTexte;
 
     // x contient tous les elements dans la FORM
-    var e_massif   = x.elements["choix_massif_name"],
-        e_sommet   = x.elements["choix_sommet_name"],
-        e_pilote   = x.elements["choix_pilote_name"],
-        e_datevol  = x.elements["choix_date_name"],
-        e_biplace  = x.elements["choix_biplace_name"],
-        e_mobdouce = x.elements["choix_mobilitedouce_name"],
-        e_comment  = x.elements["choix_commentaire_name"];
+    var e_massif            = x.elements["choix_massif_name"],
+        e_nouveau_massif    = x.elements["choix_nouveau_massif_name"],
+        e_sommet            = x.elements["choix_sommet_name"],
+        e_nouveau_sommet    = x.elements["choix_nouveau_sommet_name"],
+        e_pilote            = x.elements["choix_pilote_name"],
+        e_datevol           = x.elements["choix_date_name"],
+        e_biplace           = x.elements["choix_biplace_name"],
+        e_mobdouce          = x.elements["choix_mobilitedouce_name"],
+        e_comment           = x.elements["choix_commentaire_name"];
 
     // on recupere les index de selection pour les trois listes
     var si_massif = e_massif.selectedIndex,
@@ -213,6 +232,11 @@ function check_volrando()
         monTexte += '<p> Sommet ID #' + sid + ' : OK  </p>';
     else
         monTexte += '<p class="invalide"> Sommet ID #' + sid + ' : KO </p>';
+
+    if (e_nouveau_sommet)
+        monTexte += '<p> Nouveau sommet => ' + e_nouveau_sommet.value+ ' </p>';
+    else
+        monTexte += '<p> Pas de nouveau sommet </p>';
 
     if (check_number(pid))
         monTexte += '<p> Pilot ID #' + pid + ' : OK  </p>';

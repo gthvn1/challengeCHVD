@@ -50,6 +50,13 @@ function select_pilotes($dbh)
     echo '</td>';
 }
 
+function text_nouveau_sommet()
+{
+    echo '<td class="invisible"> Nouveau sommet </td> ';
+    echo '<td class="invisible">';
+    echo '<input type="text" name="choix_nouveau_sommet_name" />';
+    echo '</td>';
+}
 
 function pilotes_to_html($dbh)
 {
@@ -160,6 +167,9 @@ try {
     elseif (0 == strcmp($val, "select_sommets")) {
         select_sommets($dbh, $massif);
     }
+    elseif (0 == strcmp($val, "text_nouveau_sommet")) {
+        text_nouveau_sommet();
+    }
     elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);
     }
@@ -169,8 +179,11 @@ try {
     elseif (0 == strcmp($val, "sommets")) {
        sommets_to_html($dbh);
     }
-    else {
+    elseif (0 == strcmp($val, "volrandos")) {
         volrandos_to_html($dbh);
+    }
+    else {
+        echo '<p class="invalide"> LE SERVEUR NE PEUT REPONDRE A VOTRE DEMANDE </p>';
     }
 
     $dbh = NULL;
