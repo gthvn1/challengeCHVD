@@ -1,22 +1,34 @@
 /********************************************************************
+ * Fonction qui créer l'objet XmlHttpRequest.
+ */
+
+function getXhr()
+{
+    var xhr = null;
+    if(window.XMLHttpRequest) // Firefox et autres
+        xhr = new XMLHttpRequest();
+    else if(window.ActiveXObject){ // Internet Explorer
+        try {
+            xhr = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+    else { // XMLHttpRequest non supporté par le navigateur
+        alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
+        xhr = false;
+    }
+    return xhr
+}
+
+/********************************************************************
  * Les fonctions gmd_ sont les fonctions de Generation de Menus
  * Deroulants
  */
 
 function gmd_pilotes()
 {
-    var xhr;
-
-    if (window.XMLHttpRequest) {
-        // Code for IE7+, firefox, Chrome, Opera, Safari
-        xhr = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        // code for IE6, IE5
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    } else {
-        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
-        return;
-    }
+    var xhr = getXhr();
 
     xhr.onreadystatechange = function()
     {
@@ -36,18 +48,7 @@ function gmd_pilotes()
 
 function gmd_massifs()
 {
-    var xhr;
-
-    if (window.XMLHttpRequest) {
-        // Code for IE7+, firefox, Chrome, Opera, Safari
-        xhr = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        // code for IE6, IE5
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    } else {
-        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
-        return;
-    }
+    var xhr = getXhr();
 
     xhr.onreadystatechange = function()
     {
@@ -67,24 +68,13 @@ function gmd_massifs()
 
 function gmd_sommets()
 {
-    var xhr;
+    var xhr = getXhr();
     var e =  document.getElementById("choix_massif_id");
     var mid = e.options[e.selectedIndex].value;
 
     if (mid == 0) {
-        alert("nouveau massif detecte");    
+        alert("nouveau massif detecte");
     } else {
-
-        if (window.XMLHttpRequest) {
-            // Code for IE7+, firefox, Chrome, Opera, Safari
-            xhr = new XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            // code for IE6, IE5
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        } else {
-            alert("Votre navigateur ne supporte pas XMLHTTPRequest");
-            return;
-        }
 
         xhr.onreadystatechange = function()
         {
@@ -109,7 +99,7 @@ function check_nouveau_sommet()
     var sid = e.options[e.selectedIndex].value;
 
     if (sid == 0) {
-        alert("nouveau sommet detecte");    
+        alert("nouveau sommet detecte");
     }
 }
 
@@ -120,18 +110,7 @@ function check_nouveau_sommet()
 
 function ask_to_server(arg)
 {
-    var xhr;
-
-    if (window.XMLHttpRequest) {
-        // Code for IE7+, firefox, Chrome, Opera, Safari
-        xhr = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        // code for IE6, IE5
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    } else {
-        alert("Votre navigateur ne supporte pas XMLHTTPRequest");
-        return;
-    }
+    var xhr = getXhr();
 
     xhr.onreadystatechange = function()
     {
@@ -205,10 +184,10 @@ function check_volrando()
     if (check_number(mid) && check_number(sid) && check_number(pid) && check_date(datevol)) {
         monTexte = ' <p> VOTRE VOL A ETE VALIDE </p>';
         volvalide = true;
-     } else {
+    } else {
         monTexte = ' <p class="invalide"> VOTRE VOL EST INVALIDE </p>';
         volvalide = false;
-     }
+    }
 
     if (check_number(mid))
         monTexte += '<p> Massif ID #' + mid + ' : OK  </p>';
