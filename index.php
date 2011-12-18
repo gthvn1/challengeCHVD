@@ -126,7 +126,12 @@ Dans la partie droite on affichera les résutlats
             </script>
           </tr>
 
-          <tr id="zone_saisie_nouveau_pilote"> </tr>
+          <tr id="zone_saisie_nouveau_pilote">
+            <td class="invisible"> Nouveau pilote </td> 
+            <td class="invisible">
+              <input type="text" name="choix_nouveau_pilote_name" />
+            </td>
+          </tr>
 
           <tr> <!-- Choix de la date -->
             <td class="invisible"> Date (JJ/MM/YY) </td>

@@ -38,9 +38,8 @@ function select_pilotes($dbh)
 
     echo '<td class="invisible"> Choix du pilote </td>';
     echo '<td class="invisible">';
-    echo '<select id="choix_pilote_id" name="choix_pilote_name">';
-    echo '<option value="none"> ------------- </option>';
-    echo '<option value="0"> Nouveau pilote </option>';
+    echo '<select id="choix_pilote_id" name="choix_pilote_name" onChange="pilote_selected()">';
+    echo '<option value="0"> selectionner un pilote </option>';
     foreach ($res as $pilote) {
         echo '<option value="', $pilote['pid'], '">', $pilote['pseudo'], '</option>';
     }

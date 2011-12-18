@@ -142,6 +142,21 @@ function sommet_selected()
         enable_saisie_nouveau_massif(false);
 }
 
+/*
+ * Cette fonction est appelee lorsqu'un pilote a ete selectionne. Il faut donc griser
+ * la zone de saisie du nouveau pilote.
+ */
+function pilote_selected()
+{
+    var e =  document.getElementById("choix_pilote_id");
+    var pid = e.options[e.selectedIndex].value;
+
+
+    // si pid != 0 on grise le nouveau pilote
+    document.getElementById('zone_saisie_nouveau_pilote').innerHTML = 
+        enable_saisie_nouveau_pilote(pid == 0);
+}
+
 function disable_saisie_sommet()
 {
     var text;
@@ -211,6 +226,22 @@ function enable_saisie_sommet_commentaire(choix)
     text += '<td class="invisible">';
     if (choix) {
         text += '<input type="text" name="choix_sommet_commentaire_name" />';
+    } else {
+        text += '<input type="text" disabled="disabled">';
+    }
+    text += '</td>';
+
+    return text;
+}
+
+function enable_saisie_nouveau_pilote(choix)
+{
+    var text;
+
+    text = '<td class="invisible"> Nouveau pilote </td>';
+    text += '<td class="invisible">';
+    if (choix) {
+        text += '<input type="text" name="choix_nouveau_pilote_name" />';
     } else {
         text += '<input type="text" disabled="disabled">';
     }
