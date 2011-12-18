@@ -3,30 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title>README Challenge CHVD devel</title>
-    <style type="text/css">
-        body {
-            font-family: Georgia, "Times New Roman", Times, serif;
-            font-size: 14px; 
-            color: #121212;
-            background-color: #F9F9F9; 
-        }
-
-        h1 { 
-            font-family: Georgia, "Times New Roman", Times, serif; 
-            font-size: 18px; 
-            font-weight: bold; 
-            color: #000000; 
-        } 
-	
-        h2 { 
-            font-family: Georgia, "Times New Roman", Times, serif; 
-            font-size: 16px;
-            background: #5f9be3;
-            color: #fff;
-            font-weight: bold; 
-        }
-
-    </style>
+    <link rel="stylesheet" href="challenge.css">
 </head>
 <body>
 
@@ -36,9 +13,8 @@
 <p>
 L'idée à la base c'était de découvrir les différentes techniques pour avoir un site web dynamique.
 Il n'est donc pas impossible que certains choix techniques ne soient pas très appropriés. J'ai peut-être
-pris une hache pour couper du pain mais bon, ça coupe. <br />
-Le choix s'est donc porté sur du HTML et un peu d'AJAX pour le coté client ainsi que PHP et SQlite3 coté
-serveur. <br />
+pris une hache pour couper du pain mais bon, ça coupe. Je me suis donc mis à l'AJAX pour le coté client et
+la combinaison PHP plus SQlite3 du coté du serveur. <br />
 Le code est disponible sur <a href="https://github.com/gthouvenin/challengeCHVD">
 https://github.com/gthouvenin/challengeCHVD</a>.
 </p>
@@ -48,8 +24,8 @@ https://github.com/gthouvenin/challengeCHVD</a>.
 <ul>
     <li> Un script PHP permet de générer les différentes bases de données utilisées à partir du fichier CSV des
     sommets 2011. Ce script initialise les tables <b>SOMMETS</b> et <b>MASSIFS</b> décrites dans le point suivant.
-    Ce script est utilisé pour créer les tables intiales. Il est complètement indépendant du site web. D'ailleurs
-    il est appelé directement par la commande "php create_database.php".
+    Il est complètement indépendant du site web et n'a pas d'utilité autre que générer le fichier initial pour la
+    base de donnée. Il est appelé en mode console par la commande "php create_database.php".
     </li>
      
      <li> La tables utilisées sont les suivantes:<br>
@@ -85,13 +61,10 @@ https://github.com/gthouvenin/challengeCHVD</a>.
          </dl>
     </li>
     
-    <li> La page principale <i>index.php</i> est écrite en HTML avec un soupçon d'AJAX. J'utilise le javascript pour passer les requêtes au
-    serveur et valider certaines données. Sa mise en page et son contenu sont décrits dans <a href="#MiseEnPage">"Mise en page et contenu des pages"</a>.
+    <li> La page principale <i>index.php</i> est écrite en HTML. Les requêtes au serveur se font en AJAX. Les menus déroulants sont crées dynamiquement.
+    La gestion des différentes zones de saisies (grisées ou pas) et faite en javascript. La validation du vol rando passe également par du javascript.
+    La mise en page et son contenu sont décrits dans <a href="#MiseEnPage">"Mise en page et contenu des pages"</a>.
     </li>
-
-    <li> La saisie est pour l'instant récupérée via une fonction en javascript. Pour l'instant les infos sont affichées dans la zone
-    de "status".
-    </li>    
 </ul>
 
 </p>
@@ -100,13 +73,11 @@ https://github.com/gthouvenin/challengeCHVD</a>.
 
 <ul>
     <li> La vérification par la fonction check_volrando() des informations passées. Si les infos sont bonnes on envoit le vol au serveur pour
-    l'ajout dans la base de donnée.
+    l'ajout dans la base de donnée. Pour l'instant la vérification est minimaliste mais elle permet de voir si tout est correct. Le vol n'est
+    pas encore enregistré dans la base, il est simplement affiché dans la zone de la console.
     </li>
 
-    <li> L'affichage des vols et du classement. Pour l'instant on a une fonction qui affiche l'ensemble des sommets.
-    </li>
-
-    <li> Pouvoir afficher les résultats avec un ordre au choix (pilotes, sommets ou massifs).
+    <li> L'affichage des vols et du classement avec la possibilté de filtre et de tris.
     </li>
 
     <li> Améliorer le tout...
@@ -118,10 +89,10 @@ https://github.com/gthouvenin/challengeCHVD</a>.
 <p>
 J'ai tout séparé en trois pages. 
 <ul>
-    <li>Une page principale (HTML + JS) qui a pour but d'afficher le réglement, une zone de saisie et l'affichage des résultats. </li>
-    <li>Une page de réglement (HTML) qui affiche ... le réglement 2012</li>
-    <li>Des scripts PHP qui servent à interroger la base de données. Le résultat est envoyé au client via des requêtes 
-    XMLHttpRequest.</li>
+    <li> Une page principale (HTML + JS) qui a pour but d'afficher le réglement, une zone de saisie et l'affichage des résultats. </li>
+    <li> Une page de réglement (HTML) qui affiche ... le réglement 2012. </li>
+    <li> Des scripts PHP qui servent à interroger la base de données. Le résultat est envoyé au client via des requêtes 
+    XMLHttpRequest. </li>
 </ul>
 </p>
 
@@ -138,17 +109,24 @@ zone permettant d'afficher le copyright qui n'existe pas.
 
 <h4> Le contenu </h4>
 
-<p> C'est THE element de notre application. Il contient une partie gauche qui permettra de saisir les informations 
-du vol et une zone de droite permettant d'afficher les deux tableaux: classement général et liste de tous les vols.
+<p> C'est THE element de notre application. Il contient une partie gauche qui permet de saisir les informations 
+du vol et une zone de droite permettant d'afficher les résultats.
 </p>
+
+<h5> La zone de saisie du vol </h5>
+
+<p> A écrire ... </p>
+
+<h5> La zone d'affichage des résultats </h5>
+
+<p> A écrire ... </p>
 
 <h4> Le pied </h4>
 
-<p> Qui ne sert à rien. </p>
+<p> Qui ne sert à rien sauf à le prendre ...  </p>
 
 <h3> Le réglement </h3>
 
-<h3> La page de traitement des saisies des nouveaux sommets et des nouveaux pilotes </h3>
-
+<p> Le réglement qui n'est pas à jour. Pour l'instant c'est celui de 2011. Il reste à dsicuter des points de bonus. </p>
 </body>
 </html>
