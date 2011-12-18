@@ -72,9 +72,8 @@ function gmd_massifs()
 }
 
 /*
- * Cette fonction est appelee lorsqu'un massif a ete selectionne. Si le massif est
- * "nouveau" (c'est a dire avec un mid == 0) il va falloir creer deux nouvelles zones
- * de texte pour pouvoir saisir les noms du nouveau massif et du nouveau sommet.
+ * Cette fonction est appelee lorsqu'un massif a ete selectionne. Il faut donc griser
+ * la zone de saisie des nouveaux massifs.
  */
 function gmd_sommets()
 {
@@ -82,38 +81,144 @@ function gmd_sommets()
     var e =  document.getElementById("choix_massif_id");
     var mid = e.options[e.selectedIndex].value;
 
-    if (mid == 0) {
-        xhr.onreadystatechange = function()
-        {
-            if (xhr.readyState == 4) {
-                if ((xhr.status == 200 || xhr.status == 0)) {
-                    document.getElementById('zone_saisie_nouveau_massif').innerHTML = xhr.responseText;
-                } else {
-                    alert('Error choix sommet: status =' + xhr.status);
-                }
-            }
-        }
 
-        // true => mode de transfert asynchrone
-        xhr.open("GET","server_queries.php?param=text_nouveau_massif", true);
-        xhr.send();
+    document.getElementById('zone_saisie_nouveau_sommet').innerHTML = 
+        enable_saisie_nouveau_sommet(true);
+    
+    document.getElementById('zone_saisie_sommet_altitude').innerHTML = 
+        enable_saisie_sommet_altitude(true);
+
+    document.getElementById('zone_saisie_sommet_commentaire').innerHTML = 
+        enable_saisie_sommet_commentaire(true);
+
+    if (mid == 0 ) {
+        document.getElementById('zone_saisie_nouveau_massif').innerHTML = 
+            enable_saisie_nouveau_massif(true);
+
+        document.getElementById('zone_saisie_sommet').innerHTML =
+            disable_saisie_sommet(false);
     } else {
+        document.getElementById('zone_saisie_nouveau_massif').innerHTML = 
+            enable_saisie_nouveau_massif(false);
+
         xhr.onreadystatechange = function()
         {
             if (xhr.readyState == 4) {
                 if ((xhr.status == 200 || xhr.status == 0)) {
                     document.getElementById('zone_saisie_sommet').innerHTML = xhr.responseText;
                 } else {
-                    alert('Error choix sommet: status =' + xhr.status);
+                alert('Error choix sommet: status =' + xhr.status);
                 }
             }
         }
-
+        
         // true => mode de transfert asynchrone
         xhr.open("GET","server_queries.php?param=select_sommets&massif=" + mid, true);
         xhr.send();
     }
 }
+
+/*
+ * Cette fonction est appelee lorsqu'un sommet a ete selectionne. Il faut donc griser
+ * la zone de saisie des nouveaux sommets
+ */
+function sommet_selected()
+{
+    var e =  document.getElementById("choix_sommet_id");
+    var sid = e.options[e.selectedIndex].value;
+
+
+    // si sid != 0 on grise toutes les zones
+    document.getElementById('zone_saisie_nouveau_sommet').innerHTML = 
+        enable_saisie_nouveau_sommet(sid == 0);
+    
+    document.getElementById('zone_saisie_sommet_altitude').innerHTML = 
+        enable_saisie_sommet_altitude(sid == 0);
+
+    document.getElementById('zone_saisie_sommet_commentaire').innerHTML = 
+        enable_saisie_sommet_commentaire(sid == 0);
+
+    document.getElementById('zone_saisie_nouveau_massif').innerHTML = 
+        enable_saisie_nouveau_massif(false);
+}
+
+function disable_saisie_sommet()
+{
+    var text;
+
+    text =  '<td class="invisible"> Choix du sommet </td>';
+    text += '<td class="invisible">';
+    text += '  <select id="choix_sommet_id" disabled="disabled">';
+    text += '  <option> Choisir un massif </option>';
+    text += '</td>';
+
+    return text;
+}
+
+function enable_saisie_nouveau_massif(choix)
+{
+    var text;
+
+    text = '<td class="invisible"> Nouveau massif </td>';
+    text += '<td class="invisible">';
+    if (choix) {
+        text += '<input type="text" name="choix_nouveau_massif_name" />';
+    } else {
+        text += '<input type="text" disabled="disabled">';
+    }
+    text += '</td>';
+
+    return text;
+}
+
+function enable_saisie_nouveau_sommet(choix)
+{
+    var text;
+
+    text = '<td class="invisible"> Nouveau sommet </td>';
+    text += '<td class="invisible">';
+    if (choix) {
+        text += '<input type="text" name="choix_nouveau_sommet_name" />';
+    } else {
+        text += '<input type="text" disabled="disabled">';
+    }
+    text += '</td>';
+
+    return text;
+}
+
+function enable_saisie_sommet_altitude(choix)
+{
+    var text;
+
+    text = '<td class="invisible"> Altitude </td>';
+    text += '<td class="invisible">';
+    if (choix) {
+        text += '<input type="text" name="choix_sommet_altitude_name" />';
+    } else {
+        text += '<input type="text" disabled="disabled">';
+    }
+    text += '</td>';
+
+    return text;
+}
+
+function enable_saisie_sommet_commentaire(choix)
+{
+    var text;
+
+    text = '<td class="invisible"> Commentaire </td>';
+    text += '<td class="invisible">';
+    if (choix) {
+        text += '<input type="text" name="choix_sommet_commentaire_name" />';
+    } else {
+        text += '<input type="text" disabled="disabled">';
+    }
+    text += '</td>';
+
+    return text;
+}
+
 
 /********************************************************************
  * Fonctions d'envoie des requetes d'affichage des resultats au

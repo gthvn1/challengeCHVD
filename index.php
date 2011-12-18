@@ -64,13 +64,9 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Zone de saisie des VolRandos </h2>
 
-    <p> Si votre massif n'apparait pas dans la liste, soumettez votre vol
-    en choisissant "Nouveau Massif". Il vous sera alors proposé une zone
-    pour saisir le nom du nouveau massif et du nouveau sommet.
-    </p>
-    <p> Si le massif existe mais que le sommet n'est pas dans la liste,
-    choisissez l'option "Nouveau Sommet". Vous pourrez alors rentrer votre
-    sommet.
+    <p> Si votre massif ou votre sommet n'apparaissent pas dans la liste, n'hésitez
+    pas à le faire découvrir en l'ajoutant dans la liste des sommets. Vous aurez un
+    point de bonus. Pour cela utilisez la zone prévue à cette effet.
     </p>
     <p> Si vous n'êtes pas encore enregistré, votre nom n'appararîtera pas dans
     la liste. Choisissez "Nouveau Pilote" et entrer au moins un pseudo. C'est lui
@@ -88,34 +84,39 @@ Dans la partie droite on affichera les résutlats
           </tr>
           
           <tr id="zone_saisie_sommet">
-            <!-- la zone sera remplie lors du choix du massif -->
+            <!-- la zone sera mise a jour lors du choix du massif -->
+            <td class="invisible"> Choix du sommet </td>
+            <td class="invisible">
+                <select id="choix_sommet_id" disabled="disabled">
+                <option value="0"> Choisir un massif </option> 
+            </td>
           </tr>
 
-          <tr>
+          <tr id="zone_saisie_nouveau_massif">
             <td class="invisible"> Nouveau massif </td> 
             <td class="invisible">
                 <input type="text" name="choix_nouveau_massif_name" />
             </td>
           </tr>
 
-          <tr>
-            <td class="invisible"> Nom du sommet </td> 
+          <tr id="zone_saisie_nouveau_sommet">
+            <td class="invisible"> Nouveau sommet </td> 
             <td class="invisible">
               <input type="text" name="choix_nouveau_sommet_name" />
             </td>
           </tr>
 
-          <tr>
+          <tr id="zone_saisie_sommet_altitude">
             <td class="invisible"> Altitude </td> 
             <td class="invisible">
-              <input type="text" name="choix_nouveau_sommet_altitude_name" />
+              <input type="text" name="choix_sommet_altitude_name" />
             </td>
           </tr>
 
-          <tr>
+          <tr id="zone_saisie_sommet_commentaire">
             <td class="invisible"> Commentaire </td> 
             <td class="invisible">
-              <input type="text" name="choix_nouveau_sommet_commentaire_name" />
+              <input type="text" name="choix_sommet_commentaire_name" />
             </td>
           </tr>
 

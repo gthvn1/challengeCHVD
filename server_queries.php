@@ -7,8 +7,7 @@ function select_massifs($dbh)
     echo '<td class="invisible"> Choix du massif </td>';
     echo '<td class="invisible">';
     echo '<select id="choix_massif_id" name="choix_massif_name" onChange="gmd_sommets()">';
-    echo '<option value="none"> ------------- </option>';
-    echo '<option value="0"> Nouveau Massif </option>';
+    echo '<option value="0"> selectionner un massif </option>';
     foreach ($res as $massif) {
         echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
     }
@@ -24,9 +23,8 @@ function select_sommets($dbh, $massif)
 
     echo '<td class="invisible"> Choix du sommet </td>';
     echo '<td class="invisible">';
-    echo '<select id="choix_sommet_id" name="choix_sommet_name">';
-    echo '<option value="none"> ------------- </option>';
-    echo '<option value="0"> Nouveau Sommet </option>';
+    echo '<select id="choix_sommet_id" name="choix_sommet_name" onChange="sommet_selected()">';
+    echo '<option value="0"> Choisir un sommet </option>';
     foreach ($res as $sommet) {
         echo '<option value="', $sommet['sid'], '">', $sommet['nom'], '</option>';
     }
