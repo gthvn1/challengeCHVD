@@ -274,14 +274,14 @@ function check_massif()
     var txt;
    
     if (mid == 0) {
-        // On verifie si il y a un nouveau massif
-        // de declare.
+        // On verifie si il y a un nouveau massif de declare.
         var nm = document.getElementById("choix_nouveau_massif_id");
 
-        if (nm.value) {
-            txt = '<p> Nouveau Massif = ' + nm.value + '</p>';
-        } else {
+        // Verifie si c'est une string
+        if (nm.value === "") {
             txt = '<p class="invalide"> Aucun massif declare </p>';
+        } else {
+            txt = '<p> Nouveau Massif = ' + nm.value + '</p>';
         }
     } else {
         txt = '<p> Massif Id  = ' + mid + '</p>';
@@ -304,7 +304,8 @@ function check_sommet()
         var points   = document.getElementById("choix_sommet_points_id");
         var comment  = document.getElementById("choix_sommet_comment_id");
 
-        // Seuls l'altitude et les points sont necessaires
+        // Seuls l'altitude et les points sont necessaires. 
+        // TODO: Verifier si ce sont des entiers
         if (altitude.value != '' && points.value != '') {
             txt = '<p> Nouveau sommet OK <p>';
         } else {
@@ -326,7 +327,7 @@ function check_pilote()
     if (pid == 0) {
         // On verifie si on a bien declare un nouveau pilote
         var np = document.getElementById("choix_nouveau_pilote_id");
-        if (np.value == '') {
+        if (np.value === '') {
             txt = '<p class="invalide"> Nom du pilote inconnu </p>';
         } else {
             txt = '<p> Nouveau pilote = ' + np.value + '</p>';
