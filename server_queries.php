@@ -52,9 +52,29 @@ function select_pilotes($dbh)
 
 function text_nouveau_sommet()
 {
-    echo '<td class="invisible"> Nouveau sommet </td> ';
+    // NOTE: cette zone sera ecrite entre deux balises <tr> et </tr>. Donc
+    //       si on veut inserer des lignes faut agir en consequence.
+    
+    // Nom du sommet
+    echo '<td class="invisible"> Nom du sommet </td> ';
     echo '<td class="invisible">';
     echo '<input type="text" name="choix_nouveau_sommet_name" />';
+    echo '</td>';
+
+    echo '</tr><tr>';
+
+    // Saisie de l'altitude
+    echo '<td class="invisible"> Altitude </td> ';
+    echo '<td class="invisible">';
+    echo '<input type="text" name="choix_nouveau_sommet_altitude_name" />';
+    echo '</td>';
+
+    echo '</tr><tr>';
+
+    // Commentaire
+    echo '<td class="invisible"> Commentaire </td> ';
+    echo '<td class="invisible">';
+    echo '<input type="text" name="choix_nouveau_sommet_commentaire_name" />';
     echo '</td>';
 }
 
