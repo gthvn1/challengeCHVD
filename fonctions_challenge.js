@@ -78,15 +78,26 @@ function gmd_massifs()
  */
 function gmd_sommets()
 {
+    var xhr = getXhr();
     var e =  document.getElementById("choix_massif_id");
     var mid = e.options[e.selectedIndex].value;
 
     if (mid == 0) {
-        alert("nouveau massif detecte");
-    } else {
-    
-        var xhr = getXhr();
+        xhr.onreadystatechange = function()
+        {
+            if (xhr.readyState == 4) {
+                if ((xhr.status == 200 || xhr.status == 0)) {
+                    document.getElementById('zone_saisie_nouveau_massif').innerHTML = xhr.responseText;
+                } else {
+                    alert('Error choix sommet: status =' + xhr.status);
+                }
+            }
+        }
 
+        // true => mode de transfert asynchrone
+        xhr.open("GET","server_queries.php?param=text_nouveau_massif", true);
+        xhr.send();
+    } else {
         xhr.onreadystatechange = function()
         {
             if (xhr.readyState == 4) {

@@ -50,6 +50,22 @@ function select_pilotes($dbh)
     echo '</td>';
 }
 
+function text_nouveau_massif()
+{
+    // NOTE: cette zone sera ecrite entre deux balises <tr> et </tr>. Donc
+    //       si on veut inserer des lignes faut agir en consequence.
+    
+    // Nom du sommet
+    echo '<td class="invisible"> Nom du massif </td> ';
+    echo '<td class="invisible">';
+    echo '<input type="text" name="choix_nouveau_massif_name" />';
+    echo '</td>';
+
+    echo '</tr><tr>';
+
+    text_nouveau_sommet();
+}
+
 function text_nouveau_sommet()
 {
     // NOTE: cette zone sera ecrite entre deux balises <tr> et </tr>. Donc
@@ -183,6 +199,9 @@ try {
     }
     elseif (0 == strcmp($val, "select_massifs")) {
         select_massifs($dbh);
+    }
+    elseif (0 == strcmp($val, "text_nouveau_massif")) {
+        text_nouveau_massif();
     }
     elseif (0 == strcmp($val, "select_sommets")) {
         select_sommets($dbh, $massif);
