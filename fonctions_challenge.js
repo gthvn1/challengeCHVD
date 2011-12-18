@@ -88,6 +88,9 @@ function gmd_sommets()
     document.getElementById('zone_saisie_sommet_altitude').innerHTML = 
         enable_saisie_sommet_altitude(true);
 
+    document.getElementById('zone_saisie_sommet_points').innerHTML = 
+        enable_saisie_sommet_points(true);
+
     document.getElementById('zone_saisie_sommet_commentaire').innerHTML = 
         enable_saisie_sommet_commentaire(true);
 
@@ -134,6 +137,9 @@ function sommet_selected()
     
     document.getElementById('zone_saisie_sommet_altitude').innerHTML = 
         enable_saisie_sommet_altitude(sid == 0);
+
+    document.getElementById('zone_saisie_sommet_points').innerHTML = 
+        enable_saisie_sommet_points(sid == 0);
 
     document.getElementById('zone_saisie_sommet_commentaire').innerHTML = 
         enable_saisie_sommet_commentaire(sid == 0);
@@ -210,6 +216,22 @@ function enable_saisie_sommet_altitude(choix)
     text += '<td class="invisible">';
     if (choix) {
         text += '<input type="text" name="choix_sommet_altitude_name" />';
+    } else {
+        text += '<input type="text" disabled="disabled">';
+    }
+    text += '</td>';
+
+    return text;
+}
+
+function enable_saisie_sommet_points(choix)
+{
+    var text;
+
+    text = '<td class="invisible"> Points </td>';
+    text += '<td class="invisible">';
+    if (choix) {
+        text += '<input type="text" name="choix_sommet_points_name" />';
     } else {
         text += '<input type="text" disabled="disabled">';
     }
@@ -311,6 +333,9 @@ function check_volrando()
         e_nouveau_massif    = x.elements["choix_nouveau_massif_name"],
         e_sommet            = x.elements["choix_sommet_name"],
         e_nouveau_sommet    = x.elements["choix_nouveau_sommet_name"],
+        e_sommet            = x.elements["choix_sommet_altitude"],
+        e_sommet            = x.elements["choix_sommet_points"],
+        e_sommet            = x.elements["choix_sommet_commentaire"],
         e_pilote            = x.elements["choix_pilote_name"],
         e_datevol           = x.elements["choix_date_name"],
         e_biplace           = x.elements["choix_biplace_name"],

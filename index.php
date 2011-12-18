@@ -113,6 +113,13 @@ Dans la partie droite on affichera les résutlats
             </td>
           </tr>
 
+          <tr id="zone_saisie_sommet_points">
+            <td class="invisible"> Points </td> 
+            <td class="invisible">
+              <input type="text" name="choix_sommet_points_name" />
+            </td>
+          </tr>
+
           <tr id="zone_saisie_sommet_commentaire">
             <td class="invisible"> Commentaire </td> 
             <td class="invisible">
