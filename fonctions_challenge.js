@@ -7,7 +7,7 @@ function getXhr()
     var xhr = null;
     if(window.XMLHttpRequest) // Firefox et autres
         xhr = new XMLHttpRequest();
-    else if(window.ActiveXObject){ // Internet Explorer
+    else if(window.ActiveXObject) { // Internet Explorer
         try {
             xhr = new ActiveXObject("Msxml2.XMLHTTP");
         } catch (e) {
@@ -46,6 +46,11 @@ function gmd_pilotes()
     xhr.send();
 }
 
+/*
+ * La fonction gmd_massifs est appelee lors du chargement de la page
+ * web. Elle sera egalement appelee lorsqu'un nouveau vol sera ajoute
+ * dans la base de donnee.
+ */
 function gmd_massifs()
 {
     var xhr = getXhr();
@@ -66,6 +71,11 @@ function gmd_massifs()
     xhr.send();
 }
 
+/*
+ * Cette fonction est appelee lorsqu'un massif a ete selectionne. Si le massif est
+ * "nouveau" (c'est a dire avec un mid == 0) il va falloir creer deux nouvelles zones
+ * de texte pour pouvoir saisir les noms du nouveau massif et du nouveau sommet.
+ */
 function gmd_sommets()
 {
     var xhr = getXhr();
@@ -93,6 +103,11 @@ function gmd_sommets()
     }
 }
 
+/*
+ * Cette fonction est appelee lorsqu'un sommet a ete choisi dans la liste. On va alors
+ * verifier si le sommet est nouveau. Si c'est le cas on ajoute une zone de texte pour
+ * saisir le nouveau sommet. Sinon on a rien a faire.
+ */
 function check_nouveau_sommet()
 {
     var e =  document.getElementById("choix_sommet_id");
