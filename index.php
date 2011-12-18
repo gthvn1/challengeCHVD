@@ -86,14 +86,37 @@ Dans la partie droite on affichera les résutlats
                 gmd_massifs();
             </script>
           </tr>
-
-          <tr id="zone_saisie_nouveau_massif">
-          </tr>
-
-          <tr id="zone_saisie_sommet"> <!-- la zone sera remplie lors du choix du massif -->
-          </tr>
           
-          <tr id="zone_saisie_nouveau_sommet">
+          <tr id="zone_saisie_sommet">
+            <!-- la zone sera remplie lors du choix du massif -->
+          </tr>
+
+          <tr>
+            <td class="invisible"> Nouveau massif </td> 
+            <td class="invisible">
+                <input type="text" name="choix_nouveau_massif_name" />
+            </td>
+          </tr>
+
+          <tr>
+            <td class="invisible"> Nom du sommet </td> 
+            <td class="invisible">
+              <input type="text" name="choix_nouveau_sommet_name" />
+            </td>
+          </tr>
+
+          <tr>
+            <td class="invisible"> Altitude </td> 
+            <td class="invisible">
+              <input type="text" name="choix_nouveau_sommet_altitude_name" />
+            </td>
+          </tr>
+
+          <tr>
+            <td class="invisible"> Commentaire </td> 
+            <td class="invisible">
+              <input type="text" name="choix_nouveau_sommet_commentaire_name" />
+            </td>
           </tr>
 
           <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
@@ -102,8 +125,7 @@ Dans la partie droite on affichera les résutlats
             </script>
           </tr>
 
-          <tr id="zone_saisie_nouveau_pilote">
-          </tr>
+          <tr id="zone_saisie_nouveau_pilote"> </tr>
 
           <tr> <!-- Choix de la date -->
             <td class="invisible"> Date (JJ/MM/YY) </td>

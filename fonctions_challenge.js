@@ -115,37 +115,6 @@ function gmd_sommets()
     }
 }
 
-/*
- * Cette fonction est appelee lorsqu'un sommet a ete choisi dans la liste. On va alors
- * verifier si le sommet est nouveau. Si c'est le cas on ajoute une zone de texte pour
- * saisir le nouveau sommet. Sinon on a rien a faire.
- */
-function check_nouveau_sommet()
-{
-    var e =  document.getElementById("choix_sommet_id");
-    var sid = e.options[e.selectedIndex].value;
-
-    if (sid == 0) {
-        var xhr = getXhr();
-
-        xhr.onreadystatechange = function()
-        {
-            if (xhr.readyState == 4) {
-                if ((xhr.status == 200 || xhr.status == 0)) {
-                    document.getElementById('zone_saisie_nouveau_sommet').innerHTML = 
-                        xhr.responseText;
-                } else {
-                    alert('Error choix nouveau sommet: status =' + xhr.status);
-                }
-            }
-        }
-
-        // true => mode de transfert asynchrone
-        xhr.open("GET","server_queries.php?param=text_nouveau_sommet", true);
-        xhr.send();
-    }
-}
-
 /********************************************************************
  * Fonctions d'envoie des requetes d'affichage des resultats au
  * serveur
