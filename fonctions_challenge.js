@@ -254,7 +254,7 @@ function ask_to_server(arg)
  *
  * Cette fonction permet de valider un minimum les donnees passees
  * en parametre du vol rando avant d'envoyer la requete d'ajout
- * dans la base de donnee au serveur
+ * dans la base de donnee au serveur ... ou pas.
  */
 function check_number(n)
 {
@@ -289,73 +289,72 @@ function check_massif()
     return txt;
 }
 
+/*
+ * TODO: il reste a verifier si l'altitude et les points sont valides 
+ */
 function check_sommet()
 {
     var x = document.getElementById("choix_sommet_id");
     var sid = Number(x.options[x.selectedIndex].value);
-    
-    return '<p> Sommet Id = ' + sid + '</p>';
+    var txt;
+
+    if (sid == 0) {
+        // On verifie si on a tous les elements pour notre nouveau sommet
+        var altitude = document.getElementById("choix_sommet_altitude_id");
+        var points   = document.getElementById("choix_sommet_points_id");
+        var comment  = document.getElementById("choix_sommet_comment_id");
+
+        // Seuls l'altitude et les points sont necessaires
+        if (altitude.value != '' && points.value != '') {
+            txt = '<p> Nouveau sommet OK <p>';
+        } else {
+            txt = '<p class="invalide"> Sommet invalide : ' + altitude.value + ' / ' +  points.value + '<p>';
+        }
+    } else {
+        txt = '<p> Sommet Id = ' + sid + '</p>';
+    }
+
+    return txt;
 }
 
 function check_pilote()
 {
     var x = document.getElementById("choix_pilote_id");
     var pid = Number(x.options[x.selectedIndex].value);
-    
-    return '<p> Pilote Id = ' + pid + '</p>';
+    var txt;
+   
+    if (pid == 0) {
+        // On verifie si on a bien declare un nouveau pilote
+        var np = document.getElementById("choix_nouveau_pilote_id");
+        if (np.value == '') {
+            txt = '<p class="invalide"> Nom du pilote inconnu </p>';
+        } else {
+            txt = '<p> Nouveau pilote = ' + np.value + '</p>';
+        }
+    } else {
+        txt = '<p> Pilote Id = ' + pid + '</p>';
+    }
+    return txt;
 }
 
-// on verifie seulement si la string n'est pas vide
 function check_date(d)
 {
     var x = document.getElementById("choix_date_id");
-    var d = x.value;
-    
-    return '<p> Date : ' + d + '</p>';
+    var txt;
+
+    if (x.value == '') {
+        txt = '<p class="invalide"> Vous devez saisir une date </p>';
+    } else {
+        txt = '<p> Date saisie mais format pas encore verifie </p>';
+    }
+   
+    return txt;
 }
 
 function check_volrando()
 {
     var info_vol;
 
-    /*
-    // x contient tous les elements dans la FORM
-        e_datevol           = x.elements["choix_date_name"],
-        e_biplace           = x.elements["choix_biplace_name"],
-        e_mobdouce          = x.elements["choix_mobilitedouce_name"],
-        e_comment           = x.elements["choix_commentaire_name"];
-    // on recupere les index de selection pour les trois listes
-        si_sommet = e_sommet.selectedIndex,
-        si_pilote = e_pilote.selectedIndex,
-
-    // et maintenant on peut recuperer les valeurs
-        sid = Number(e_sommet.options[si_sommet].value),
-        pid = Number(e_pilote.options[si_pilote].value),
-
-        nouveau_massif = e_nouveau_massif.value,
-        nouveau_sommet = e_nouveau_sommet.value,
-        nouveau_pilote = e_nouveau_pilote.value,
-
-        sommet_altitude = Number(e_sommet_altitude.value),
-        sommet_points   = Number(e_sommet_points.value),
-        sommet_comment  = Number(e_sommet_commentaire.value),
-
-        datevol  = e_datevol.value,
-        biplace  = (e_biplace.checked)  ? 1 : 0,
-        mobdouce = (e_mobdouce.checked) ? 1 : 0,
-        comment  = e_comment.value;
-    */
-    /*
-    if (check_number(mid) && check_number(sid) && 
-            check_number(pid) && check_date(datevol)) {
-        monTexte = ' <p> VOTRE VOL A ETE VALIDE </p>';
-        volvalide = true;
-    } else {
-        monTexte = ' <p class="invalide"> VOTRE VOL EST INVALIDE </p>';
-        volvalide = false;
-    }
-    */
-        
     info_vol = '<h3> INFORMATION SUR LA DECLARAION </h3>';
 
     info_vol += check_massif();
