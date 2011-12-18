@@ -95,35 +95,35 @@ Dans la partie droite on affichera les résutlats
           <tr id="zone_saisie_nouveau_massif">
             <td class="invisible"> Nouveau massif </td> 
             <td class="invisible">
-                <input type="text" name="choix_nouveau_massif_name" />
+                <input type="text" id="choix_nouveau_massif_id" />
             </td>
           </tr>
 
           <tr id="zone_saisie_nouveau_sommet">
             <td class="invisible"> Nouveau sommet </td> 
             <td class="invisible">
-              <input type="text" name="choix_nouveau_sommet_name" />
+              <input type="text" id="choix_nouveau_sommet_id" />
             </td>
           </tr>
 
           <tr id="zone_saisie_sommet_altitude">
             <td class="invisible"> Altitude </td> 
             <td class="invisible">
-              <input type="text" name="choix_sommet_altitude_name" />
+              <input type="text" id="choix_sommet_altitude_id" />
             </td>
           </tr>
 
           <tr id="zone_saisie_sommet_points">
             <td class="invisible"> Points </td> 
             <td class="invisible">
-              <input type="text" name="choix_sommet_points_name" />
+              <input type="text" id="choix_sommet_points_id" />
             </td>
           </tr>
 
           <tr id="zone_saisie_sommet_commentaire">
             <td class="invisible"> Commentaire </td> 
             <td class="invisible">
-              <input type="text" name="choix_sommet_commentaire_name" />
+              <input type="text" id="choix_sommet_commentaire_id" />
             </td>
           </tr>
 
@@ -136,30 +136,30 @@ Dans la partie droite on affichera les résutlats
           <tr id="zone_saisie_nouveau_pilote">
             <td class="invisible"> Nouveau pilote </td> 
             <td class="invisible">
-              <input type="text" name="choix_nouveau_pilote_name" />
+              <input type="text" id="choix_nouveau_pilote_id" />
             </td>
           </tr>
 
           <tr> <!-- Choix de la date -->
             <td class="invisible"> Date (JJ/MM/YY) </td>
             <td class="invisible">
-              <input type="text" name="choix_date_name">
+              <input type="text" id="choix_date_id">
             </td>
           </tr>
         </table>
 
         <!-- Bonus biplace -->
-        <input type="checkbox" name="choix_biplace_name" />
+        <input type="checkbox" id="choix_biplace_id" />
         Vol effectué en biplace (1 point de bonus)<br />
 
         <!-- Info sur mobilite douce -->
-        <input type="checkbox" name="choix_mobilitedouce_name" />
+        <input type="checkbox" id="choix_mobilitedouce_id" />
         Vol effectué en mobilité dite douce (c'est à titre indicatif)<br />
 
 		<br />
         Un commentaire sur le vol <br />
         (sur une seule ligne mais qui peut être longue) <br />
-        <input type="text" size=40 name="choix_commentaire_name" />
+        <input type="text" size=40 id="choix_commentaire_id" />
         <br />
 
         <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">

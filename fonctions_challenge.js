@@ -176,14 +176,14 @@ function disable_saisie_sommet()
     return text;
 }
 
-function enable_saisie_generique(titre, name, choix)
+function enable_saisie_generique(titre, id, choix)
 {
     var text;
 
     text = '<td class="invisible">' + titre + '</td>';
     text += '<td class="invisible">';
     if (choix) {
-        text += '<input type="text" name="' + name + '" />';
+        text += '<input type="text" id="' + id + '" />';
     } else {
         text += '<input type="text" disabled="disabled">';
     }
@@ -194,43 +194,32 @@ function enable_saisie_generique(titre, name, choix)
 
 function enable_saisie_nouveau_massif(choix)
 {
-    return enable_saisie_generique("Nouveau massif", "choix_nouveau_massif_name", choix);
+    return enable_saisie_generique("Nouveau massif", "choix_nouveau_massif_id", choix);
 }
 
 function enable_saisie_nouveau_sommet(choix)
 {
-    return enable_saisie_generique("Nouveau sommet", "choix_nouveau_sommet_name", choix);
+    return enable_saisie_generique("Nouveau sommet", "choix_nouveau_sommet_id", choix);
 }
 
 function enable_saisie_sommet_altitude(choix)
 {
-    return enable_saisie_generique("Altitude", "choix_sommet_altitude_name", choix);
+    return enable_saisie_generique("Altitude", "choix_sommet_altitude_id", choix);
 }
 
 function enable_saisie_sommet_points(choix)
 {
-    return enable_saisie_generique("Points", "choix_sommet_points_name", choix);
+    return enable_saisie_generique("Points", "choix_sommet_points_id", choix);
 }
 
 function enable_saisie_sommet_commentaire(choix)
 {
-    return enable_saisie_generique("Commentaire", "choix_sommet_commentaire_name", choix);
+    return enable_saisie_generique("Commentaire", "choix_sommet_commentaire_id", choix);
 }
 
 function enable_saisie_nouveau_pilote(choix)
 {
-    var text;
-
-    text = '<td class="invisible"> Nouveau pilote </td>';
-    text += '<td class="invisible">';
-    if (choix) {
-        text += '<input type="text" name="choix_nouveau_pilote_name" />';
-    } else {
-        text += '<input type="text" disabled="disabled">';
-    }
-    text += '</td>';
-
-    return text;
+    return enable_saisie_generique("Nouveau pilote", "choix_nouveau_pilote_id", choix);
 }
 
 
@@ -275,86 +264,104 @@ function check_number(n)
         return true;
 }
 
+/*
+ * Pour l'instant on retourne le html
+ */
+function check_massif()
+{
+    var x = document.getElementById("choix_massif_id");
+    var mid = Number(x.options[x.selectedIndex].value);
+    var txt;
+   
+    if (mid == 0) {
+        // On verifie si il y a un nouveau massif
+        // de declare.
+        var nm = document.getElementById("choix_nouveau_massif_id");
+
+        if (nm.value) {
+            txt = '<p> Nouveau Massif = ' + nm.value + '</p>';
+        } else {
+            txt = '<p class="invalide"> Aucun massif declare </p>';
+        }
+    } else {
+        txt = '<p> Massif Id  = ' + mid + '</p>';
+    }
+    return txt;
+}
+
+function check_sommet()
+{
+    var x = document.getElementById("choix_sommet_id");
+    var sid = Number(x.options[x.selectedIndex].value);
+    
+    return '<p> Sommet Id = ' + sid + '</p>';
+}
+
+function check_pilote()
+{
+    var x = document.getElementById("choix_pilote_id");
+    var pid = Number(x.options[x.selectedIndex].value);
+    
+    return '<p> Pilote Id = ' + pid + '</p>';
+}
+
 // on verifie seulement si la string n'est pas vide
 function check_date(d)
 {
-    if (d)
-        return true;
-    else
-        return false;
+    var x = document.getElementById("choix_date_id");
+    var d = x.value;
+    
+    return '<p> Date : ' + d + '</p>';
 }
 
 function check_volrando()
 {
-    var x = document.getElementById("formulaire_volrando"),
-        volvalide, monTexte;
+    var info_vol;
 
+    /*
     // x contient tous les elements dans la FORM
-    var e_massif            = x.elements["choix_massif_name"],
-        e_nouveau_massif    = x.elements["choix_nouveau_massif_name"],
-        e_sommet            = x.elements["choix_sommet_name"],
-        e_nouveau_sommet    = x.elements["choix_nouveau_sommet_name"],
-        e_sommet            = x.elements["choix_sommet_altitude"],
-        e_sommet            = x.elements["choix_sommet_points"],
-        e_sommet            = x.elements["choix_sommet_commentaire"],
-        e_pilote            = x.elements["choix_pilote_name"],
         e_datevol           = x.elements["choix_date_name"],
         e_biplace           = x.elements["choix_biplace_name"],
         e_mobdouce          = x.elements["choix_mobilitedouce_name"],
         e_comment           = x.elements["choix_commentaire_name"];
-
     // on recupere les index de selection pour les trois listes
-    var si_massif = e_massif.selectedIndex,
         si_sommet = e_sommet.selectedIndex,
-        si_pilote = e_pilote.selectedIndex;
+        si_pilote = e_pilote.selectedIndex,
 
     // et maintenant on peut recuperer les valeurs
-    var mid = Number(e_massif.options[si_massif].value),
-        sid = Number(e_massif.options[si_sommet].value),
-        pid = Number(e_massif.options[si_pilote].value),
-        datevol = e_datevol.value,
-        biplace = (e_biplace.checked)  ? 1 : 0,
-        mobdouce = (e_mobdouce.checked) ? 1 : 0,
-        comment = e_comment.value;
+        sid = Number(e_sommet.options[si_sommet].value),
+        pid = Number(e_pilote.options[si_pilote].value),
 
-    if (check_number(mid) && check_number(sid) && check_number(pid) && check_date(datevol)) {
+        nouveau_massif = e_nouveau_massif.value,
+        nouveau_sommet = e_nouveau_sommet.value,
+        nouveau_pilote = e_nouveau_pilote.value,
+
+        sommet_altitude = Number(e_sommet_altitude.value),
+        sommet_points   = Number(e_sommet_points.value),
+        sommet_comment  = Number(e_sommet_commentaire.value),
+
+        datevol  = e_datevol.value,
+        biplace  = (e_biplace.checked)  ? 1 : 0,
+        mobdouce = (e_mobdouce.checked) ? 1 : 0,
+        comment  = e_comment.value;
+    */
+    /*
+    if (check_number(mid) && check_number(sid) && 
+            check_number(pid) && check_date(datevol)) {
         monTexte = ' <p> VOTRE VOL A ETE VALIDE </p>';
         volvalide = true;
     } else {
         monTexte = ' <p class="invalide"> VOTRE VOL EST INVALIDE </p>';
         volvalide = false;
     }
+    */
+        
+    info_vol = '<h3> INFORMATION SUR LA DECLARAION </h3>';
 
-    if (check_number(mid))
-        monTexte += '<p> Massif ID #' + mid + ' : OK  </p>';
-    else
-        monTexte += '<p class="invalide"> Massif ID #' + mid + ' : KO </p>';
+    info_vol += check_massif();
+    info_vol += check_sommet();
+    info_vol += check_pilote();
+    info_vol += check_date();
 
-    if (check_number(sid))
-        monTexte += '<p> Sommet ID #' + sid + ' : OK  </p>';
-    else
-        monTexte += '<p class="invalide"> Sommet ID #' + sid + ' : KO </p>';
-
-    if (e_nouveau_sommet)
-        monTexte += '<p> Nouveau sommet => ' + e_nouveau_sommet.value+ ' </p>';
-    else
-        monTexte += '<p> Pas de nouveau sommet </p>';
-
-    if (check_number(pid))
-        monTexte += '<p> Pilot ID #' + pid + ' : OK  </p>';
-    else
-        monTexte += '<p class="invalide"> Pilot ID #' + pid + ' : KO </p>';
-
-    if (check_date(datevol))
-        monTexte += '<p> Date' + datevol + ' : OK </p>';
-    else
-        monTexte += '<p class="invalide"> Date ' + datevol + ' : KO </p>';
-
-    monTexte = monTexte  +
-        '<p> Biplace : '   + biplace + '</p>' +
-        '<p> Mobilite douce : ' + mobdouce + '</p>' +
-        '<p> Commentaire : ' + comment + '</p>';
-
-    //alert(monTexte);
-    document.getElementById('zone_status').innerHTML= monTexte;
+    document.getElementById('zone_status').innerHTML= info_vol;
 }
