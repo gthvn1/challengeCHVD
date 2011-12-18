@@ -176,84 +176,45 @@ function disable_saisie_sommet()
     return text;
 }
 
-function enable_saisie_nouveau_massif(choix)
+function enable_saisie_generique(titre, name, choix)
 {
     var text;
 
-    text = '<td class="invisible"> Nouveau massif </td>';
+    text = '<td class="invisible">' + titre + '</td>';
     text += '<td class="invisible">';
     if (choix) {
-        text += '<input type="text" name="choix_nouveau_massif_name" />';
+        text += '<input type="text" name="' + name + '" />';
     } else {
         text += '<input type="text" disabled="disabled">';
     }
     text += '</td>';
 
     return text;
+}
+
+function enable_saisie_nouveau_massif(choix)
+{
+    return enable_saisie_generique("Nouveau massif", "choix_nouveau_massif_name", choix);
 }
 
 function enable_saisie_nouveau_sommet(choix)
 {
-    var text;
-
-    text = '<td class="invisible"> Nouveau sommet </td>';
-    text += '<td class="invisible">';
-    if (choix) {
-        text += '<input type="text" name="choix_nouveau_sommet_name" />';
-    } else {
-        text += '<input type="text" disabled="disabled">';
-    }
-    text += '</td>';
-
-    return text;
+    return enable_saisie_generique("Nouveau sommet", "choix_nouveau_sommet_name", choix);
 }
 
 function enable_saisie_sommet_altitude(choix)
 {
-    var text;
-
-    text = '<td class="invisible"> Altitude </td>';
-    text += '<td class="invisible">';
-    if (choix) {
-        text += '<input type="text" name="choix_sommet_altitude_name" />';
-    } else {
-        text += '<input type="text" disabled="disabled">';
-    }
-    text += '</td>';
-
-    return text;
+    return enable_saisie_generique("Altitude", "choix_sommet_altitude_name", choix);
 }
 
 function enable_saisie_sommet_points(choix)
 {
-    var text;
-
-    text = '<td class="invisible"> Points </td>';
-    text += '<td class="invisible">';
-    if (choix) {
-        text += '<input type="text" name="choix_sommet_points_name" />';
-    } else {
-        text += '<input type="text" disabled="disabled">';
-    }
-    text += '</td>';
-
-    return text;
+    return enable_saisie_generique("Points", "choix_sommet_points_name", choix);
 }
 
 function enable_saisie_sommet_commentaire(choix)
 {
-    var text;
-
-    text = '<td class="invisible"> Commentaire </td>';
-    text += '<td class="invisible">';
-    if (choix) {
-        text += '<input type="text" name="choix_sommet_commentaire_name" />';
-    } else {
-        text += '<input type="text" disabled="disabled">';
-    }
-    text += '</td>';
-
-    return text;
+    return enable_saisie_generique("Commentaire", "choix_sommet_commentaire_name", choix);
 }
 
 function enable_saisie_nouveau_pilote(choix)
