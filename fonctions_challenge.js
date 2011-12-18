@@ -354,6 +354,9 @@ function check_date(d)
 function check_volrando()
 {
     var info_vol;
+    var biplace = document.getElementById("choix_biplace_id");
+    var mobdouce = document.getElementById("choix_mobilitedouce_id");
+    var comment = document.getElementById("choix_commentaire_id");
 
     info_vol = '<h3> INFORMATION SUR LA DECLARAION </h3>';
 
@@ -361,6 +364,9 @@ function check_volrando()
     info_vol += check_sommet();
     info_vol += check_pilote();
     info_vol += check_date();
+    info_vol += '<p> biplace = ' + biplace.checked + '</p>';
+    info_vol += '<p> mobdouce = ' + mobdouce.checked + '</p>';
+    info_vol += '<p> commentaire = ' + comment.value + '</p>';
 
     document.getElementById('zone_status').innerHTML= info_vol;
 }
