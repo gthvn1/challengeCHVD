@@ -116,7 +116,7 @@ function gmd_sommets()
         }
 
         // true => mode de transfert asynchrone
-        xhr.open("GET","server_queries.php?param=select_sommets&massif=" + mid, true);
+        xhr.open("GET","server_queries.php?param=select_sommets&mid=" + mid, true);
         xhr.send();
     }
 }
@@ -334,109 +334,136 @@ function check_number(n)
 /*
  * Pour l'instant on retourne un tableau contenant le html et la validite
  * du vol.
+ * 
+ * res[0] = txt html
+ * res[1] = requete valide ou pas
+ * res[2] = mid
+ * si res[2] == 0
+ *   alore res[3] = nom
  */
 function check_massif()
 {
     var x = document.getElementById("choix_massif_id");
-    var mid = Number(x.options[x.selectedIndex].value);
-    var res = new Array('', true);
+    var res = new Array('', true, Number(x.options[x.selectedIndex].value), '');
 
-    if (mid == 0) {
+    if (res[2] == 0) {
         // On verifie si il y a un nouveau massif de declare.
-        var nm = document.getElementById("choix_nouveau_massif_id").value;
+        res[3] = document.getElementById("choix_nouveau_massif_id").value;
 
         // Verifie si c'est une string
-        if (nm === '') {
+        if (res[3] === '') {
             res[0] = '<p class="invalide"> Aucun massif declare </p>';
             res[1] = false;
         } else {
-            nm = format_nom(nm);
-            res[0] = '<p> Nouveau Massif = ' + nm + '</p>';
+            res[3] = format_nom(res[3]);
+            res[0] = '<p> Nouveau Massif = ' + res[3] + '</p>';
         }
     } else {
-        res[0] = '<p> Massif Id  = ' + mid + '</p>';
+        res[0] = '<p> Massif Id  = ' +  res[2]+ '</p>';
     }
 
     return res;
 }
 
 /*
- * TODO: il reste a verifier si l'altitude et les points sont valides
+ * res[0] = text html
+ * res[1] = sommet valide ou non
+ * res[2] = sid
+ * si res[2] == 0
+ * alors
+ *   res[3] = nom
+ *   res[4] = altitude
+ *   res[5] = points
+ *   res[6] = commentaire
  */
 function check_sommet()
 {
     var x = document.getElementById("choix_sommet_id");
-    var sid = Number(x.options[x.selectedIndex].value);
-    var res = new Array('', true);
+    var res = new Array('', true, Number(x.options[x.selectedIndex].value),
+                        '', 0, 0, '');
 
-    if (sid == 0) {
+    if (res[2] == 0) {
         // On verifie si on a tous les elements pour notre nouveau sommet
-        var ns = document.getElementById("choix_nouveau_sommet_id").value;
-        var altitude = Number(document.getElementById("choix_sommet_altitude_id").value);
-        var points   = Number(document.getElementById("choix_sommet_points_id").value);
-        var comment  = document.getElementById("choix_sommet_commentaire_id").value;
+        res[3] = document.getElementById("choix_nouveau_sommet_id").value;
+        res[4] = Number(document.getElementById("choix_sommet_altitude_id").value);
+        res[5] = Number(document.getElementById("choix_sommet_points_id").value);
+        res[6] = document.getElementById("choix_sommet_commentaire_id").value;
 
-        if (ns === '') {
+        // verification du nom
+        if (res[3] === '') {
             res[0] = '<p class="invalide"> Le nouveau sommet est sans nom...</p>';
             res[1] = false;
         }
 
-        if (!check_number(altitude)) {
+        // verification de l'altitude
+        if (!check_number(res[4])) {
             res[0] += '<p class="invalide"> Altitude invalide </p>';
             res[1] = false;
         }
 
         // Il reste à verifier si le nombre de points est bien compris
         // entre 1 et altitude/1000
-        if (!check_number(points)) {
+        if (!check_number(res[5])) {
             res[0] += '<p class="invalide"> Nombre de points invalide </p>';
             res[1] = false;
         }
 
         if (res[1]) {
-            ns = format_nom(ns);
-            res[0] = '<p> Nouveau Sommet ' + ns + ' ok </p>';
+            res[3] = format_nom(res[3]);
+            res[0] = '<p> Nouveau Sommet ' + res[3] + ' ok </p>';
+            res[2] = ns;
         }
     } else {
-        res[0] = '<p> Sommet Id = ' + sid + '</p>';
+        res[0] = '<p> Sommet Id = ' + res[2] + '</p>';
     }
 
     return res;
 }
 
+/*
+ * res[0] = text html
+ * res[1] = pilote valide ou non
+ * res[2] = pid
+ * si res[2] == 0
+ * alors
+ *   res[3] = nom
+ */
 function check_pilote()
 {
     var x = document.getElementById("choix_pilote_id");
-    var pid = Number(x.options[x.selectedIndex].value);
-    var res = new Array('', true);
+    var res = new Array('', true, Number(x.options[x.selectedIndex].value), '');
 
-    if (pid == 0) {
+    if (res[2] == 0) {
         // On verifie si on a bien declare un nouveau pilote
-        var np = document.getElementById("choix_nouveau_pilote_id");
-        if (np.value === '') {
+        res[3] = document.getElementById("choix_nouveau_pilote_id").value;
+
+        if (res[3] === '') {
             res[0] = '<p class="invalide"> Nom du pilote inconnu </p>';
             res[1] = false;
         } else {
-            res[0] = '<p> Nouveau pilote = ' + np.value + '</p>';
+            res[0] = '<p> Nouveau pilote = ' + res[3] + '</p>';
         }
     } else {
-        res[0] = '<p> Pilote Id = ' + pid + '</p>';
+        res[0] = '<p> Pilote Id = ' + res[3] + '</p>';
     }
 
     return res;
 }
 
+/*
+ * res[0] = text html
+ * res[1] = date valide ou non
+ * res[2] = date
+ */
 function check_date(d)
 {
-    var d = document.getElementById("choix_date_id").value;
-    var res = new Array('', true);
-
-    var ds = d.split("/");
+    var res = new Array('', true, document.getElementById("choix_date_id").value);
+    var ds = res[2].split("/");
 
     if (ds.length == 2) {
         // verification grosso merdo...
         if (ds[0] > 0 && ds[1] < 31 && ds[1] > 0 && ds[1] < 13) {
-            res[0] = '<p> Date saisie : ' + d + '</p>';
+            res[0] = '<p> Date saisie : ' + res[2] + '</p>';
             return res;
         }
     }
@@ -448,6 +475,7 @@ function check_date(d)
 
 function check_volrando()
 {
+    var requete = 'ajout_volrando';
     var info_vol = '';
     var biplace = document.getElementById("choix_biplace_id");
     var mobdouce = document.getElementById("choix_mobilitedouce_id");
@@ -456,27 +484,41 @@ function check_volrando()
     var res;
 
     res = check_massif();
-    vol_valide &= res[1];
     info_vol += res[0];
+    vol_valide &= res[1];
+    requete += '&mid=' + res[2];
+    requete += '&nm='  + res[3]; // nm: nom massif
 
     res = check_sommet();
-    vol_valide &= res[1];
     info_vol += res[0];
+    vol_valide &= res[1];
+    requete += '&sid='  + res[2];
+    requete += '&ns='   + res[3]; // ns: nom sommet
+    requete += '&alti=' + res[4];
+    requete += '&pts='  + res[5];
+    requete += '&cs='   + res[6]; // cs: commentaire sommet
 
     res = check_pilote();
-    vol_valide &= res[1];
     info_vol += res[0];
+    vol_valide &= res[1];
+    requete += '&pid=' + res[2];
+    requete += '&np='  + res[3]; // np: nom pilote
 
     res = check_date();
-    vol_valide &= res[1];
     info_vol += res[0];
+    vol_valide &= res[1];
+    requete += '&date=' + res[3];
 
     info_vol += '<p> biplace = ' + biplace.checked + '</p>';
+    requete += '&bi=' + biplace.checked;
     info_vol += '<p> mobdouce = ' + mobdouce.checked + '</p>';
+    requete += '&md=' + mobdouce.checked;
     info_vol += '<p> commentaire = ' + comment.value + '</p>';
+    requete += '&cv=' + comment.value; 
 
     if (vol_valide) {
         info_vol = '<h3> VOTRE VOL A ETE VALIDE </h3>' + info_vol ;
+        ask_to_server(requete);
     } else {
         info_vol = '<h3 class="invalide"> VOTRE VOL EST INVALIDE  </h3>' + info_vol;
     }

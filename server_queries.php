@@ -1,5 +1,10 @@
 <?php
 
+function ajout_volrando($dbh, $mid)
+{
+    echo 'vol ajoute: mid = ', $mid;
+}
+
 function select_massifs($dbh)
 {
     $res = $dbh->query('SELECT * FROM massifs ORDER BY nom');
@@ -15,10 +20,10 @@ function select_massifs($dbh)
     echo '</td>';
 }
 
-function select_sommets($dbh, $massif)
+function select_sommets($dbh, $mid)
 {
     $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ? ORDER BY nom');
-    $qry->execute(array($massif));
+    $qry->execute(array($mid));
     $res = $qry->fetchAll();
 
     echo '<td class="invisible"> Choix du sommet </td>';
@@ -140,17 +145,35 @@ function volrandos_to_html($dbh)
 try {
     $dbh = new PDO('sqlite:challengeCHVD.sqlite3');
 
-    $val =  $_GET['param'];
-    $massif =  $_GET['massif'];
+    $val    =  $_GET['param'];
 
-    if (0 == strcmp($val, "select_pilotes")) {
+    // Info pour l'ajout du vol
+    $mid  =  $_GET['mid'];
+    $nm   =  $_GET['nm'];
+    $sid  =  $_GET['sid'];
+    $ns   =  $_GET['ns'];
+    $alti =  $_GET['alti'];
+    $pts  =  $_GET['pts'];
+    $cs   =  $_GET['cs'];
+    $pid  =  $_GET['pid'];
+    $np   =  $_GET['np'];
+    $date =  $_GET['date'];
+    $bi   =  $_GET['bi'];
+    $md   =  $_GET['md'];
+    $cv   =  $_GET['cv'];
+
+
+    if (0 == strcmp($val, "ajout_volrando")) {
+        ajout_volrando($dbh, $mid);
+    }
+    elseif (0 == strcmp($val, "select_pilotes")) {
         select_pilotes($dbh);
     }
     elseif (0 == strcmp($val, "select_massifs")) {
         select_massifs($dbh);
     }
     elseif (0 == strcmp($val, "select_sommets")) {
-        select_sommets($dbh, $massif);
+        select_sommets($dbh, $mid);
     }
     elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);
