@@ -1,8 +1,10 @@
 <?php
 
-function ajout_volrando($dbh, $mid)
+function ajout_volrando($dbh, $info)
 {
-    echo 'vol ajoute: mid = ', $mid;
+    foreach ($info as $cle => $valeur) {
+        echo 'INFO VOL: ', $cle , ' = ', $valeur , '<br />';
+    }
 }
 
 function select_massifs($dbh)
@@ -148,23 +150,23 @@ try {
     $val    =  $_GET['param'];
 
     // Info pour l'ajout du vol
-    $mid  =  $_GET['mid'];
-    $nm   =  $_GET['nm'];
-    $sid  =  $_GET['sid'];
-    $ns   =  $_GET['ns'];
-    $alti =  $_GET['alti'];
-    $pts  =  $_GET['pts'];
-    $cs   =  $_GET['cs'];
-    $pid  =  $_GET['pid'];
-    $np   =  $_GET['np'];
-    $date =  $_GET['date'];
-    $bi   =  $_GET['bi'];
-    $md   =  $_GET['md'];
-    $cv   =  $_GET['cv'];
+    $info{"mid"}  =  $_GET['mid'];
+    $info{"nm"}   =  $_GET['nm'];
+    $info{"sid"}  =  $_GET['sid'];
+    $info{"ns"}   =  $_GET['ns'];
+    $info{"alti"} =  $_GET['alti'];
+    $info{"pts"}  =  $_GET['pts'];
+    $info{"cs"}   =  $_GET['cs'];
+    $info{"pid"}  =  $_GET['pid'];
+    $info{"np"}   =  $_GET['np'];
+    $info{"date"} =  $_GET['date'];
+    $info{"bi"}   =  $_GET['bi'];
+    $info{"md"}   =  $_GET['md'];
+    $info{"cv"}   =  $_GET['cv'];
 
 
     if (0 == strcmp($val, "ajout_volrando")) {
-        ajout_volrando($dbh, $mid);
+        ajout_volrando($dbh, $info);
     }
     elseif (0 == strcmp($val, "select_pilotes")) {
         select_pilotes($dbh);
@@ -173,7 +175,7 @@ try {
         select_massifs($dbh);
     }
     elseif (0 == strcmp($val, "select_sommets")) {
-        select_sommets($dbh, $mid);
+        select_sommets($dbh, $info{"mid"});
     }
     elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);
