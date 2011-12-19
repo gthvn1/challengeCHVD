@@ -400,7 +400,7 @@ function check_pilote()
             res[0] = '<p> Nouveau pilote = ' + res[3] + '</p>';
         }
     } else {
-        res[0] = '<p> Pilote Id = ' + res[3] + '</p>';
+        res[0] = '<p> Pilote Id = ' + res[2] + '</p>';
     }
 
     return res;
