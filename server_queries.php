@@ -54,15 +54,11 @@ function pilotes_to_html($dbh)
     echo '<table>';
     echo '<tr>';
     echo '<th> Pseudo </th>';
-    echo '<th> Nom  </th>';
-    echo '<th> Prenom </th>';
     echo '</tr>';
 
     foreach ($result as $pilote) {
         echo '<tr>';
         echo '<td>', $pilote['pseudo'], '</td>';
-        echo '<td>', $pilote['nom'], '</td>';
-        echo '<td>', $pilote['prenom'], '</td>';
         echo '</tr>';
     }
     echo '</table>';

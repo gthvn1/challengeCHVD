@@ -24,8 +24,6 @@
  *
  * OBJET: PILOTE
  *   - PID       # Cle == pilote ID
- *   - NOM       # TEXT
- *   - PRENOM    # TEXT
  *   - PSEUDO    # TEXT
  *
  * OBJET: VOLRANDO
@@ -114,15 +112,15 @@ function ajouter_sommets($dbh) {
 
 function ajouter_pilotes($dbh) {
 
-    $pilotes[0] = array("Guillaume", "Thouvenin", "Guillaume");
-    $pilotes[1] = array("MisterX", "Smith", "Afond");
-    $pilotes[2] = array("Toto", "Cotounio", "Latete");
+    $pilotes[0] = "Guillaume";
+    $pilotes[1] = "MisterX";
+    $pilotes[2] = "Latete";
     $nbpilotes = count($pilotes);
 
     for ($i = 0; $i < $nbpilotes; $i++) {
         $p = $pilotes[$i];
-        $qry = $dbh->prepare('INSERT INTO pilotes (nom, prenom, pseudo) VALUES (?,?,?);');
-        $qry->execute(array($p[0], $p[1], $p[2]));
+        $qry = $dbh->prepare('INSERT INTO pilotes (pseudo) VALUES (?);');
+        $qry->execute(array($p));
     }
 
     echo "Number of pilots added to the database : $nbpilotes \n";
@@ -150,8 +148,6 @@ try {
                     nom TEXT);');
     $dbh->exec('CREATE TABLE IF NOT EXISTS pilotes (
                     pid INTEGER PRIMARY KEY,
-                    nom TEXT,
-                    prenom TEXT,
                     pseudo TEXT);');
     $dbh->exec('CREATE TABLE IF NOT EXISTS volrandos (
                     vid INTEGER PRIMARY KEY,
