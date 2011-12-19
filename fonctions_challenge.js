@@ -346,7 +346,7 @@ function check_massif()
         var nm = document.getElementById("choix_nouveau_massif_id").value;
 
         // Verifie si c'est une string
-        if (nm.value === "") {
+        if (nm === '') {
             res[0] = '<p class="invalide"> Aucun massif declare </p>';
             res[1] = false;
         } else {
