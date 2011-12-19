@@ -4,7 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title>Challenge VolRando 2012 CHVD</title>
     <link rel="stylesheet" href="challenge.css">
+    <link rel="stylesheet" href="datepicker.css">
     <script src="fonctions_challenge.js" type="text/javascript"> </script>
+    <script src="datepicker.js" type="text/javascript"> </script>
 </head>
 <body>
 
@@ -141,9 +143,10 @@ Dans la partie droite on affichera les résutlats
           </tr>
 
           <tr> <!-- Choix de la date -->
-            <td class="invisible"> Date (JJ/MM/YY) </td>
+            <td class="invisible"> Date </td>
             <td class="invisible">
-              <input type="text" id="choix_date_id">
+              <input id="choix_date_id" name="choix_date_name">
+              <input type=button value="select" onclick="displayDatePicker('choix_date_name');">
             </td>
           </tr>
         </table>
