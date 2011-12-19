@@ -5,30 +5,47 @@ function ajout_volrando($dbh, $info)
     //foreach ($info as $cle => $valeur) {
     //    echo 'INFO VOL: ', $cle , ' = ', $valeur , '<br />';
     //}
-    $current_mid = $info{"mid"};
+    $current_mid = $info["mid"];
+
+    echo "mid = ", $info["mid"], "<br />";
+    echo "nm = ", $info["nm"], "<br />";
 
     // Si mid == 0 on doit creer une entree pour le nouveau
     // massif et recuperer son nouvel mid
     if ($current_mid == 0) {
-        // On verifie que le massif n'existe pas deja
-        $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
-        if ($qry->execute(array($info{"nm"}))) {
-            $res = $qry->fetchAll();
-            if (count($res) == 0) {
-                // C est bien un nouveau massif
-                $qry = $dbh->prepare('INSERT INTO massifs (nom) VALUES (?);');
-                if (!$qry->execute(array($info{"nm"}))) {
-                    echo "WARNING: insertion of ", $info{"nm"}, " into table failed \n";
-                }
-                // On recupere son mid
-                $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
-                $qry->execute(array($info{"nm"}));
-                $res = $qry->fetchAll();
-            } 
+
+        // On verifie si le massif est deja present
+        
+        $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
+        $qry_select->execute(array($info["nm"]));
+        $res = $qry_select->fetchAll();
+        if (count($res) == 0) { 
+            // c'est bien un nouveau massif
+            $found = false;
+        } else {
+            $found = true;
             $current_mid = $res[0]['mid'];
         }
+
+        if ($found == false) {
+            // on peut l'inserer
+            $qry_insert = $dbh->prepare('INSERT INTO massifs (nom) VALUES (?)');
+            $qry_insert->execute(array($info['mid']));
+
+            // et on recupere son nouvel mid
+            $qry_select->execute(array($info["nm"]));
+            $res = $qry_select->fetchAll();
+            if (count($res) != 0) {
+                $found = true;
+                $current_mid = $res[0]['mid'];
+            }
+        }
+
+        if (!$found) {
+            echo "<p> An error occured when inserting the new massif </p>"; 
+        }
     }
-    
+
     echo "<p> Current MID = ", $current_mid, "</p>";
 }
 
@@ -177,22 +194,21 @@ try {
     $val    =  $_GET['param'];
 
     // Info pour l'ajout du vol
-    $info{"mid"}  =  $_GET['mid'];
-    $info{"nm"}   =  $_GET['nm'];
-    $info{"sid"}  =  $_GET['sid'];
-    $info{"ns"}   =  $_GET['ns'];
-    $info{"alti"} =  $_GET['alti'];
-    $info{"pts"}  =  $_GET['pts'];
-    $info{"cs"}   =  $_GET['cs'];
-    $info{"pid"}  =  $_GET['pid'];
-    $info{"np"}   =  $_GET['np'];
-    $info{"date"} =  $_GET['date'];
-    $info{"bi"}   =  $_GET['bi'];
-    $info{"md"}   =  $_GET['md'];
-    $info{"cv"}   =  $_GET['cv'];
-
-
     if (0 == strcmp($val, "ajout_volrando")) {
+        $info = array (
+            "mid"  => $_GET['mid'],
+            "nm"   => $_GET['nm'],
+            "sid"  => $_GET['sid'],
+            "ns"   => $_GET['ns'],
+            "alti" => $_GET['alti'],
+            "pts"  => $_GET['pts'],
+            "cs"   => $_GET['cs'],
+            "pid"  => $_GET['pid'],
+            "np"   => $_GET['np'],
+            "date" => $_GET['date'],
+            "bi"   => $_GET['bi'],
+            "md"   => $_GET['md'],
+            "cv"   => $_GET['cv'] );
         ajout_volrando($dbh, $info);
     }
     elseif (0 == strcmp($val, "select_pilotes")) {
@@ -202,7 +218,7 @@ try {
         select_massifs($dbh);
     }
     elseif (0 == strcmp($val, "select_sommets")) {
-        select_sommets($dbh, $info{"mid"});
+        select_sommets($dbh, $_GET['mid']);
     }
     elseif (0 == strcmp($val, "pilotes")) {
         pilotes_to_html($dbh);
