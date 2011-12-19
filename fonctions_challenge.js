@@ -367,7 +367,6 @@ function check_sommet()
         if (res[1]) {
             res[3] = format_nom(res[3]);
             res[0] = '<p> Nouveau Sommet ' + res[3] + ' ok </p>';
-            res[2] = ns;
         }
     } else {
         res[0] = '<p> Sommet Id = ' + res[2] + '</p>';

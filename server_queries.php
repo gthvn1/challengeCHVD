@@ -2,8 +2,35 @@
 
 function ajout_volrando($dbh, $info)
 {
-    foreach ($info as $cle => $valeur) {
-        echo 'INFO VOL: ', $cle , ' = ', $valeur , '<br />';
+    //foreach ($info as $cle => $valeur) {
+    //    echo 'INFO VOL: ', $cle , ' = ', $valeur , '<br />';
+    //}
+    $current_mid = 0;
+
+    // Si mid == 0 on doit creer une entree pour le nouveau
+    // massif et recuperer son nouvel mid
+    if ($info{"mid"} == 0) {
+        // On verifie que le massif n'existe pas deja
+        $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
+        if ($qry->execute(array($info{"nm"}))) {
+            $res = $qry->fetchAll();
+            if (count($res) == 0) {
+                // C est bien un nouveau massif
+                $qry = $dbh->prepare('INSERT INTO massifs (nom) VALUES (?);');
+                if (!$qry->execute(array($info{"nm"}))) {
+                    echo "WARNING: insertion of ", $info{"nm"}, " into table failed \n";
+                }
+                // et on recupere son mid
+                $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
+                $qry->execute(array($info{"nm"}));
+                $res = $qry->fetchAll();
+
+            } 
+            
+            $current_mid = $res[0]['mid'];
+
+            echo "<p> Current MID = ", $current_mid, "</p>";
+        }
     }
 }
 
@@ -77,11 +104,13 @@ function massifs_to_html($dbh)
 
     echo '<table>';
     echo '<tr>';
+    echo '<th> Massif ID </th>';
     echo '<th> Nom du massif </th>';
     echo '</tr>';
 
     foreach ($result as $massif) {
         echo '<tr>';
+        echo '<td>', $massif['mid'], '</td>';
         echo '<td>', $massif['nom'], '</td>';
         echo '</tr>';
     }
@@ -99,7 +128,7 @@ function sommets_to_html($dbh)
     echo '<th> Année </th>';
     echo '<th> Commentaire </th>';
     echo '</tr>';
-   
+
     $result = $dbh->query('SELECT * FROM sommets ORDER BY nom');
 
     foreach ($result as $sommet) {
