@@ -5,11 +5,11 @@ function ajout_volrando($dbh, $info)
     //foreach ($info as $cle => $valeur) {
     //    echo 'INFO VOL: ', $cle , ' = ', $valeur , '<br />';
     //}
-    $current_mid = 0;
+    $current_mid = $info{"mid"};
 
     // Si mid == 0 on doit creer une entree pour le nouveau
     // massif et recuperer son nouvel mid
-    if ($info{"mid"} == 0) {
+    if ($current_mid == 0) {
         // On verifie que le massif n'existe pas deja
         $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
         if ($qry->execute(array($info{"nm"}))) {
@@ -20,18 +20,16 @@ function ajout_volrando($dbh, $info)
                 if (!$qry->execute(array($info{"nm"}))) {
                     echo "WARNING: insertion of ", $info{"nm"}, " into table failed \n";
                 }
-                // et on recupere son mid
+                // On recupere son mid
                 $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
                 $qry->execute(array($info{"nm"}));
                 $res = $qry->fetchAll();
-
             } 
-            
             $current_mid = $res[0]['mid'];
-
-            echo "<p> Current MID = ", $current_mid, "</p>";
         }
     }
+    
+    echo "<p> Current MID = ", $current_mid, "</p>";
 }
 
 function select_massifs($dbh)
