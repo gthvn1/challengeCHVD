@@ -256,6 +256,73 @@ function ask_to_server(arg)
  * en parametre du vol rando avant d'envoyer la requete d'ajout
  * dans la base de donnee au serveur ... ou pas.
  */
+
+/* Pour que tout soit plus simple a gerer on mets tout en minuscule
+ * sauf la premiere lettre. Je gere aussi les cas avec les apostrophes.
+ * C'est un peu bourrin mais bon.
+ */
+function format_sommet_nom(nom)
+{
+    var res = nom.split(" ");
+    var nouveau_nom = '';
+    var i;
+
+    for (i = 0; i < res.length; i++) {
+        // on traite les cas des apostrophes avec ou sans espaces.
+        // Ie: 1) d'arcluz => d'Arcluz
+        //     2) d' arcluz => d'Arcluz
+        //     3) d arcluz => d'Arcluz
+        if (res[i].length == 1) {
+            // cas 3
+            nouveau_nom += res[i] + "'";
+            continue;
+        }
+
+        if ((res[i].length == 2) && (res[i][1] == "'")) {
+            // cas 2
+            nouveau_nom += res[i];
+            continue;
+        }
+
+        if (res[i][1] == "'") {
+            // cas 1
+            nouveau_nom += res[i][0] + res[i][1] +
+                cap_premiere_lettre(res[i].slice(2)) + " ";
+            continue;
+        }
+
+        if (do_cap(res[i]))
+            nouveau_nom += cap_premiere_lettre(res[i]) + " ";
+        else
+            nouveau_nom += res[i] + " ";
+    }
+
+    // on vire le dernier blanc
+    return nouveau_nom.substring(0, nouveau_nom.length - 1);;
+}
+
+function do_cap(string)
+{
+    // C'est pas tres jolie mais je ne sais pas encore faire autrement
+    // On ne met pas de majuscule au le, la, de, du, des, les ...
+    var e = new Array('le', 'les', 'la', 'du', 'des', 'de');
+
+    for (var i=0; i < e.length; i++) {
+        if (string == e[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function cap_premiere_lettre(string)
+{
+    if (string)
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    else
+        return "";
+}
+
 function check_number(n)
 {
     if (isNaN(n) || n == 0)
@@ -303,17 +370,31 @@ function check_sommet()
 
     if (sid == 0) {
         // On verifie si on a tous les elements pour notre nouveau sommet
-        var altitude = document.getElementById("choix_sommet_altitude_id");
-        var points   = document.getElementById("choix_sommet_points_id");
-        var comment  = document.getElementById("choix_sommet_comment_id");
+        var ns = document.getElementById("choix_nouveau_sommet_id").value;
+        var altitude = Number(document.getElementById("choix_sommet_altitude_id").value);
+        var points   = Number(document.getElementById("choix_sommet_points_id").value);
+        var comment  = document.getElementById("choix_sommet_commentaire_id").value;
 
-        // Seuls l'altitude et les points sont necessaires.
-        // TODO: Verifier si ce sont des entiers
-        if (altitude.value != '' && points.value != '') {
-            res[0] = '<p> Nouveau sommet OK <p>';
-        } else {
-            res[0] = '<p class="invalide"> Sommet invalide : ' + altitude.value + ' / ' +  points.value + '<p>';
+        if (ns === '') {
+            res[0] = '<p class="invalide"> Le nouveau sommet est sans nom...</p>';
             res[1] = false;
+        }
+
+        if (!check_number(altitude)) {
+            res[0] += '<p class="invalide"> Altitude invalide </p>';
+            res[1] = false;
+        }
+
+        // Il reste à verifier si le nombre de points est bien compris
+        // entre 1 et altitude/1000
+        if (!check_number(points)) {
+            res[0] += '<p class="invalide"> Nombre de points invalide </p>';
+            res[1] = false;
+        }
+
+        if (res[1]) {
+            ns = format_sommet_nom(ns);
+            res[0] = '<p> Nouveau Sommet ' + ns + ' ok </p>';
         }
     } else {
         res[0] = '<p> Sommet Id = ' + sid + '</p>';
