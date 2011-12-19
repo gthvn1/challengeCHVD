@@ -261,7 +261,7 @@ function ask_to_server(arg)
  * sauf la premiere lettre. Je gere aussi les cas avec les apostrophes.
  * C'est un peu bourrin mais bon.
  */
-function format_sommet_nom(nom)
+function format_nom(nom)
 {
     var res = nom.split(" ");
     var nouveau_nom = '';
@@ -343,14 +343,15 @@ function check_massif()
 
     if (mid == 0) {
         // On verifie si il y a un nouveau massif de declare.
-        var nm = document.getElementById("choix_nouveau_massif_id");
+        var nm = document.getElementById("choix_nouveau_massif_id").value;
 
         // Verifie si c'est une string
         if (nm.value === "") {
             res[0] = '<p class="invalide"> Aucun massif declare </p>';
             res[1] = false;
         } else {
-            res[0] = '<p> Nouveau Massif = ' + nm.value + '</p>';
+            nm = format_nom(nm);
+            res[0] = '<p> Nouveau Massif = ' + nm + '</p>';
         }
     } else {
         res[0] = '<p> Massif Id  = ' + mid + '</p>';
@@ -393,7 +394,7 @@ function check_sommet()
         }
 
         if (res[1]) {
-            ns = format_sommet_nom(ns);
+            ns = format_nom(ns);
             res[0] = '<p> Nouveau Sommet ' + ns + ' ok </p>';
         }
     } else {
