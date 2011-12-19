@@ -28,22 +28,7 @@ function getXhr()
 
 function gmd_pilotes()
 {
-    var xhr = getXhr();
-
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState == 4) {
-            if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById('zone_saisie_pilote').innerHTML = xhr.responseText;
-            } else {
-                alert('Error choix pilote: status =' + xhr.status);
-            }
-        }
-    }
-
-    // true => mode de transfert asynchrone
-    xhr.open("GET","server_queries.php?param=select_pilotes", true);
-    xhr.send();
+    ask_to_server("select_pilotes", "zone_saisie_pilote");
 }
 
 /*
@@ -53,22 +38,7 @@ function gmd_pilotes()
  */
 function gmd_massifs()
 {
-    var xhr = getXhr();
-
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState == 4) {
-            if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById('zone_saisie_massif').innerHTML = xhr.responseText;
-            } else {
-                alert('Error choix massif: status =' + xhr.status);
-            }
-        }
-    }
-
-    // true => mode de transfert asynchrone
-    xhr.open("GET","server_queries.php?param=select_massifs", true);
-    xhr.send();
+    ask_to_server("select_massifs", "zone_saisie_massif");
 }
 
 /*
@@ -77,7 +47,6 @@ function gmd_massifs()
  */
 function gmd_sommets()
 {
-    var xhr = getXhr();
     var e =  document.getElementById("choix_massif_id");
     var mid = e.options[e.selectedIndex].value;
 
@@ -104,20 +73,7 @@ function gmd_sommets()
         document.getElementById('zone_saisie_nouveau_massif').innerHTML =
             enable_saisie_nouveau_massif(false);
 
-        xhr.onreadystatechange = function()
-        {
-            if (xhr.readyState == 4) {
-                if ((xhr.status == 200 || xhr.status == 0)) {
-                    document.getElementById('zone_saisie_sommet').innerHTML = xhr.responseText;
-                } else {
-                alert('Error choix sommet: status =' + xhr.status);
-                }
-            }
-        }
-
-        // true => mode de transfert asynchrone
-        xhr.open("GET","server_queries.php?param=select_sommets&mid=" + mid, true);
-        xhr.send();
+        ask_to_server("select_sommets&mid=" + mid, "zone_saisie_sommet");
     }
 }
 
