@@ -435,7 +435,7 @@ function check_date(d)
         res[0] = '<p class="invalide"> Vous devez saisir une date </p>';
         res[1] = false;
     } else {
-        res[0] = '<p> Date saisie mais format pas encore verifie </p>';
+        res[0] = '<p> Date saisie : ' + x.value + '</p>';
     }
 
     return res;
