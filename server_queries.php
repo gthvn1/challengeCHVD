@@ -15,14 +15,13 @@ function ajout_volrando($dbh, $info)
     if ($current_mid == 0) {
 
         // On verifie si le massif est deja present
+        $found = false;
         
         $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
         $qry_select->execute(array($info["nm"]));
         $res = $qry_select->fetchAll();
-        if (count($res) == 0) { 
-            // c'est bien un nouveau massif
-            $found = false;
-        } else {
+        if (count($res) != 0) { 
+            // c'est pas un nouveau massif
             $found = true;
             $current_mid = $res[0]['mid'];
         }
@@ -30,9 +29,10 @@ function ajout_volrando($dbh, $info)
         if ($found == false) {
             // on peut l'inserer
             $qry_insert = $dbh->prepare('INSERT INTO massifs (nom) VALUES (?)');
-            $qry_insert->execute(array($info['mid']));
+            $qry_insert->execute(array($info["nm"]));
 
             // et on recupere son nouvel mid
+            $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
             $qry_select->execute(array($info["nm"]));
             $res = $qry_select->fetchAll();
             if (count($res) != 0) {
