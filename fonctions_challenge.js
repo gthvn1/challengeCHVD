@@ -428,16 +428,21 @@ function check_pilote()
 
 function check_date(d)
 {
-    var x = document.getElementById("choix_date_id");
+    var d = document.getElementById("choix_date_id").value;
     var res = new Array('', true);
 
-    if (x.value == '') {
-        res[0] = '<p class="invalide"> Vous devez saisir une date </p>';
-        res[1] = false;
-    } else {
-        res[0] = '<p> Date saisie : ' + x.value + '</p>';
+    var ds = d.split("/");
+
+    if (ds.length == 2) {
+        // verification grosso merdo...
+        if (ds[0] > 0 && ds[1] < 31 && ds[1] > 0 && ds[1] < 13) {
+            res[0] = '<p> Date saisie : ' + d + '</p>';
+            return res;
+        }
     }
 
+    res[0] = '<p class="invalide"> Date invalide </p>';
+    res[1] = false;
     return res;
 }
 
