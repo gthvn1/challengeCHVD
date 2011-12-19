@@ -291,17 +291,17 @@ function format_nom(nom)
             continue;
         }
 
-        if (do_cap(res[i]))
-            nouveau_nom += cap_premiere_lettre(res[i]) + " ";
-        else
+        if (dont_cap(res[i]) && i != 0)
             nouveau_nom += res[i] + " ";
+        else
+            nouveau_nom += cap_premiere_lettre(res[i]) + " ";
     }
 
     // on vire le dernier blanc
     return nouveau_nom.substring(0, nouveau_nom.length - 1);;
 }
 
-function do_cap(string)
+function dont_cap(string)
 {
     // C'est pas tres jolie mais je ne sais pas encore faire autrement
     // On ne met pas de majuscule au le, la, de, du, des, les ...
@@ -309,10 +309,10 @@ function do_cap(string)
 
     for (var i=0; i < e.length; i++) {
         if (string == e[i]) {
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 function cap_premiere_lettre(string)
