@@ -190,7 +190,7 @@ Dans la partie droite on affichera les résutlats
         viendront ecraser cette zone en utilisant l'id "resultat".
     -->
     <script type="text/javascript">
-        ask_to_server('volrandos');
+        ask_to_server('volrandos', 'zone_resultats');
     </script>
 
     </p>

@@ -228,7 +228,7 @@ function enable_saisie_nouveau_pilote(choix)
  * serveur
  */
 
-function ask_to_server(arg)
+function ask_to_server(arg, zone)
 {
     var xhr = getXhr();
 
@@ -236,9 +236,9 @@ function ask_to_server(arg)
     {
         if (xhr.readyState == 4) {
             if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById('zone_resultats').innerHTML = xhr.responseText;
+                document.getElementById(zone).innerHTML = xhr.responseText;
             } else {
-                alert('Error: status =' + xhr.status);
+                alert('Error [' + arg + ']  status =' + xhr.status);
             }
         }
     }
@@ -518,7 +518,7 @@ function check_volrando()
 
     if (vol_valide) {
         info_vol = '<h3> VOTRE VOL A ETE VALIDE </h3>' + info_vol ;
-        ask_to_server(requete);
+        ask_to_server(requete, 'zone_resultats');
     } else {
         info_vol = '<h3 class="invalide"> VOTRE VOL EST INVALIDE  </h3>' + info_vol;
     }
