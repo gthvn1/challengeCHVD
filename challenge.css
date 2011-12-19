@@ -42,11 +42,13 @@ div#div_bas {
 }
 
 #zone_status {
+    font-family: Courier;
+    font-size: 12px;
     margin:5px;
     padding:5px;
     border:2px solid gray;
     background-color: #000;
-    color: green;
+    color: #0F0;
     min-height: 200px;
 }
 
@@ -92,7 +94,7 @@ th {
     font-weight: bold;
     border: thin solid #6495ed;
     padding: 5px;
-    background-color: #D0E3FA;
+    /*background-color: #D0E3FA;*/
 }
 
 td {
@@ -100,5 +102,5 @@ td {
     border: thin solid #6495ed;
     padding: 5px;
     text-align: center;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
 }
