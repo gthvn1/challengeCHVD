@@ -92,7 +92,7 @@ function gmd_sommets()
             enable_saisie_nouveau_massif(true);
 
         document.getElementById('zone_saisie_sommet').innerHTML =
-            disable_saisie_sommet(false);
+            disable_saisie_sommet();
     } else {
         document.getElementById('zone_saisie_nouveau_massif').innerHTML =
             enable_saisie_nouveau_massif(false);
