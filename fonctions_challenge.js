@@ -22,6 +22,30 @@ function getXhr()
 }
 
 /********************************************************************
+ * Fonctions d'envoie des requetes au serveur
+ */
+
+function ask_to_server(arg, zone)
+{
+    var xhr = getXhr();
+
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState == 4) {
+            if ((xhr.status == 200 || xhr.status == 0)) {
+                document.getElementById(zone).innerHTML = xhr.responseText;
+            } else {
+                alert('Error [' + arg + ']  status =' + xhr.status);
+            }
+        }
+    }
+
+    // true => mode de transfert asynchrone
+    xhr.open("GET","server_queries.php?param=" + arg, true);
+    xhr.send();
+}
+
+/********************************************************************
  * Les fonctions gmd_ sont les fonctions de Generation de Menus
  * Deroulants
  */
@@ -76,6 +100,11 @@ function gmd_sommets()
         ask_to_server("select_sommets&mid=" + mid, "zone_saisie_sommet");
     }
 }
+
+/********************************************************************
+ * Les fonctions suivantes sont utilisees pour activer ou desactiver
+ * les differents choix de la zone de saisie du vol rando.
+ */
 
 /*
  * Cette fonction est appelee lorsqu'un sommet a ete selectionne. Il faut donc griser
@@ -178,39 +207,11 @@ function enable_saisie_nouveau_pilote(choix)
     return enable_saisie_generique("Nouveau pilote", "choix_nouveau_pilote_id", choix);
 }
 
-
-/********************************************************************
- * Fonctions d'envoie des requetes d'affichage des resultats au
- * serveur
- */
-
-function ask_to_server(arg, zone)
-{
-    var xhr = getXhr();
-
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState == 4) {
-            if ((xhr.status == 200 || xhr.status == 0)) {
-                document.getElementById(zone).innerHTML = xhr.responseText;
-            } else {
-                alert('Error [' + arg + ']  status =' + xhr.status);
-            }
-        }
-    }
-
-    // true => mode de transfert asynchrone
-    xhr.open("GET","server_queries.php?param=" + arg, true);
-    xhr.send();
-}
-
 /********************************************************************
  *
- * Fonction de validation des champs du volrando declare
- *
- * Cette fonction permet de valider un minimum les donnees passees
- * en parametre du vol rando avant d'envoyer la requete d'ajout
- * dans la base de donnee au serveur ... ou pas.
+ * Fonctions de validation des champs du volrando declare et
+ * fonctions permettant de formaliser le nom des massifs et des
+ * sommets.
  */
 
 /* Pour que tout soit plus simple a gerer on mets tout en minuscule
@@ -428,6 +429,11 @@ function check_date(d)
     return res;
 }
 
+/*
+ * Cette fonction permet de valider un minimum les donnees passees
+ * en parametre du vol rando avant d'envoyer la requete d'ajout
+ * dans la base de donnee au serveur ... ou pas.
+ */
 function check_volrando()
 {
     var requete = 'ajout_volrando';
