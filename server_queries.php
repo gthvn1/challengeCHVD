@@ -16,18 +16,18 @@ function ajout_volrando($dbh, $info)
         // On verifie si le massif est deja present
         $found = false;
 
-        $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
+        $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE m_nom = ?');
         $qry_select->execute(array($info["nm"]));
         $res = $qry_select->fetchAll();
         if (count($res) != 0) {
             // c'est pas un nouveau massif
             $found = true;
-            $current_mid = $res[0]['mid'];
+            $current_mid = $res[0]["m_id"];
         }
 
         if ($found == false) {
             // on peut l'inserer
-            $qry_insert = $dbh->prepare('INSERT INTO massifs (nom) VALUES (?)');
+            $qry_insert = $dbh->prepare('INSERT INTO massifs (m_nom) VALUES (?)');
             $qry_insert->execute(array($info["nm"]));
 
             // et on recupere son nouvel mid
@@ -35,7 +35,7 @@ function ajout_volrando($dbh, $info)
             $res = $qry_select->fetchAll();
             if (count($res) != 0) {
                 $found = true;
-                $current_mid = $res[0]['mid'];
+                $current_mid = $res[0]["m_id"];
             }
         }
 
@@ -51,26 +51,29 @@ function ajout_volrando($dbh, $info)
     if ($current_sid == 0) {
 
         $found = false;
-        $qry_select = $dbh->prepare('SELECT * FROM sommets WHERE nom = ?');
+        $qry_select = $dbh->prepare('SELECT * FROM sommets WHERE s_nom = ?');
         $qry_select->execute(array($info["ns"]));
         $res = $qry_select->fetchAll();
         if (count($res) != 0) {
             // c'est pas un nouveau sommet
             $found = true;
-            $current_sid = $res[0]['sid'];
+            $current_sid = $res[0]["s_id"];
         }
 
         if ($found == false) {
             // on peut l'inserer
-            $qry_insert = $dbh->prepare('INSERT INTO sommets (nom, mid, altitude, points, annee, commentaire) VALUES (?,?,?,?,?,?);');
-            $qry_insert->execute(array($info["ns"], $current_mid, $info["alti"], $info["pts"], "2012", $info["cs"]));
+            $qry_insert = $dbh->prepare('INSERT INTO sommets 
+                (s_nom, s_mid, s_alti, s_pts, s_annee, s_comment)
+                VALUES (?,?,?,?,?,?);');
+            $qry_insert->execute(array($info["ns"], $current_mid, $info["alti"],
+                                       $info["pts"], "2012", $info["cs"]));
 
             // et on recupere son nouvel sid
             $qry_select->execute(array($info["ns"]));
             $res = $qry_select->fetchAll();
             if (count($res) != 0) {
                 $found = true;
-                $current_sid = $res[0]['sid'];
+                $current_sid = $res[0]["s_id"];
             }
         }
 
@@ -86,18 +89,18 @@ function ajout_volrando($dbh, $info)
     if ($current_pid == 0) {
 
         $found = false;
-        $qry_select = $dbh->prepare('SELECT * FROM pilotes WHERE pseudo = ?');
+        $qry_select = $dbh->prepare('SELECT * FROM pilotes WHERE p_pseudo = ?');
         $qry_select->execute(array($info["np"]));
         $res = $qry_select->fetchAll();
         if (count($res) != 0) {
             // c'est pas un nouveau pilote
             $found = true;
-            $current_pid = $res[0]['pid'];
+            $current_pid = $res[0]["p_id"];
         }
 
         if ($found == false) {
             // on peut l'inserer
-            $qry_insert = $dbh->prepare('INSERT INTO pilotes (pseudo) VALUES (?)');
+            $qry_insert = $dbh->prepare('INSERT INTO pilotes (p_pseudo) VALUES (?)');
             $qry_insert->execute(array($info["np"]));
 
             // et on recupere son nouveau pid
@@ -105,7 +108,7 @@ function ajout_volrando($dbh, $info)
             $res = $qry_select->fetchAll();
             if (count($res) != 0) {
                 $found = true;
-                $current_pid = $res[0]['pid'];
+                $current_pid = $res[0]["p_id"];
             }
         }
 
@@ -118,22 +121,25 @@ function ajout_volrando($dbh, $info)
     // A ce point $current_pid est OK
 
     // On ajoute le vol
-    $qry_insert = $dbh->prepare('INSERT INTO volrandos (sid, pid, date, biplace, but, carbone, commentaire) VALUES (?,?,?,?,?,?,?);');
-    $qry_insert->execute(array($current_sid, $current_pid, $info["date"], $info["bi"], 0.0, $info["md"], $info["cs"]));
+    $qry_insert = $dbh->prepare('INSERT INTO volrandos
+        (v_sid, v_pid, v_date, v_bi, v_but, v_co2, v_comment)
+        VALUES (?,?,?,?,?,?,?);');
+    $qry_insert->execute(array($current_sid, $current_pid, $info["date"],
+                               $info["bi"], 0.0, $info["md"], $info["cs"]));
 
     return true;
 }
 
 function select_massifs($dbh)
 {
-    $res = $dbh->query('SELECT * FROM massifs ORDER BY nom');
+    $res = $dbh->query('SELECT * FROM massifs ORDER BY m_nom');
 
     echo '<td class="invisible"> Choix du massif </td>';
     echo '<td class="invisible">';
     echo '<select id="choix_massif_id" onChange="gmd_sommets()">';
     echo '<option value="0"> selectionner un massif </option>';
     foreach ($res as $massif) {
-        echo '<option value="', $massif['mid'], '">', $massif['nom'], '</option>';
+        echo '<option value="', $massif["m_id"], '">', $massif["m_nom"], '</option>';
     }
     echo '</select>';
     echo '</td>';
@@ -141,7 +147,7 @@ function select_massifs($dbh)
 
 function select_sommets($dbh, $mid)
 {
-    $qry = $dbh->prepare('SELECT * FROM sommets WHERE mid = ? ORDER BY nom');
+    $qry = $dbh->prepare('SELECT * FROM sommets WHERE s_mid = ? ORDER BY s_nom');
     $qry->execute(array($mid));
     $res = $qry->fetchAll();
 
@@ -150,7 +156,7 @@ function select_sommets($dbh, $mid)
     echo '<select id="choix_sommet_id" onChange="sommet_selected()">';
     echo '<option value="0"> Choisir un sommet </option>';
     foreach ($res as $sommet) {
-        echo '<option value="', $sommet['sid'], '">', $sommet['nom'], '</option>';
+        echo '<option value="', $sommet["s_id"], '">', $sommet["s_nom"], '</option>';
     }
     echo '</select>';
     echo '</td>';
@@ -158,14 +164,14 @@ function select_sommets($dbh, $mid)
 
 function select_pilotes($dbh)
 {
-    $res = $dbh->query('SELECT * FROM pilotes ORDER BY pseudo');
+    $res = $dbh->query('SELECT * FROM pilotes ORDER BY p_pseudo');
 
     echo '<td class="invisible"> Choix du pilote </td>';
     echo '<td class="invisible">';
     echo '<select id="choix_pilote_id" onChange="pilote_selected()">';
     echo '<option value="0"> selectionner un pilote </option>';
     foreach ($res as $pilote) {
-        echo '<option value="', $pilote['pid'], '">', $pilote['pseudo'], '</option>';
+        echo '<option value="', $pilote["p_id"], '">', $pilote["p_pseudo"], '</option>';
     }
     echo '</select>';
     echo '</td>';
@@ -173,7 +179,7 @@ function select_pilotes($dbh)
 
 function pilotes_to_html($dbh)
 {
-    $result = $dbh->query('SELECT * FROM pilotes ORDER BY pseudo');
+    $result = $dbh->query('SELECT * FROM pilotes ORDER BY p_pseudo');
     $tab = $result->fetchAll();
 
     echo '<table>';
@@ -183,7 +189,7 @@ function pilotes_to_html($dbh)
 
     foreach ($tab as $pilote) {
         echo '<tr>';
-        echo '<td>', $pilote['pseudo'], '</td>';
+        echo '<td>', $pilote["p_pseudo"], '</td>';
         echo '</tr>';
     }
     echo '</table>';
@@ -191,7 +197,7 @@ function pilotes_to_html($dbh)
 
 function massifs_to_html($dbh)
 {
-    $result = $dbh->query('SELECT * FROM massifs ORDER BY nom');
+    $result = $dbh->query('SELECT * FROM massifs ORDER BY m_nom');
     $tab = $result->fetchAll();
 
     echo '<table>';
@@ -202,8 +208,8 @@ function massifs_to_html($dbh)
 
     foreach ($tab as $massif) {
         echo '<tr>';
-        echo '<td>', $massif['mid'], '</td>';
-        echo '<td>', $massif['nom'], '</td>';
+        echo '<td>', $massif["m_id"], '</td>';
+        echo '<td>', $massif["m_nom"], '</td>';
         echo '</tr>';
     }
     echo '</table>';
@@ -221,17 +227,17 @@ function sommets_to_html($dbh)
     echo '<th> Commentaire </th>';
     echo '</tr>';
 
-    $result = $dbh->query('SELECT * FROM sommets ORDER BY nom');
+    $result = $dbh->query('SELECT * FROM sommets ORDER BY s_nom');
     $tab = $result->fetchAll();
 
     foreach ($tab as $sommet) {
         echo '<tr>';
-        echo '<td>', $sommet['nom'], '</td>';
-        echo '<td>', $sommet['mid'], '</td>';
-        echo '<td>', $sommet['altitude'], '</td>';
-        echo '<td>', $sommet['points'], '</td>';
-        echo '<td>', $sommet['annee'], '</td>';
-        echo '<td>', $sommet['commentaire'], '</td>';
+        echo '<td>', $sommet["s_nom"], '</td>';
+        echo '<td>', $sommet["s_mid"], '</td>';
+        echo '<td>', $sommet["s_alti"], '</td>';
+        echo '<td>', $sommet["s_pts"], '</td>';
+        echo '<td>', $sommet["s_annee"], '</td>';
+        echo '<td>', $sommet["s_comment"], '</td>';
         echo '</tr>';
     }
     echo '</table>';
@@ -240,14 +246,14 @@ function sommets_to_html($dbh)
 function volrandos_to_html($dbh)
 {
     $result = $dbh->query('SELECT * FROM volrandos
-                           INNER JOIN pilotes ON volrandos.pid = pilotes.pid
-                           INNER JOIN sommets ON volrandos.sid = sommets.sid');
+                           INNER JOIN pilotes ON v_pid = p_id
+                           INNER JOIN sommets ON v_sid = s_id');
     $tab = $result->fetchAll();
 
     echo '<table>';
     echo '<tr>';
     echo '<th> Vol ID </th>';
-    echo '<th> Sommet ID </th>';
+    echo '<th> Sommet </th>';
     echo '<th> Pilote </th>';
     echo '<th> Date </th>';
     echo '<th> Biplace </th>';
@@ -257,25 +263,23 @@ function volrandos_to_html($dbh)
 
     foreach ($tab as $volrando) {
             echo '<tr>';
-            echo '<td>', $volrando['vid'], '</td>';
-            echo '<td>', $volrando['nom'], '</td>';
-            echo '<td>', $volrando['pseudo'], '</td>';
-            echo '<td>', $volrando['date'], '</td>';
-            echo '<td>', $volrando['biplace'], '</td>';
-            echo '<td>', $volrando['carbone'], '</td>';
-            echo '<td>', $volrando['commentaire'], '</td>';
+            echo '<td>', $volrando["v_id"]      , '</td>';
+            echo '<td>', $volrando["s_nom"]     , '</td>';
+            echo '<td>', $volrando["p_pseudo"]  , '</td>';
+            echo '<td>', $volrando["v_date"]    , '</td>';
+            echo '<td>', $volrando["v_bi"]      , '</td>';
+            echo '<td>', $volrando["v_co2"]     , '</td>';
+            echo '<td>', $volrando["v_comment"] , '</td>';
             echo '</tr>';
     }
     echo '</table>';
 
-    /*
     echo "DEBUG ON <br />";
     foreach ($tab as $volrando) {
         var_dump($volrando);
         echo "<br />";
         echo "<br />";
     }
-    */
 }
 
 try {

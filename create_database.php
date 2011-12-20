@@ -10,31 +10,31 @@
  *
  * OBJET: SOMMET
  * PROPRIETES:
- *   - SID       # Cle == sommet ID
- *   - NOM       # Text
- *   - MID       # massif ID
- *   - ALTITUDE  # INTEGER
- *   - POINTS    # INTEGER
- *   - ANNEE     # INTEGER
- *   - COMMENTAIRE # TEXT
+ *   - S_ID        # Cle == sommet ID
+ *   - S_NOM       # Text
+ *   - S_MID       # massif ID
+ *   - S_ALTI      # INTEGER altitude
+ *   - S_PTS       # INTEGER points
+ *   - S_ANNEE     # INTEGER
+ *   - S_COMMENT   # TEXT
  *
  * OBJET: MASSIF
- *   - MID       # Cle == massif ID
- *   - NOM
+ *   - M_ID        # Cle == massif ID
+ *   - M_NOM
  *
  * OBJET: PILOTE
- *   - PID       # Cle == pilote ID
- *   - PSEUDO    # TEXT
+ *   - P_ID        # Cle == pilote ID
+ *   - P_PSEUDO    # TEXT
  *
  * OBJET: VOLRANDO
- *   - VID       # Cle == volrando ID
- *   - SID       # sommet ID
- *   - PID       # pilote ID
- *   - DATE      # INTEGER => utilisation des timestamps Unix
- *   - BIPLACE   # INTEGER => 0: solo, 1: biplace
- *   - BUT       # REAL    => 0.5 si un but au sommet
- *   - CARBONE   # INTEGER => 0: mobilite douce, 1: Emmission de CO2
- *   - COMMENTAIRE   # TEXT
+ *   - V_ID        # Cle == volrando ID
+ *   - V_SID       # sommet ID
+ *   - V_PID       # pilote ID
+ *   - V_DATE      # INTEGER => utilisation des timestamps Unix
+ *   - V_BI        # INTEGER => 0: solo, 1: biplace
+ *   - V_BUT       # REAL    => 0.5 si un but au sommet
+ *   - V_CO2       # INTEGER => 0: mobilite douce, 1: Emmission de CO2
+ *   - V_COMMENT   # TEXT
  */
 
 function ajouter_sommets($dbh) {
@@ -75,24 +75,26 @@ function ajouter_sommets($dbh) {
              *       alors on insere le nouveau massif
              *       sinon rien a faire
              */
-            $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
+            $qry = $dbh->prepare('SELECT * FROM massifs WHERE m_nom = ?');
             if ($qry->execute(array($line[1]))) {
                 $res = $qry->fetchAll();
                 if (count($res) == 0) {
                     // nouveau massif
                     $nbmassifs ++;
-                    $qry = $dbh->prepare('INSERT INTO massifs (nom) VALUES (?);');
+                    $qry = $dbh->prepare('INSERT INTO massifs (m_nom) VALUES (?);');
                     if (!$qry->execute(array($line[1]))) {
                         echo "WARNING: insertion of ", $line[1], " into table failed \n";
                     }
                 }  // else nothing to do
 
                 // Maintenant on peut ajouter le nouveau sommet
-                $qry = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
+                $qry = $dbh->prepare('SELECT * FROM massifs WHERE m_nom = ?');
                 $qry->execute(array($line[1]));
                 $massifID = $qry->fetch();
                 
-                $qry = $dbh->prepare('INSERT INTO sommets (nom, mid, altitude, points, annee, commentaire) VALUES (?,?,?,?,?,?);');
+                $qry = $dbh->prepare('INSERT INTO sommets 
+                                      (s_nom, s_mid, s_alti, s_pts, s_annee, s_comment)
+                                      VALUES (?,?,?,?,?,?);');
                 $qry->execute(array($line[0], $massifID[0], $line[2], $line[3], $line[4], $line[5]));
 
                 // sommet ajoute
@@ -119,7 +121,7 @@ function ajouter_pilotes($dbh) {
 
     for ($i = 0; $i < $nbpilotes; $i++) {
         $p = $pilotes[$i];
-        $qry = $dbh->prepare('INSERT INTO pilotes (pseudo) VALUES (?);');
+        $qry = $dbh->prepare('INSERT INTO pilotes (p_pseudo) VALUES (?);');
         $qry->execute(array($p));
     }
 
@@ -136,28 +138,31 @@ try {
 
     // Create the four tables
     $dbh->exec('CREATE TABLE IF NOT EXISTS sommets (
-                    sid INTEGER PRIMARY KEY,
-                    nom TEXT,
-                    mid INTEGER,
-                    altitude INTEGER,
-                    points INTEGER,
-                    annee INTEGER,
-                    commentaire TEXT);');
+                    s_id        INTEGER PRIMARY KEY,
+                    s_nom       TEXT,
+                    s_mid       INTEGER,
+                    s_alti      INTEGER,
+                    s_pts       INTEGER,
+                    s_annee     INTEGER,
+                    s_comment   TEXT)');
+
     $dbh->exec('CREATE TABLE IF NOT EXISTS massifs (
-                    mid INTEGER PRIMARY KEY,
-                    nom TEXT);');
+                    m_id    INTEGER PRIMARY KEY,
+                    m_nom   TEXT)');
+
     $dbh->exec('CREATE TABLE IF NOT EXISTS pilotes (
-                    pid INTEGER PRIMARY KEY,
-                    pseudo TEXT);');
+                    p_id        INTEGER PRIMARY KEY,
+                    p_pseudo    TEXT)');
+
     $dbh->exec('CREATE TABLE IF NOT EXISTS volrandos (
-                    vid INTEGER PRIMARY KEY,
-                    sid INTEGER,
-                    pid INTEGER,
-                    date INTEGER,
-                    biplace INTEGER,
-                    but REAL,
-                    carbone INTEGER,
-                    commentaire TEXT);');
+                    v_id        INTEGER PRIMARY KEY,
+                    v_sid       INTEGER,
+                    v_pid       INTEGER,
+                    v_date      INTEGER,
+                    v_bi        INTEGER,
+                    v_but       REAL,
+                    v_co2       INTEGER,
+                    v_comment   TEXT)');
 
     ajouter_sommets($dbh); // la table massif est remplie egalement
     ajouter_pilotes($dbh);
