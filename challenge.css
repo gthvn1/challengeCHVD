@@ -23,7 +23,7 @@ div#div_gauche {
     background-color:#91C1C1;
     */
     float: left;
-    width: 45%;
+    width: 40%;
 }
 
 div#div_droite {
@@ -31,7 +31,7 @@ div#div_droite {
     background-color:#FFA770;
     */
     float: right;
-    width: 50%;
+    width: 55%;
 }
 
 div#div_bas {

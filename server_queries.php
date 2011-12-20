@@ -125,7 +125,7 @@ function ajout_volrando($dbh, $info)
         (v_sid, v_pid, v_date, v_bi, v_but, v_co2, v_comment)
         VALUES (?,?,?,?,?,?,?);');
     $qry_insert->execute(array($current_sid, $current_pid, $info["date"],
-                               $info["bi"], 0.0, $info["md"], $info["cs"]));
+                               $info["bi"], 0, $info["md"], $info["cv"]));
 
     return true;
 }
