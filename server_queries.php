@@ -174,13 +174,14 @@ function select_pilotes($dbh)
 function pilotes_to_html($dbh)
 {
     $result = $dbh->query('SELECT * FROM pilotes ORDER BY pseudo');
+    $tab = $result->fetchAll();
 
     echo '<table>';
     echo '<tr>';
     echo '<th> Pseudo </th>';
     echo '</tr>';
 
-    foreach ($result as $pilote) {
+    foreach ($tab as $pilote) {
         echo '<tr>';
         echo '<td>', $pilote['pseudo'], '</td>';
         echo '</tr>';
@@ -191,6 +192,7 @@ function pilotes_to_html($dbh)
 function massifs_to_html($dbh)
 {
     $result = $dbh->query('SELECT * FROM massifs ORDER BY nom');
+    $tab = $result->fetchAll();
 
     echo '<table>';
     echo '<tr>';
@@ -198,7 +200,7 @@ function massifs_to_html($dbh)
     echo '<th> Nom du massif </th>';
     echo '</tr>';
 
-    foreach ($result as $massif) {
+    foreach ($tab as $massif) {
         echo '<tr>';
         echo '<td>', $massif['mid'], '</td>';
         echo '<td>', $massif['nom'], '</td>';
@@ -220,8 +222,9 @@ function sommets_to_html($dbh)
     echo '</tr>';
 
     $result = $dbh->query('SELECT * FROM sommets ORDER BY nom');
+    $tab = $result->fetchAll();
 
-    foreach ($result as $sommet) {
+    foreach ($tab as $sommet) {
         echo '<tr>';
         echo '<td>', $sommet['nom'], '</td>';
         echo '<td>', $sommet['mid'], '</td>';
@@ -236,31 +239,43 @@ function sommets_to_html($dbh)
 
 function volrandos_to_html($dbh)
 {
-    $result = $dbh->query('SELECT * FROM volrandos');
+    $result = $dbh->query('SELECT * FROM volrandos
+                           INNER JOIN pilotes ON volrandos.pid = pilotes.pid
+                           INNER JOIN sommets ON volrandos.sid = sommets.sid');
+    $tab = $result->fetchAll();
 
     echo '<table>';
     echo '<tr>';
     echo '<th> Vol ID </th>';
     echo '<th> Sommet ID </th>';
-    echo '<th> Pilote ID </th>';
+    echo '<th> Pilote </th>';
     echo '<th> Date </th>';
     echo '<th> Biplace </th>';
     echo '<th> Carbone </th>';
     echo '<th> Commentaire </th>';
     echo '</tr>';
 
-    foreach ($result as $volrando) {
-        echo '<tr>';
-        echo '<td>', $volrando['vid'], '</td>';
-        echo '<td>', $volrando['sid'], '</td>';
-        echo '<td>', $volrando['pid'], '</td>';
-        echo '<td>', $volrando['date'], '</td>';
-        echo '<td>', $volrando['biplace'], '</td>';
-        echo '<td>', $volrando['carbone'], '</td>';
-        echo '<td>', $volrando['commentaire'], '</td>';
-        echo '</tr>';
+    foreach ($tab as $volrando) {
+            echo '<tr>';
+            echo '<td>', $volrando['vid'], '</td>';
+            echo '<td>', $volrando['nom'], '</td>';
+            echo '<td>', $volrando['pseudo'], '</td>';
+            echo '<td>', $volrando['date'], '</td>';
+            echo '<td>', $volrando['biplace'], '</td>';
+            echo '<td>', $volrando['carbone'], '</td>';
+            echo '<td>', $volrando['commentaire'], '</td>';
+            echo '</tr>';
     }
     echo '</table>';
+
+    /*
+    echo "DEBUG ON <br />";
+    foreach ($tab as $volrando) {
+        var_dump($volrando);
+        echo "<br />";
+        echo "<br />";
+    }
+    */
 }
 
 try {
