@@ -462,7 +462,7 @@ function check_volrando()
     res = check_date();
     info_vol += res[0];
     vol_valide &= res[1];
-    requete += '&date=' + res[3];
+    requete += '&date=' + res[2];
 
     info_vol += '<p> biplace = ' + biplace.checked + '</p>';
     requete += '&bi=' + biplace.checked;
