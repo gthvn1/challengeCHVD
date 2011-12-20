@@ -280,14 +280,6 @@ function cap_premiere_lettre(string)
         return "";
 }
 
-function check_number(n)
-{
-    if (isNaN(n) || n == 0)
-        return false;
-    else
-        return true;
-}
-
 /*
  * Pour l'instant on retourne un tableau contenant le html et la validite
  * du vol.
@@ -295,7 +287,7 @@ function check_number(n)
  * res[0] = txt html
  * res[1] = requete valide ou pas
  * res[2] = mid
- * si res[2] == 0
+ * si res[2] == 0 or NaN
  *   alore res[3] = nom
  */
 function check_massif()
@@ -303,7 +295,7 @@ function check_massif()
     var x = document.getElementById("choix_massif_id");
     var res = new Array('', true, Number(x.options[x.selectedIndex].value), '');
 
-    if (res[2] == 0) {
+    if ((res[2] == 0) || isNaN(res[2])) {
         // On verifie si il y a un nouveau massif de declare.
         res[3] = document.getElementById("choix_nouveau_massif_id").value;
 
@@ -326,7 +318,7 @@ function check_massif()
  * res[0] = text html
  * res[1] = sommet valide ou non
  * res[2] = sid
- * si res[2] == 0
+ * si res[2] == 0 or NaN
  * alors
  *   res[3] = nom
  *   res[4] = altitude
@@ -339,7 +331,7 @@ function check_sommet()
     var res = new Array('', true, Number(x.options[x.selectedIndex].value),
                         '', 0, 0, '');
 
-    if (res[2] == 0) {
+    if ((res[2] == 0) || isNaN(res[2])) {
         // On verifie si on a tous les elements pour notre nouveau sommet
         res[3] = document.getElementById("choix_nouveau_sommet_id").value;
         res[4] = Number(document.getElementById("choix_sommet_altitude_id").value);
@@ -353,14 +345,14 @@ function check_sommet()
         }
 
         // verification de l'altitude
-        if (!check_number(res[4])) {
+        if (isNaN(res[4]) || (res[4] < 0)) {
             res[0] += '<p class="invalide"> Altitude invalide </p>';
             res[1] = false;
         }
 
         // Il reste à verifier si le nombre de points est bien compris
         // entre 1 et altitude/1000
-        if (!check_number(res[5])) {
+        if (isNaN(res[5]) || res[5] < 1) {
             res[0] += '<p class="invalide"> Nombre de points invalide </p>';
             res[1] = false;
         }
@@ -380,7 +372,7 @@ function check_sommet()
  * res[0] = text html
  * res[1] = pilote valide ou non
  * res[2] = pid
- * si res[2] == 0
+ * si res[2] == 0 ou NaN
  * alors
  *   res[3] = nom
  */
@@ -389,7 +381,7 @@ function check_pilote()
     var x = document.getElementById("choix_pilote_id");
     var res = new Array('', true, Number(x.options[x.selectedIndex].value), '');
 
-    if (res[2] == 0) {
+    if ((res[2] == 0) || isNaN(res[2])) {
         // On verifie si on a bien declare un nouveau pilote
         res[3] = document.getElementById("choix_nouveau_pilote_id").value;
 
