@@ -65,12 +65,11 @@ Dans la partie droite on affichera les résutlats
   <h2> Zone de saisie des VolRandos </h2>
 
     <p> Si votre massif ou votre sommet n'apparaissent pas dans la liste, n'hésitez
-    pas à le faire découvrir en l'ajoutant dans la liste des sommets. Vous aurez un
-    point de bonus. Pour cela utilisez la zone prévue à cette effet.
+    pas à le faire découvrir en utilisant la zone prévue à cette effet. Vous aurez un
+    point de bonus.
     </p>
     <p> Si vous n'êtes pas encore enregistré, votre nom n'appararîtera pas dans
-    la liste. Choisissez "Nouveau Pilote" et entrer au moins un pseudo. C'est lui
-    qui sera affiché dans le tableau des résultats.
+    la liste. Choisissez "Nouveau Pilote" et entrer un pseudonyme.
     </p>
 
     <p id="saisie">
