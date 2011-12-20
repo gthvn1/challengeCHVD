@@ -247,39 +247,47 @@ function volrandos_to_html($dbh)
 {
     $result = $dbh->query('SELECT * FROM volrandos
                            INNER JOIN pilotes ON v_pid = p_id
-                           INNER JOIN sommets ON v_sid = s_id');
+                           INNER JOIN sommets ON v_sid = s_id
+                           INNER JOIN massifs ON m_id = s_mid
+                           ORDER BY v_id DESC');
     $tab = $result->fetchAll();
 
     echo '<table>';
     echo '<tr>';
-    echo '<th> Vol ID </th>';
+    echo '<th> Vol # </th>';
+    echo '<th> Massif </th>';
     echo '<th> Sommet </th>';
+    echo '<th> Altitude </th>';
     echo '<th> Pilote </th>';
     echo '<th> Date </th>';
     echo '<th> Biplace </th>';
-    echo '<th> Carbone </th>';
+    //echo '<th> Carbone </th>';
     echo '<th> Commentaire </th>';
     echo '</tr>';
 
     foreach ($tab as $volrando) {
             echo '<tr>';
-            echo '<td>', $volrando["v_id"]      , '</td>';
-            echo '<td>', $volrando["s_nom"]     , '</td>';
-            echo '<td>', $volrando["p_pseudo"]  , '</td>';
-            echo '<td>', $volrando["v_date"]    , '</td>';
-            echo '<td>', $volrando["v_bi"]      , '</td>';
-            echo '<td>', $volrando["v_co2"]     , '</td>';
+            echo '<td>', $volrando["v_id"], '</td>';
+            echo '<td>', $volrando["m_nom"], '</td>';
+            echo '<td>', $volrando["s_nom"], '</td>';
+            echo '<td>', $volrando["s_alti"], '</td>';
+            echo '<td>', $volrando["p_pseudo"], '</td>';
+            echo '<td>', $volrando["v_date"], '</td>';
+            echo '<td>', $volrando["v_bi"], '</td>';
+            //echo '<td>', $volrando["v_co2"]     , '</td>';
             echo '<td>', $volrando["v_comment"] , '</td>';
             echo '</tr>';
     }
     echo '</table>';
 
+    /*
     echo "DEBUG ON <br />";
     foreach ($tab as $volrando) {
         var_dump($volrando);
         echo "<br />";
         echo "<br />";
     }
+     */
 }
 
 try {
