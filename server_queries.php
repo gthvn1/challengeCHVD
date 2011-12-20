@@ -6,9 +6,8 @@ function ajout_volrando($dbh, $info)
     //    echo 'INFO VOL: ', $cle , ' = ', $valeur , '<br />';
     //}
     $current_mid = $info["mid"];
-
-    echo "mid = ", $info["mid"], "<br />";
-    echo "nm = ", $info["nm"], "<br />";
+    $current_sid = $info["sid"];
+    $current_pid = $info["pid"];
 
     // Si mid == 0 on doit creer une entree pour le nouveau
     // massif et recuperer son nouvel mid
@@ -16,11 +15,11 @@ function ajout_volrando($dbh, $info)
 
         // On verifie si le massif est deja present
         $found = false;
-        
+
         $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
         $qry_select->execute(array($info["nm"]));
         $res = $qry_select->fetchAll();
-        if (count($res) != 0) { 
+        if (count($res) != 0) {
             // c'est pas un nouveau massif
             $found = true;
             $current_mid = $res[0]['mid'];
@@ -32,7 +31,6 @@ function ajout_volrando($dbh, $info)
             $qry_insert->execute(array($info["nm"]));
 
             // et on recupere son nouvel mid
-            $qry_select = $dbh->prepare('SELECT * FROM massifs WHERE nom = ?');
             $qry_select->execute(array($info["nm"]));
             $res = $qry_select->fetchAll();
             if (count($res) != 0) {
@@ -42,11 +40,88 @@ function ajout_volrando($dbh, $info)
         }
 
         if (!$found) {
-            echo "<p> An error occured when inserting the new massif </p>"; 
+            echo "<p> An error occured when inserting the new massif </p>";
+            return false;
         }
     }
 
-    echo "<p> Current MID = ", $current_mid, "</p>";
+    // A ce point, $current_mid est OK
+
+    // On fait le meme genre de verification pour le sommet
+    if ($current_sid == 0) {
+
+        $found = false;
+        $qry_select = $dbh->prepare('SELECT * FROM sommets WHERE nom = ?');
+        $qry_select->execute(array($info["ns"]));
+        $res = $qry_select->fetchAll();
+        if (count($res) != 0) {
+            // c'est pas un nouveau sommet
+            $found = true;
+            $current_sid = $res[0]['sid'];
+        }
+
+        if ($found == false) {
+            // on peut l'inserer
+            $qry_insert = $dbh->prepare('INSERT INTO sommets (nom, mid, altitude, points, annee, commentaire) VALUES (?,?,?,?,?,?);');
+            $qry_insert->execute(array($info["ns"], $current_mid, $info["alti"], $info["pts"], "2012", $info["cs"]));
+
+            // et on recupere son nouvel sid
+            $qry_select->execute(array($info["ns"]));
+            $res = $qry_select->fetchAll();
+            if (count($res) != 0) {
+                $found = true;
+                $current_sid = $res[0]['sid'];
+            }
+        }
+
+        if (!$found) {
+            echo "<p> Erreur lors de l'insertion du nouveau sommet </p>";
+            return false;
+        }
+    }
+
+    // A ce point, $current_sid est OK
+
+    // On verifie le pilote
+    if ($current_pid == 0) {
+
+        $found = false;
+        $qry_select = $dbh->prepare('SELECT * FROM pilotes WHERE pseudo = ?');
+        $qry_select->execute(array($info["np"]));
+        $res = $qry_select->fetchAll();
+        if (count($res) != 0) {
+            // c'est pas un nouveau pilote
+            $found = true;
+            $current_pid = $res[0]['pid'];
+        }
+
+        if ($found == false) {
+            // on peut l'inserer
+            $qry_insert = $dbh->prepare('INSERT INTO pilotes (pseudo) VALUES (?)');
+            $qry_insert->execute(array($info["np"]));
+
+            // et on recupere son nouveau pid
+            $qry_select->execute(array($info["np"]));
+            $res = $qry_select->fetchAll();
+            if (count($res) != 0) {
+                $found = true;
+                $current_pid = $res[0]['pid'];
+            }
+        }
+
+        if (!$found) {
+            echo "<p> Erreur d'inserion du nouveau pilote </p>";
+            return false;
+        }
+    }
+
+    // A ce point $current_pid est OK
+
+    // On ajoute le vol
+    $qry_insert = $dbh->prepare('INSERT INTO volrandos (sid, pid, date, biplace, but, carbone, commentaire) VALUES (?,?,?,?,?,?,?);');
+    $qry_insert->execute(array($current_sid, $current_pid, $info["date"], $info["bi"], 0.0, $info["md"], $info["cs"]));
+
+    return true;
 }
 
 function select_massifs($dbh)

@@ -290,7 +290,7 @@ function check_number(n)
 /*
  * Pour l'instant on retourne un tableau contenant le html et la validite
  * du vol.
- * 
+ *
  * res[0] = txt html
  * res[1] = requete valide ou pas
  * res[2] = mid
@@ -469,7 +469,7 @@ function check_volrando()
     info_vol += '<p> mobdouce = ' + mobdouce.checked + '</p>';
     requete += '&md=' + mobdouce.checked;
     info_vol += '<p> commentaire = ' + comment.value + '</p>';
-    requete += '&cv=' + comment.value; 
+    requete += '&cv=' + comment.value;
 
     if (vol_valide) {
         info_vol = '<h3> VOTRE VOL A ETE VALIDE </h3>' + info_vol ;
@@ -479,4 +479,6 @@ function check_volrando()
     }
 
     document.getElementById('zone_status').innerHTML= info_vol;
+
+    ask_to_server('volrandos', 'zone_resultats');
 }
