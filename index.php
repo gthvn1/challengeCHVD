@@ -66,9 +66,7 @@ Dans la partie droite on affichera les résutlats
 
     <p> Si votre massif ou votre sommet n'apparaissent pas dans la liste, n'hésitez
     pas à le faire découvrir en utilisant la zone prévue à cette effet. Vous aurez un
-    point de bonus.
-    </p>
-    <p> Si vous n'êtes pas encore enregistré, votre nom n'appararîtera pas dans
+    point de bonus. Si vous n'êtes pas encore enregistré, votre nom n'appararîtera pas dans
     la liste. Choisissez "Nouveau Pilote" et entrer un pseudonyme.
     </p>
 
