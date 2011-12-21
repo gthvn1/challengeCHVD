@@ -513,3 +513,23 @@ function check_volrando()
 
     ask_to_server('volrandos', 'zone_resultats');
 }
+
+
+function affichage_table()
+{
+    var e =  document.getElementById("choix_affichage_id");
+    var choix = e.options[e.selectedIndex].value;
+
+    if (choix == 'afficher_volrandos') {
+        ask_to_server('volrandos', 'zone_resultats');
+    }
+    else if (choix == 'afficher_pilotes') {
+        ask_to_server('pilotes', 'zone_resultats');
+    }
+    else if (choix == 'afficher_sommets') {
+        ask_to_server('sommets', 'zone_resultats');
+    }
+    else if (choix == 'afficher_massifs') {
+        ask_to_server('massifs', 'zone_resultats');
+    }
+}

@@ -103,17 +103,23 @@ Dans la partie droite on affichera les résutlats
 
           <!-- Toute l'initialisation des zones massif, sommet et pilote sont
                  dynamique et geree par un script -->
-          <script type="text/javascript"> init_zone_saisie()</script>
-
+          <script type="text/javascript"> 
+            <!--
+            init_zone_saisie()
+            -->
+          </script>
+            
           <tr> <!-- Choix de la date -->
             <td class="invisible"> Date (Jour/Mois) </td>
             <td class="invisible">
             <script type="text/javascript">
+              <!--
               today=new Date();
               txt  = '<input type="text"';
               txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
               txt += ' id="choix_date_id" name="choix_date_name" />';
               document.write(txt);
+              -->
             </script>
             </td>
           </tr>
@@ -148,6 +154,33 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Affichage des résultats </h2>
 
+    <table class="invisible">
+    <tr>
+      <td class="invisible">
+        <form action="">
+          <select id="choix_affichage_id" onChange="affichage_table()">
+            <option value="afficher_volrandos"> Afficher la liste des vols randos </option>
+            <option value="afficher_massifs"> Afficher la liste des massifs </option>
+            <option value="afficher_sommets"> Afficher la liste des sommets </option>
+            <option value="afficher_pilotes"> Afficher la liste des pilotes </option>
+            <option value="afficher_classement" disabled="disabled"> 
+              Afficher le classement
+            </option>
+          </select>
+        </form>
+      </td>
+      <td class="invisible">
+        <form action="">
+          <select id="choix_tri_id" onChange="choix_tri()">
+            <option value="tri_massif" disabled="disabled"> tri par massif </option>
+            <option value="tri_pilote" disabled="disabled"> tri par pilote </option>
+            <option value="tri_sommet" disabled="disabled"> tri par sommet </option>
+          </select>
+        </form>
+      </td>
+    </tr>
+    </table>
+
     <p id="zone_resultats">
     <!--
         Au chargement de la page, on recupere les tables dans la base de donnees
@@ -155,8 +188,9 @@ Dans la partie droite on affichera les résutlats
         viendront ecraser cette zone en utilisant l'id "resultat".
     -->
     <script type="text/javascript">
-        ask_to_server('volrandos', 'zone_resultats');
-        //ask_to_server('massifs', 'zone_resultats');
+      <!--
+      ask_to_server('volrandos', 'zone_resultats');
+      -->
     </script>
 
     </p>
