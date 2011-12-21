@@ -102,6 +102,38 @@ function gmd_sommets()
 }
 
 /********************************************************************
+ * Fonction d'initialisation de la zone de saisie des massifs,
+ * sommets et pilotes.
+ */
+function init_zone_saisie()
+{
+    ask_to_server("select_massifs", "zone_saisie_massif");
+    
+    document.getElementById('zone_saisie_nouveau_massif').innerHTML =
+        enable_saisie_nouveau_massif(true);
+
+    document.getElementById('zone_saisie_sommet').innerHTML =
+        disable_saisie_sommet();
+
+    document.getElementById('zone_saisie_nouveau_sommet').innerHTML =
+        enable_saisie_nouveau_sommet(true);
+
+    document.getElementById('zone_saisie_sommet_altitude').innerHTML =
+        enable_saisie_sommet_altitude(true);
+
+    document.getElementById('zone_saisie_sommet_points').innerHTML =
+        enable_saisie_sommet_points(true);
+
+    document.getElementById('zone_saisie_sommet_commentaire').innerHTML =
+        enable_saisie_sommet_commentaire(true);
+
+    ask_to_server("select_pilotes", "zone_saisie_pilote");
+    
+    document.getElementById('zone_saisie_nouveau_pilote').innerHTML =
+        enable_saisie_nouveau_pilote(true);
+}
+
+/********************************************************************
  * Les fonctions suivantes sont utilisees pour activer ou desactiver
  * les differents choix de la zone de saisie du vol rando.
  */
@@ -472,6 +504,7 @@ function check_volrando()
     if (vol_valide) {
         info_vol = '<h3> VOTRE VOL A ETE VALIDE </h3>' + info_vol ;
         ask_to_server(requete, 'zone_resultats');
+        init_zone_saisie();
     } else {
         info_vol = '<h3 class="invalide"> VOTRE VOL EST INVALIDE  </h3>' + info_vol;
     }

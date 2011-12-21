@@ -75,67 +75,35 @@ Dans la partie droite on affichera les résutlats
         <table class="invisible">
 
           <tr id="zone_saisie_massif"> <!-- Choix du massif -->
-            <script type="text/javascript">
-                gmd_massifs();
-            </script>
           </tr>
           
           <tr id="zone_saisie_sommet">
-            <!-- la zone sera mise a jour lors du choix du massif -->
-            <td class="invisible"> Choix du sommet </td>
-            <td class="invisible">
-                <select id="choix_sommet_id" disabled="disabled">
-                <option value="0"> Choisir un massif </option> 
-            </td>
           </tr>
 
           <tr id="zone_saisie_nouveau_massif">
-            <td class="invisible"> Nouveau massif </td> 
-            <td class="invisible">
-                <input type="text" id="choix_nouveau_massif_id" />
-            </td>
           </tr>
 
           <tr id="zone_saisie_nouveau_sommet">
-            <td class="invisible"> Nouveau sommet </td> 
-            <td class="invisible">
-              <input type="text" id="choix_nouveau_sommet_id" />
-            </td>
           </tr>
 
           <tr id="zone_saisie_sommet_altitude">
-            <td class="invisible"> Altitude </td> 
-            <td class="invisible">
-              <input type="text" id="choix_sommet_altitude_id" />
-            </td>
           </tr>
 
           <tr id="zone_saisie_sommet_points">
-            <td class="invisible"> Points </td> 
-            <td class="invisible">
-              <input type="text" id="choix_sommet_points_id" />
-            </td>
           </tr>
 
           <tr id="zone_saisie_sommet_commentaire">
-            <td class="invisible"> Commentaire </td> 
-            <td class="invisible">
-              <input type="text" id="choix_sommet_commentaire_id" />
-            </td>
           </tr>
 
           <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
-            <script type="text/javascript">
-              gmd_pilotes();
-            </script>
           </tr>
 
           <tr id="zone_saisie_nouveau_pilote">
-            <td class="invisible"> Nouveau pilote </td> 
-            <td class="invisible">
-              <input type="text" id="choix_nouveau_pilote_id" />
-            </td>
           </tr>
+
+          <!-- Toute l'initialisation des zones massif, sommet et pilote sont
+                 dynamique et geree par un script -->
+          <script type="text/javascript"> init_zone_saisie()</script>
 
           <tr> <!-- Choix de la date -->
             <td class="invisible"> Date (Jour/Mois) </td>
