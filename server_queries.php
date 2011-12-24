@@ -134,15 +134,13 @@ function select_massifs($dbh)
 {
     $res = $dbh->query('SELECT * FROM massifs ORDER BY m_nom');
 
-    echo '<td class="invisible"> Choix du massif </td>';
-    echo '<td class="invisible">';
+    echo 'Choix du massif <br />';
     echo '<select id="choix_massif_id" onChange="gmd_sommets()">';
     echo '<option value="0"> selectionner un massif </option>';
     foreach ($res as $massif) {
         echo '<option value="', $massif["m_id"], '">', $massif["m_nom"], '</option>';
     }
     echo '</select>';
-    echo '</td>';
 }
 
 function select_sommets($dbh, $mid)
@@ -151,30 +149,26 @@ function select_sommets($dbh, $mid)
     $qry->execute(array($mid));
     $res = $qry->fetchAll();
 
-    echo '<td class="invisible"> Choix du sommet </td>';
-    echo '<td class="invisible">';
+    echo 'Choix du sommet <br />';
     echo '<select id="choix_sommet_id" onChange="sommet_selected()">';
     echo '<option value="0"> Choisir un sommet </option>';
     foreach ($res as $sommet) {
         echo '<option value="', $sommet["s_id"], '">', $sommet["s_nom"], '</option>';
     }
     echo '</select>';
-    echo '</td>';
 }
 
 function select_pilotes($dbh)
 {
     $res = $dbh->query('SELECT * FROM pilotes ORDER BY p_pseudo');
 
-    echo '<td class="invisible"> Choix du pilote </td>';
-    echo '<td class="invisible">';
+    echo 'Choix du pilote <br />';
     echo '<select id="choix_pilote_id" onChange="pilote_selected()">';
     echo '<option value="0"> selectionner un pilote </option>';
     foreach ($res as $pilote) {
         echo '<option value="', $pilote["p_id"], '">', $pilote["p_pseudo"], '</option>';
     }
     echo '</select>';
-    echo '</td>';
 }
 
 function pilotes_to_html($dbh)

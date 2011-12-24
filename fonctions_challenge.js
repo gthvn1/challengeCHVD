@@ -184,11 +184,9 @@ function disable_saisie_sommet()
 {
     var text;
 
-    text =  '<td class="invisible"> Choix du sommet </td>';
-    text += '<td class="invisible">';
+    text =  'Choix du sommet <br />';
     text += '  <select id="choix_sommet_id" disabled="disabled">';
     text += '  <option> Choisir un massif </option>';
-    text += '</td>';
 
     return text;
 }
@@ -197,14 +195,12 @@ function enable_saisie_generique(titre, id, choix)
 {
     var text;
 
-    text = '<td class="invisible">' + titre + '</td>';
-    text += '<td class="invisible">';
+    text = titre + '<br />';
     if (choix) {
         text += '<input type="text" id="' + id + '" />';
     } else {
         text += '<input type="text" disabled="disabled">';
     }
-    text += '</td>';
 
     return text;
 }

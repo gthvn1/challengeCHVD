@@ -72,72 +72,55 @@ Dans la partie droite on affichera les résutlats
 
     <p id="saisie">
       <form id="formulaire_volrando">
-        <table class="invisible">
 
-          <tr id="zone_saisie_massif"> <!-- Choix du massif -->
-          </tr>
-          
-          <tr id="zone_saisie_sommet">
-          </tr>
+        <p id="zone_saisie_massif"> <!-- Choix du massif -->  </p>
+        <p id="zone_saisie_sommet"> </p>
+        <p id="zone_saisie_nouveau_massif"> </p>
+        <p id="zone_saisie_nouveau_sommet"> </p>
+        <p id="zone_saisie_sommet_altitude"> </p>
+        <p id="zone_saisie_sommet_points"> </p>
+        <p id="zone_saisie_sommet_commentaire"> </p>
+        <p id="zone_saisie_pilote"> </p>
+        <p id="zone_saisie_nouveau_pilote">  </p>
 
-          <tr id="zone_saisie_nouveau_massif">
-          </tr>
+        <!-- Toute l'initialisation des zones massif, sommet et pilote sont
+             dynamique et geree par un script -->
+        <script type="text/javascript"> 
+        <!--
+          init_zone_saisie()
+        -->
+        </script>
 
-          <tr id="zone_saisie_nouveau_sommet">
-          </tr>
-
-          <tr id="zone_saisie_sommet_altitude">
-          </tr>
-
-          <tr id="zone_saisie_sommet_points">
-          </tr>
-
-          <tr id="zone_saisie_sommet_commentaire">
-          </tr>
-
-          <tr id="zone_saisie_pilote"> <!-- Choix du pilote -->
-          </tr>
-
-          <tr id="zone_saisie_nouveau_pilote">
-          </tr>
-
-          <!-- Toute l'initialisation des zones massif, sommet et pilote sont
-                 dynamique et geree par un script -->
-          <script type="text/javascript"> 
-            <!--
-            init_zone_saisie()
-            -->
-          </script>
-            
-          <tr> <!-- Choix de la date -->
-            <td class="invisible"> Date (Jour/Mois) </td>
-            <td class="invisible">
-            <script type="text/javascript">
-              <!--
-              today=new Date();
-              txt  = '<input type="text"';
-              txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
-              txt += ' id="choix_date_id" name="choix_date_name" />';
-              document.write(txt);
-              -->
-            </script>
-            </td>
-          </tr>
-        </table>
+        <p> Date (Jour/Mois) <br />
+        <script type="text/javascript">
+        <!--
+          today=new Date();
+          txt  = '<input type="text"';
+          txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
+          txt += ' id="choix_date_id" name="choix_date_name" />';
+          txt += '<br />';
+          document.write(txt);
+        -->
+        </script>
+        </p>
 
         <!-- Bonus biplace -->
+        <p>
         <input type="checkbox" id="choix_biplace_id" />
-        Vol effectué en biplace (1 point de bonus)<br />
+        Vol effectué en biplace (1 point de bonus)
+        </p>
 
         <!-- Info sur mobilite douce -->
+        <p>
         <input type="checkbox" id="choix_mobilitedouce_id" />
         Vol effectué en mobilité dite douce (c'est à titre indicatif)<br />
+        </p>
 
-		<br />
+        <p>
         Un commentaire sur le vol <br />
         (sur une seule ligne mais qui peut être longue) <br />
         <input type="text" size=40 id="choix_commentaire_id" />
-        <br />
+        </p>
 
         <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
       </form>
