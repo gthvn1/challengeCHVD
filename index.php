@@ -35,24 +35,23 @@ Dans la partie droite on affichera les résutlats
   <h1> Bienvenue au challenge VolRando 2012 du CHVD </h1>
 
   <p> le principe du challenge est de varier les vols randos en essayant de
-  d&eacutecouvrir de nouveaux points d'envol. Les vols des autres peuvent
-  donner des id&eacutees pour plus tard et renseigner sur la faisabilit&eacute.
+  d&eacute;couvrir de nouveaux points d'envol. Les vols des autres peuvent
+  donner des id&eacute;es pour plus tard et renseigner sur la faisabilit&eacute;.
 
-  Toutes les d&eacuteclarations sont faites sur l'honneur. Si vous ne vous souvenez plus
-  des r&egravegles concernant la validit&eacute d'un vol et son nombre de points,
+  Toutes les d&eacute;clarations sont faites sur l'honneur. Si vous ne vous souvenez plus
+  des r&egrave;gles concernant la validit&eacute; d'un vol et son nombre de points,
   vous pouvez consultez le
-  <a href="http://volbivouac.free.fr/challengeCHVD/reglement.html">r&egraveglement 2012</a>.
+  <a href="http://volbivouac.free.fr/challengeCHVD/reglement.html">r&egrave;glement 2012</a>.
   </p>
 
   <p> Pour les choix (pas forcement justifiés) techniques il y a le classique
   <a href="http://volbivouac.free.fr/challengeCHVD/README.html">README</a> qui
   fait le point sur l'état du développement.
 
-  <p> Une question, un commentaire, envoyez moi un mail: guillaume.thouvenin AT polymtl POINT ca <br />
-  Une critique, envoyez moi un mail: cequoidejamonmail AT chezmoi POINT fr
+  <p> Une question, un commentaire, envoyez moi un mail: guillaume.thouvenin AT polymtl POINT ca
   </p>
 
-  <p>Bonnes randos et bons vols </p>
+  <p> Bonnes randos et bons vols </p>
 
 </div> <!-- Fin de div_haut -->
 
@@ -91,14 +90,14 @@ Dans la partie droite on affichera les résutlats
         -->
         </script>
 
-        <p> Date (Jour/Mois) <br />
+        <p> Date (Jour/Mois) <br>
         <script type="text/javascript">
         <!--
           today=new Date();
           txt  = '<input type="text"';
           txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
           txt += ' id="choix_date_id" name="choix_date_name" />';
-          txt += '<br />';
+          txt += '<br>';
           document.write(txt);
         -->
         </script>
@@ -113,12 +112,12 @@ Dans la partie droite on affichera les résutlats
         <!-- Info sur mobilite douce -->
         <p>
         <input type="checkbox" id="choix_mobilitedouce_id" />
-        Vol effectué en mobilité dite douce (c'est à titre indicatif)<br />
+        Vol effectué en mobilité dite douce (c'est à titre indicatif)
         </p>
 
         <p>
-        Un commentaire sur le vol <br />
-        (sur une seule ligne mais qui peut être longue) <br />
+        Un commentaire sur le vol <br>
+        (sur une seule ligne mais qui peut être longue) <br>
         <input type="text" size=40 id="choix_commentaire_id" />
         </p>
 
