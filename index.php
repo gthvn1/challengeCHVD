@@ -1,4 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -69,61 +70,59 @@ Dans la partie droite on affichera les résutlats
     la liste. Choisissez "Nouveau Pilote" et entrer un pseudonyme.
     </p>
 
-    <p id="saisie">
-      <form id="formulaire_volrando">
+    <form action="" id="formulaire_volrando">
 
-        <p id="zone_saisie_massif"> <!-- Choix du massif -->  </p>
-        <p id="zone_saisie_sommet"> </p>
-        <p id="zone_saisie_nouveau_massif"> </p>
-        <p id="zone_saisie_nouveau_sommet"> </p>
-        <p id="zone_saisie_sommet_altitude"> </p>
-        <p id="zone_saisie_sommet_points"> </p>
-        <p id="zone_saisie_sommet_commentaire"> </p>
-        <p id="zone_saisie_pilote"> </p>
-        <p id="zone_saisie_nouveau_pilote">  </p>
+      <p id="zone_saisie_massif"> <!-- Choix du massif -->  </p>
+      <p id="zone_saisie_sommet"> </p>
+      <p id="zone_saisie_nouveau_massif"> </p>
+      <p id="zone_saisie_nouveau_sommet"> </p>
+      <p id="zone_saisie_sommet_altitude"> </p>
+      <p id="zone_saisie_sommet_points"> </p>
+      <p id="zone_saisie_sommet_commentaire"> </p>
+      <p id="zone_saisie_pilote"> </p>
+      <p id="zone_saisie_nouveau_pilote">  </p>
 
-        <!-- Toute l'initialisation des zones massif, sommet et pilote sont
-             dynamique et geree par un script -->
-        <script type="text/javascript"> 
-        <!--
-          init_zone_saisie()
-        -->
-        </script>
+      <!-- Toute l'initialisation des zones massif, sommet et pilote sont
+           dynamique et geree par un script -->
+      <script type="text/javascript"> 
+      <!--
+        init_zone_saisie()
+      -->
+      </script>
 
-        <p> Date (Jour/Mois) <br>
-        <script type="text/javascript">
-        <!--
-          today=new Date();
-          txt  = '<input type="text"';
-          txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
-          txt += ' id="choix_date_id" name="choix_date_name" />';
-          txt += '<br>';
-          document.write(txt);
-        -->
-        </script>
-        </p>
+      <p> Date (Jour/Mois) <br>
+      <script type="text/javascript">
+      <!--
+        today=new Date();
+        txt  = '<input type="text"';
+        txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
+        txt += ' id="choix_date_id" name="choix_date_name">';
+        txt += '<br>';
+        document.write(txt);
+      -->
+      </script>
+      </p>
 
-        <!-- Bonus biplace -->
-        <p>
-        <input type="checkbox" id="choix_biplace_id" />
-        Vol effectué en biplace (1 point de bonus)
-        </p>
+      <!-- Bonus biplace -->
+      <p>
+      <input type="checkbox" id="choix_biplace_id">
+      Vol effectué en biplace (1 point de bonus)
+      </p>
 
-        <!-- Info sur mobilite douce -->
-        <p>
-        <input type="checkbox" id="choix_mobilitedouce_id" />
-        Vol effectué en mobilité dite douce (c'est à titre indicatif)
-        </p>
+      <!-- Info sur mobilite douce -->
+      <p>
+      <input type="checkbox" id="choix_mobilitedouce_id">
+      Vol effectué en mobilité dite douce (c'est à titre indicatif)
+      </p>
 
-        <p>
-        Un commentaire sur le vol <br>
-        (sur une seule ligne mais qui peut être longue) <br>
-        <input type="text" size=40 id="choix_commentaire_id" />
-        </p>
+      <p>
+      Un commentaire sur le vol <br>
+      (sur une seule ligne mais qui peut être longue) <br>
+      <input type="text" size=40 id="choix_commentaire_id">
+      </p>
 
-        <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
-      </form>
-    </p>
+      <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
+    </form>
 
     <h2> Console </h2>
       <p id="zone_status">
@@ -184,7 +183,7 @@ Dans la partie droite on affichera les résutlats
      *******************-->
 <div id="div_bas">
   <p> Pas de copyright, pompez, diffusez, faite bien ce que vous voulez avec le code qui est
-  <a href=https://github.com/gthouvenin/challengeCHVD>dispo sur github</a>.
+  <a href="https://github.com/gthouvenin/challengeCHVD">dispo sur github</a>.
   </p>
 </div> <!-- Fin de div_bas -->
 

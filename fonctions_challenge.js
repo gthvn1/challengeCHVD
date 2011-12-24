@@ -184,7 +184,7 @@ function disable_saisie_sommet()
 {
     var text;
 
-    text =  'Choix du sommet <br />';
+    text =  'Choix du sommet <br>';
     text += '  <select id="choix_sommet_id" disabled="disabled">';
     text += '  <option> Choisir un massif </option>';
 
@@ -195,9 +195,9 @@ function enable_saisie_generique(titre, id, choix)
 {
     var text;
 
-    text = titre + '<br />';
+    text = titre + '<br>';
     if (choix) {
-        text += '<input type="text" id="' + id + '" />';
+        text += '<input type="text" id="' + id + '">';
     } else {
         text += '<input type="text" disabled="disabled">';
     }
