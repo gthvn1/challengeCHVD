@@ -127,11 +127,6 @@ Dans la partie droite on affichera les résutlats
     </fieldset>
     </form>
 
-    <h2> Console </h2>
-      <p id="zone_status">
-        En attente de la déclaration d'un vol...
-      </p> <!-- Fin de status -->
-
 </div> <!-- Fin de div_gauche -->
 
 <div id="div_droite">

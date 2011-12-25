@@ -506,9 +506,8 @@ function check_volrando()
         info_vol = '<h3 class="invalide"> VOTRE VOL EST INVALIDE  </h3>' + info_vol;
     }
 
-    document.getElementById('zone_status').innerHTML= info_vol;
+    alert(info_vol);
 
-    ask_to_server('volrandos', 'zone_resultats');
 }
 
 
