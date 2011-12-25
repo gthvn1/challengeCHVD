@@ -102,22 +102,23 @@ h2 {
 }
 
 table {
-    border: medium solid #6495ed;
+    /* border: medium solid #6495ed; */
+    border: 1px solid #781351;
     border-collapse: collapse;
 }
 
 th {
     font-family: monospace;
     font-weight: bold;
-    border: thin solid #6495ed;
+    border: 1px solid #781351;
     padding: 5px;
-    background-color: #D0E3FA;
+    color: #fff;
+    background: #ffa20c;
 }
 
 td {
     font-family: sans-serif;
-    border: thin solid #6495ed;
+    border: 1px solid #781351;
     padding: 5px;
     text-align: center;
-    /*background-color: #ffffff;*/
 }
