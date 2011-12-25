@@ -33,7 +33,7 @@ Dans la partie droite on affichera les résutlats
      *******************-->
 <div id="div_haut">
 
-  <h1> Bienvenue au challenge VolRando 2012 du CHVD </h1>
+  <h2> Bienvenue au challenge VolRando 2012 du CHVD </h2>
 
   <p> le principe du challenge est de varier les vols randos en essayant de
   d&eacute;couvrir de nouveaux points d'envol. Les vols des autres peuvent
@@ -43,14 +43,11 @@ Dans la partie droite on affichera les résutlats
   des r&egrave;gles concernant la validit&eacute; d'un vol et son nombre de points,
   vous pouvez consultez le
   <a href="http://volbivouac.free.fr/challengeCHVD/reglement.html">r&egrave;glement 2012</a>.
-  </p>
 
-  <p> Pour les choix (pas forcement justifiés) techniques il y a le classique
+  Si certains s'intéressent à l'aspect technique de la mise en oeuvre de la saisie des
+  volrandos, il y a le classique
   <a href="http://volbivouac.free.fr/challengeCHVD/README.html">README</a> qui
   fait le point sur l'état du développement.
-
-  <p> Une question, un commentaire, envoyez moi un mail: guillaume.thouvenin AT polymtl POINT ca
-  </p>
 
   <p> Bonnes randos et bons vols </p>
 
