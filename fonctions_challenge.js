@@ -313,7 +313,7 @@ function cap_premiere_lettre(string)
  * Pour l'instant on retourne un tableau contenant le html et la validite
  * du vol.
  *
- * res[0] = txt html
+ * res[0] = txt
  * res[1] = requete valide ou pas
  * res[2] = mid
  * si res[2] == 0 or NaN
@@ -330,21 +330,21 @@ function check_massif()
 
         // Verifie si c'est une string
         if (res[3] === '') {
-            res[0] = '<p class="invalide"> Aucun massif declare </p>';
+            res[0] = 'Aucun massif declare \n';
             res[1] = false;
         } else {
             res[3] = format_nom(res[3]);
-            res[0] = '<p> Nouveau Massif = ' + res[3] + '</p>';
+            res[0] = 'Nouveau Massif = ' + res[3] + '\n';
         }
     } else {
-        res[0] = '<p> Massif Id  = ' +  res[2]+ '</p>';
+        res[0] = 'Massif Id  = ' +  res[2]+ '\n';
     }
 
     return res;
 }
 
 /*
- * res[0] = text html
+ * res[0] = text
  * res[1] = sommet valide ou non
  * res[2] = sid
  * si res[2] == 0 or NaN
@@ -369,7 +369,7 @@ function check_sommet()
 
         // verification du nom
         if (res[3] === '') {
-            res[0] = '<p class="invalide"> Le nouveau sommet est sans nom...</p>';
+            res[0] = 'Le nouveau sommet est sans nom...\n';
             res[1] = false;
         }
 
@@ -382,23 +382,23 @@ function check_sommet()
         // Il reste à verifier si le nombre de points est bien compris
         // entre 1 et altitude/1000
         if (isNaN(res[5]) || res[5] < 1) {
-            res[0] += '<p class="invalide"> Nombre de points invalide </p>';
+            res[0] += 'Nombre de points invalide \n';
             res[1] = false;
         }
 
         if (res[1]) {
             res[3] = format_nom(res[3]);
-            res[0] = '<p> Nouveau Sommet ' + res[3] + ' ok </p>';
+            res[0] = 'Nouveau Sommet ' + res[3] + ' ok \n';
         }
     } else {
-        res[0] = '<p> Sommet Id = ' + res[2] + '</p>';
+        res[0] = 'Sommet Id = ' + res[2] + '\n';
     }
 
     return res;
 }
 
 /*
- * res[0] = text html
+ * res[0] = text
  * res[1] = pilote valide ou non
  * res[2] = pid
  * si res[2] == 0 ou NaN
@@ -415,20 +415,20 @@ function check_pilote()
         res[3] = document.getElementById("choix_nouveau_pilote_id").value;
 
         if (res[3] === '') {
-            res[0] = '<p class="invalide"> Nom du pilote inconnu </p>';
+            res[0] = 'Nom du pilote inconnu \n';
             res[1] = false;
         } else {
-            res[0] = '<p> Nouveau pilote = ' + res[3] + '</p>';
+            res[0] = 'Nouveau pilote = ' + res[3] + '\n';
         }
     } else {
-        res[0] = '<p> Pilote Id = ' + res[2] + '</p>';
+        res[0] = 'Pilote Id = ' + res[2] + '\n';
     }
 
     return res;
 }
 
 /*
- * res[0] = text html
+ * res[0] = text
  * res[1] = date valide ou non
  * res[2] = date
  */
@@ -440,12 +440,12 @@ function check_date(d)
     if (ds.length == 2) {
         // verification grosso merdo...
         if (ds[0] > 0 && ds[1] < 31 && ds[1] > 0 && ds[1] < 13) {
-            res[0] = '<p> Date saisie : ' + res[2] + '</p>';
+            res[0] = 'Date saisie : ' + res[2] + '\n';
             return res;
         }
     }
 
-    res[0] = '<p class="invalide"> Date invalide </p>';
+    res[0] = 'Date invalide \n';
     res[1] = false;
     return res;
 }
@@ -491,22 +491,26 @@ function check_volrando()
     vol_valide &= res[1];
     requete += '&date=' + res[2];
 
-    info_vol += '<p> biplace = ' + biplace.checked + '</p>';
+    info_vol += 'biplace = ' + biplace.checked + '\n';
     requete += '&bi=' + biplace.checked;
-    info_vol += '<p> mobdouce = ' + mobdouce.checked + '</p>';
+    info_vol += 'mobdouce = ' + mobdouce.checked + '\n';
     requete += '&md=' + mobdouce.checked;
-    info_vol += '<p> commentaire = ' + comment.value + '</p>';
+    info_vol += 'commentaire = ' + comment.value + '\n';
     requete += '&cv=' + comment.value;
 
     if (vol_valide) {
-        info_vol = '<h3> VOTRE VOL A ETE VALIDE </h3>' + info_vol ;
-        ask_to_server(requete, 'zone_resultats');
-        init_zone_saisie();
+        info_vol = ' VOTRE VOL A ETE VALIDE \n Cliquez sur ok pour soumettre, Cancel pour annuler \n'
+            + info_vol ;
+        var rep = confirm(info_vol);
+        if (rep == true) {
+            ask_to_server(requete, 'zone_resultats');
+            init_zone_saisie();
+        }
     } else {
-        info_vol = '<h3 class="invalide"> VOTRE VOL EST INVALIDE  </h3>' + info_vol;
+        info_vol = 'VOTRE VOL EST INVALIDE  \n' + info_vol;
+        alert(info_vol);
     }
 
-    alert(info_vol);
 
 }
 
