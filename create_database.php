@@ -139,7 +139,7 @@ try {
     // Create the four tables
     $dbh->exec('CREATE TABLE IF NOT EXISTS sommets (
                     s_id        INTEGER PRIMARY KEY,
-                    s_nom       TEXT,
+                    s_nom       TEXT COLLATE NOCASE,
                     s_mid       INTEGER,
                     s_alti      INTEGER,
                     s_pts       INTEGER,
@@ -148,11 +148,11 @@ try {
 
     $dbh->exec('CREATE TABLE IF NOT EXISTS massifs (
                     m_id    INTEGER PRIMARY KEY,
-                    m_nom   TEXT)');
+                    m_nom   TEXT COLLATE NOCASE)');
 
     $dbh->exec('CREATE TABLE IF NOT EXISTS pilotes (
                     p_id        INTEGER PRIMARY KEY,
-                    p_pseudo    TEXT)');
+                    p_pseudo    TEXT COLLATE NOCASE)');
 
     $dbh->exec('CREATE TABLE IF NOT EXISTS volrandos (
                     v_id        INTEGER PRIMARY KEY,
