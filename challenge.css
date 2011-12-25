@@ -106,15 +106,6 @@ table {
     border-collapse: collapse;
 }
 
-table.invisible {
-    border: 0;
-}
-
-td.invisible {
-    border: 0;
-    text-align: left;
-}
-
 th {
     font-family: monospace;
     font-weight: bold;
