@@ -134,7 +134,7 @@ function select_massifs($dbh)
 {
     $res = $dbh->query('SELECT * FROM massifs ORDER BY m_nom');
 
-    echo 'Choix du massif <br />';
+    echo '<label for="choix_massif_id"> Choix du massif </label>';
     echo '<select id="choix_massif_id" onChange="gmd_sommets()">';
     echo '<option value="0"> selectionner un massif </option>';
     foreach ($res as $massif) {
@@ -149,7 +149,7 @@ function select_sommets($dbh, $mid)
     $qry->execute(array($mid));
     $res = $qry->fetchAll();
 
-    echo 'Choix du sommet <br />';
+    echo '<label for="choix_sommet_id"> Choix du sommet </label>';
     echo '<select id="choix_sommet_id" onChange="sommet_selected()">';
     echo '<option value="0"> Choisir un sommet </option>';
     foreach ($res as $sommet) {
@@ -162,7 +162,7 @@ function select_pilotes($dbh)
 {
     $res = $dbh->query('SELECT * FROM pilotes ORDER BY p_pseudo');
 
-    echo 'Choix du pilote <br />';
+    echo '<label for="choix_pilote_id"> Choix du pilote </label>';
     echo '<select id="choix_pilote_id" onChange="pilote_selected()">';
     echo '<option value="0"> selectionner un pilote </option>';
     foreach ($res as $pilote) {

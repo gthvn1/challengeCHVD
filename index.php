@@ -70,7 +70,9 @@ Dans la partie droite on affichera les résutlats
     la liste. Choisissez "Nouveau Pilote" et entrer un pseudonyme.
     </p>
 
-    <form action="" id="formulaire_volrando">
+    <form action="#" id="formulaire_volrando">
+    <fieldset>
+    <legend> Déclaration du volrando </legend>
 
       <p id="zone_saisie_massif"> <!-- Choix du massif -->  </p>
       <p id="zone_saisie_sommet"> </p>
@@ -90,7 +92,7 @@ Dans la partie droite on affichera les résutlats
       -->
       </script>
 
-      <p> Date (Jour/Mois) <br>
+      <p><label for="choix_date_id">Date (Jour/Mois)</label>
       <script type="text/javascript">
       <!--
         today=new Date();
@@ -121,7 +123,11 @@ Dans la partie droite on affichera les résutlats
       <input type="text" size=40 id="choix_commentaire_id">
       </p>
 
-      <input type="button" value="Soumettre votre volrando" onclick="check_volrando()">
+      <p class="submit">
+        <input type="submit" value="Soumettre votre volrando" onclick="check_volrando()">
+      </p>
+
+    </fieldset>
     </form>
 
     <h2> Console </h2>
