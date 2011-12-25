@@ -58,9 +58,14 @@ p {
 }
 
 input {
-    color: #781351;
+    /*color: #781351;*/
     background: #fee3ad;
     border: 1px solid #781351;
+}
+
+input[disabled] {
+    border: 1px solid #999;
+    background-color: #ddd;
 }
 
 .submit input {
