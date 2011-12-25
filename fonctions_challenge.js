@@ -334,10 +334,10 @@ function check_massif()
             res[1] = false;
         } else {
             res[3] = format_nom(res[3]);
-            res[0] = 'Nouveau Massif = ' + res[3] + '\n';
+            res[0] = 'Nouveau Massif = ' + res[3] + ' => OK \n';
         }
     } else {
-        res[0] = 'Massif Id  = ' +  res[2]+ '\n';
+        res[0] = 'Massif Id  = ' +  res[2]+ ' => OK \n';
     }
 
     return res;
@@ -375,7 +375,7 @@ function check_sommet()
 
         // verification de l'altitude
         if (isNaN(res[4]) || (res[4] < 0)) {
-            res[0] += '<p class="invalide"> Altitude invalide </p>';
+            res[0] += 'Altitude invalide \n';
             res[1] = false;
         }
 
@@ -388,10 +388,10 @@ function check_sommet()
 
         if (res[1]) {
             res[3] = format_nom(res[3]);
-            res[0] = 'Nouveau Sommet ' + res[3] + ' ok \n';
+            res[0] = 'Nouveau Sommet ' + res[3] + ' => OK \n';
         }
     } else {
-        res[0] = 'Sommet Id = ' + res[2] + '\n';
+        res[0] = 'Sommet Id = ' + res[2] + ' => OK \n';
     }
 
     return res;
@@ -418,10 +418,10 @@ function check_pilote()
             res[0] = 'Nom du pilote inconnu \n';
             res[1] = false;
         } else {
-            res[0] = 'Nouveau pilote = ' + res[3] + '\n';
+            res[0] = 'Nouveau pilote = ' + res[3] + ' => OK \n';
         }
     } else {
-        res[0] = 'Pilote Id = ' + res[2] + '\n';
+        res[0] = 'Pilote Id = ' + res[2] + ' => OK\n';
     }
 
     return res;
@@ -440,7 +440,7 @@ function check_date(d)
     if (ds.length == 2) {
         // verification grosso merdo...
         if (ds[0] > 0 && ds[1] < 31 && ds[1] > 0 && ds[1] < 13) {
-            res[0] = 'Date saisie : ' + res[2] + '\n';
+            res[0] = 'Date saisie : ' + res[2] + ' => OK\n';
             return res;
         }
     }
@@ -491,23 +491,23 @@ function check_volrando()
     vol_valide &= res[1];
     requete += '&date=' + res[2];
 
-    info_vol += 'biplace = ' + biplace.checked + '\n';
+    info_vol += 'biplace = ' + biplace.checked + ' => OK \n';
     requete += '&bi=' + biplace.checked;
-    info_vol += 'mobdouce = ' + mobdouce.checked + '\n';
+    info_vol += 'mobdouce = ' + mobdouce.checked + ' => OK \n';
     requete += '&md=' + mobdouce.checked;
-    info_vol += 'commentaire = ' + comment.value + '\n';
+    info_vol += 'commentaire = ' + comment.value + ' => OK \n';
     requete += '&cv=' + comment.value;
 
     if (vol_valide) {
-        info_vol = ' VOTRE VOL A ETE VALIDE \n Cliquez sur ok pour soumettre, Cancel pour annuler \n'
-            + info_vol ;
+        info_vol = 'VOTRE VOL A ETE VALIDE \n';
+        info_vol += 'Cliquez sur ok pour soumettre, Cancel pour annuler \n'
         var rep = confirm(info_vol);
         if (rep == true) {
             ask_to_server(requete, 'zone_resultats');
             init_zone_saisie();
         }
     } else {
-        info_vol = 'VOTRE VOL EST INVALIDE  \n' + info_vol;
+        info_vol = '-=( ERREUR: VOTRE VOL EST INVALIDE )=- \n\n' + info_vol;
         alert(info_vol);
     }
 
