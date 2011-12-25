@@ -510,8 +510,8 @@ function check_volrando()
         info_vol = '-=( ERREUR: VOTRE VOL EST INVALIDE )=- \n\n' + info_vol;
         alert(info_vol);
     }
-
-
+    
+    ask_to_server('volrandos', 'zone_resultats');
 }
 
 
