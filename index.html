@@ -5,12 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title>Challenge VolRando 2012 CHVD</title>
     <link rel="stylesheet" href="challenge.css">
-    <script src="fonctions_challenge.js" type="text/javascript"> </script>
+    <script src="jquery-1.7.1.min.js" type="text/javascript"> </script>
+    <script src="jquery-challenge.js" type="text/javascript"> </script>
 </head>
 <body>
 
 <!--
-La page est découpée de la façon suivante:
+La page est d&eacute;coup&eacute;e de la faÃ§on suivante:
 
            ----  ---------------------------------
  BANDEAU ->     |             div_haut
@@ -25,7 +26,7 @@ La page est découpée de la façon suivante:
 Dans la partie gauche on retrouvera la zone de saisies des vols ainsi
 qu'une zone console pour les messages d'erreurs.
 
-Dans la partie droite on affichera les résutlats
+Dans la partie droite on affichera les r&eacute;sutlats
 -->
 
 <!-- *******************
@@ -44,10 +45,10 @@ Dans la partie droite on affichera les résutlats
   vous pouvez consultez le
   <a href="http://volbivouac.free.fr/challengeCHVD/reglement.html">r&egrave;glement 2012</a>.
 
-  Si certains s'intéressent à l'aspect technique de la mise en oeuvre de la saisie des
+  Si certains s'int&eacute;ressent &agrave; l'aspect technique de la mise en oeuvre de la saisie des
   volrandos, il y a le classique
   <a href="http://volbivouac.free.fr/challengeCHVD/README.html">README</a> qui
-  fait le point sur l'état du développement.
+  fait le point sur l'&eacute;tat du d&eacute;veloppement.
 
   <p> Bonnes randos et bons vols </p>
 
@@ -61,67 +62,95 @@ Dans la partie droite on affichera les résutlats
 
   <h2> Zone de saisie des VolRandos </h2>
 
-    <p> Si votre massif ou votre sommet n'apparaissent pas dans la liste, n'hésitez
-    pas à le faire découvrir en utilisant la zone prévue à cette effet. Vous aurez un
-    point de bonus. Si vous n'êtes pas encore enregistré, votre nom n'appararîtera pas dans
-    la liste. Choisissez "Nouveau Pilote" et entrer un pseudonyme.
+    <p> Si votre massif ou votre sommet n'apparaissent pas dans la liste, n'h&eacute;sitez
+    pas &agrave; le faire d&eacute;couvrir en utilisant la zone pr&eacute;vue &agrave; cet
+    effet. Vous aurez un point de bonus. Si vous n'&ecirc;tes pas encore enregistr&eacute;,
+    votre nom n'apparar&icirc;tera pas dans la liste. Choisissez "Nouveau Pilote" et
+    entrez un pseudonyme.
     </p>
 
     <form action="#" id="formulaire_volrando">
     <fieldset>
-    <legend> Déclaration du volrando </legend>
+      <legend> D&eacute;claration du volrando </legend>
 
-      <p id="zone_saisie_massif"> <!-- Choix du massif -->  </p>
-      <p id="zone_saisie_sommet"> </p>
-      <p id="zone_saisie_nouveau_massif"> </p>
-      <p id="zone_saisie_nouveau_sommet"> </p>
-      <p id="zone_saisie_sommet_altitude"> </p>
-      <p id="zone_saisie_sommet_points"> </p>
-      <p id="zone_saisie_sommet_commentaire"> </p>
-      <p id="zone_saisie_pilote"> </p>
-      <p id="zone_saisie_nouveau_pilote">  </p>
+      <p id="zone_saisie_massif">
+        <label for="choix_massif_id"> Choix du massif </label>
+        <select id="choix_massif_id"> 
+            <option value="0"> Choisir un massif </option>
+            <!-- le reste est remplie via AJAX + JQery -->
+        </select>
+      </p>
 
-      <!-- Toute l'initialisation des zones massif, sommet et pilote sont
-           dynamique et geree par un script -->
-      <script type="text/javascript"> 
-      <!--
-        init_zone_saisie()
-      -->
-      </script>
+      <p id="zone_saisie_sommet">
+        <label for="choix_sommet_id"> Choix du sommet </label>
+        <select id="choix_sommet_id"> 
+            <option value="0"> Choisir un massif </option>
+            <!-- le reste est remplie via AJAX + JQery -->
+        </select>
+      </p>
 
-      <p><label for="choix_date_id">Date (Jour/Mois)</label>
-      <script type="text/javascript">
-      <!--
-        today=new Date();
-        txt  = '<input type="text"';
-        txt += ' value ="' + today.getDate() + '/' + (today.getMonth() + 1) + '"';
-        txt += ' id="choix_date_id" name="choix_date_name">';
-        txt += '<br>';
-        document.write(txt);
-      -->
-      </script>
+      <p id="zone_saisie_nouveau_massif">
+        <label for="choix_nouveau_massif_id">Nouveau massif</label>
+        <input type="text" id="choix_nouveau_massif_id">
+      </p>
+
+      <p id="zone_saisie_nouveau_sommet">
+        <label for="choix_nouveau_sommet_id">Nouveau sommet</label>
+        <input type="text" id="choix_nouveau_sommet_id">
+      </p>
+
+      <p id="zone_saisie_sommet_altitude">
+        <label for="choix_sommet_altitude_id">Altitude</label>
+        <input type="text" id="choix_sommet_altitude_id">
+      </p>
+
+      <p id="zone_saisie_sommet_points">
+        <label for="choix_sommet_points_id">Points</label>
+        <input type="text" id="choix_sommet_points_id">
+      </p>
+
+      <p id="zone_saisie_sommet_commentaire">
+        <label for="choix_sommet_commentaire_id">Commentaire</label>
+        <input type="text" id="choix_sommet_commentaire_id">
+      </p>
+
+      <p id="zone_saisie_pilote">
+        <label for="choix_pilote_id"> Choix du pilote </label>
+        <select id="choix_pilote_id"> 
+            <option value="0"> Choisir un pilote </option>
+            <!-- le reste est remplie via AJAX + JQery -->
+        </select>
+      </p>
+
+      <p id="zone_saisie_nouveau_pilote">
+        <label for="choix_nouveau_id">Nouveau pilote</label>
+        <input type="text" id="choix_nouveau_pilote_id">
+      </p>
+
+      <p id="zone_choix_date">
+        <!-- TODO -->
       </p>
 
       <!-- Bonus biplace -->
       <p>
-      <input type="checkbox" id="choix_biplace_id">
-      Vol effectué en biplace (1 point de bonus)
+        <input type="checkbox" id="choix_biplace_id">
+        Vol effectu&eacute; en biplace (1 point de bonus)
       </p>
 
       <!-- Info sur mobilite douce -->
       <p>
-      <input type="checkbox" id="choix_mobilitedouce_id">
-      Vol effectué en mobilité dite douce (c'est à titre indicatif)
+        <input type="checkbox" id="choix_mobilitedouce_id">
+        Vol effectu&eacute; en mobilit&eacute; dite douce (c'est &agrave; titre indicatif)
       </p>
 
       <p>
-      Un commentaire sur le vol <br>
-      (sur une seule ligne mais qui peut être longue) <br>
-      <input type="text" size=40 id="choix_commentaire_id">
+        Un commentaire sur le vol <br>
+        (sur une seule ligne mais qui peut &ecirc;tre longue) <br>
+        <input type="text" size=40 id="choix_commentaire_id">
       </p>
 
       <p class="submit">
-        <input type="submit" value="Soumettre votre volrando" onclick="check_volrando()">
+        <input type="submit" value="Soumettre votre volrando">
       </p>
 
     </fieldset>
@@ -131,22 +160,19 @@ Dans la partie droite on affichera les résutlats
 
 <div id="div_droite">
 
-  <h2> Affichage des résultats </h2>
+  <h2> Affichage des r&eacute;sultats </h2>
 
   <form action="">
-    <select id="choix_affichage_id" onChange="affichage_table()">
+    <select id="choix_affichage_id">
       <option value="afficher_volrandos"> Afficher la liste des vols randos </option>
       <option value="afficher_massifs"> Afficher la liste des massifs </option>
       <option value="afficher_sommets"> Afficher la liste des sommets </option>
       <option value="afficher_pilotes"> Afficher la liste des pilotes </option>
-      <option value="afficher_classement" disabled="disabled"> 
-        Afficher le classement
-      </option>
     </select>
   </form>
-        
+
   <form action="">
-    <select id="choix_tri_id" onChange="choix_tri()">
+    <select id="choix_tri_id">
       <option value="tri_massif" disabled="disabled"> tri par massif </option>
       <option value="tri_pilote" disabled="disabled"> tri par pilote </option>
       <option value="tri_sommet" disabled="disabled"> tri par sommet </option>
@@ -159,12 +185,6 @@ Dans la partie droite on affichera les résutlats
       et on affiche directement le tableau des resultats. Ensuite les mises a jour
       viendront ecraser cette zone en utilisant l'id "resultat".
   -->
-  <script type="text/javascript">
-    <!--
-    ask_to_server('volrandos', 'zone_resultats');
-    -->
-  </script>
-
   </p>
 
 </div> <!-- Fin de div_droite -->
