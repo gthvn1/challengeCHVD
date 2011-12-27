@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 
 <html>
 <head>
@@ -73,7 +73,7 @@ Dans la partie droite on affichera les r&eacute;sutlats
     <fieldset>
       <legend> D&eacute;claration du volrando </legend>
 
-      <p id="zone_saisie_massif">
+      <p>
         <label for="choix_massif_id"> Choix du massif </label>
         <select id="choix_massif_id"> 
             <option value="0"> Choisir un massif </option>
@@ -81,7 +81,7 @@ Dans la partie droite on affichera les r&eacute;sutlats
         </select>
       </p>
 
-      <p id="zone_saisie_sommet">
+      <p>
         <label for="choix_sommet_id"> Choix du sommet </label>
         <select id="choix_sommet_id"> 
             <option value="0"> Choisir un massif </option>
@@ -89,32 +89,32 @@ Dans la partie droite on affichera les r&eacute;sutlats
         </select>
       </p>
 
-      <p id="zone_saisie_nouveau_massif">
+      <p>
         <label for="choix_nouveau_massif_id">Nouveau massif</label>
         <input type="text" id="choix_nouveau_massif_id">
       </p>
 
-      <p id="zone_saisie_nouveau_sommet">
+      <p>
         <label for="choix_nouveau_sommet_id">Nouveau sommet</label>
         <input type="text" id="choix_nouveau_sommet_id">
       </p>
 
-      <p id="zone_saisie_sommet_altitude">
+      <p>
         <label for="choix_sommet_altitude_id">Altitude</label>
         <input type="text" id="choix_sommet_altitude_id">
       </p>
 
-      <p id="zone_saisie_sommet_points">
+      <p>
         <label for="choix_sommet_points_id">Points</label>
         <input type="text" id="choix_sommet_points_id">
       </p>
 
-      <p id="zone_saisie_sommet_commentaire">
+      <p>
         <label for="choix_sommet_commentaire_id">Commentaire</label>
         <input type="text" id="choix_sommet_commentaire_id">
       </p>
 
-      <p id="zone_saisie_pilote">
+      <p>
         <label for="choix_pilote_id"> Choix du pilote </label>
         <select id="choix_pilote_id"> 
             <option value="0"> Choisir un pilote </option>
@@ -122,23 +122,24 @@ Dans la partie droite on affichera les r&eacute;sutlats
         </select>
       </p>
 
-      <p id="zone_saisie_nouveau_pilote">
+      <p>
         <label for="choix_nouveau_pilote_id">Nouveau pilote</label>
         <input type="text" id="choix_nouveau_pilote_id">
-      </p>
 
-      <p id="zone_choix_date">
-        <!-- TODO -->
-      </p>
-
-      <!-- Bonus biplace -->
       <p>
+        <!-- TODO: La date -->
+        <label for="choix_date_id">Date (Mois/Jour)</label>
+        <input type="text" id="choix_date_id">
+      </p>
+
+      <p>
+      <!-- Bonus biplace -->
         <input type="checkbox" id="choix_biplace_id">
         Vol effectu&eacute; en biplace (1 point de bonus)
       </p>
 
-      <!-- Info sur mobilite douce -->
       <p>
+      <!-- Info sur mobilite douce -->
         <input type="checkbox" id="choix_mobilitedouce_id">
         Vol effectu&eacute; en mobilit&eacute; dite douce (c'est &agrave; titre indicatif)
       </p>
@@ -163,20 +164,24 @@ Dans la partie droite on affichera les r&eacute;sutlats
   <h2> Affichage des r&eacute;sultats </h2>
 
   <form action="">
+    <p>
     <select id="choix_affichage_id">
       <option value="afficher_volrandos"> Afficher la liste des vols randos </option>
       <option value="afficher_massifs"> Afficher la liste des massifs </option>
       <option value="afficher_sommets"> Afficher la liste des sommets </option>
       <option value="afficher_pilotes"> Afficher la liste des pilotes </option>
     </select>
+    </p>
   </form>
 
   <form action="">
+    <p>
     <select id="choix_tri_id">
       <option value="tri_massif" disabled="disabled"> tri par massif </option>
       <option value="tri_pilote" disabled="disabled"> tri par pilote </option>
       <option value="tri_sommet" disabled="disabled"> tri par sommet </option>
     </select>
+    </p>
   </form>
 
   <p id="zone_resultats">

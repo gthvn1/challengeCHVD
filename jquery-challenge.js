@@ -54,7 +54,7 @@ function choix_massif()
                 $('#choix_sommet_id').append(data);
             },
             error : function () {
-                $('#zone_saisie_sommet').html('Failure...');
+                alert("Erreur d'initialisation des sommets");
             }
         });
     }
@@ -394,7 +394,7 @@ function init_saisie()
             $('#choix_massif_id').append(data);
         },
         error : function () {
-            $('#zone_saisie_massif').html('Failure...');
+            alert("Erreur d'initialisation des massifs");
         }
     });
 
@@ -417,7 +417,7 @@ function init_saisie()
             $('#choix_pilote_id').append(data);
         },
         error : function () {
-            $('#zone_saisie_pilote').html('Failure...');
+            alert("Erreur d'initialisation des pilotes");
         }
     });
 
