@@ -62,6 +62,11 @@ function init_saisie()
     });
 
     $('#choix_nouveau_pilote_id').attr('disabled', false);
+    
+    // Preaffichage de la date d'aujourd'hui
+    var today = new Date();
+    $("#choix_date_id").val(today.getDate() + '/' + (today.getMonth() + 1));
+
 }
 
 function choix_massif()
