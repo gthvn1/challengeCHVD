@@ -3,6 +3,9 @@ $(document).ready(function() {
 
     init_saisie();
 
+    // Affichage des volsrandos
+    choix_affichage();
+
     // Detection de la selection du choix d'un massif
     $("#choix_massif_id").change(choix_massif);
 
@@ -59,9 +62,6 @@ function init_saisie()
     });
 
     $('#choix_nouveau_pilote_id').attr('disabled', false);
-
-    // Affichage des resultats
-    choix_affichage();
 }
 
 function choix_massif()
@@ -234,6 +234,9 @@ function soumettre_volrando()
 
             // On reinitialise la zone de saisie
             init_saisie();
+    
+            // Affichage des volsrandos
+            choix_affichage();
         }
     } else {
         info_vol = '-=( ERREUR: VOTRE VOL EST INVALIDE )=- \n\n' + info_vol;
