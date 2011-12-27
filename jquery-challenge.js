@@ -19,6 +19,51 @@ $(document).ready(function() {
     $("#formulaire_volrando").submit(soumettre_volrando);
 });
 
+function init_saisie()
+{
+    // Activation de la saisie des massifs
+    $('#choix_massif_id').empty();
+    $('#choix_massif_id').append('<option value="0"> Choisir un massif </option>');
+    $.ajax({
+        url: 'server_queries.php',
+        data : { param : "select_massifs" },
+        success: function (data) {
+            $('#choix_massif_id').append(data);
+        },
+        error : function () {
+            alert("Erreur d'initialisation des massifs");
+        }
+    });
+
+    // On desactive la saisie des sommets
+    $('#choix_sommet_id').attr('disabled', true);
+
+    $('#choix_nouveau_massif_id').attr('disabled', false);
+    $('#choix_nouveau_sommet_id').attr('disabled', false);
+    $('#choix_sommet_altitude_id').attr('disabled', false);
+    $('#choix_sommet_points_id').attr('disabled', false);
+    $('#choix_sommet_commentaire_id').attr('disabled', false);
+
+    // Activation de la saisie des pilotes
+    $('#choix_pilote_id').empty();
+    $('#choix_pilote_id').append('<option value="0"> Choisir un pilote </option>');
+    $.ajax({
+        url: 'server_queries.php',
+        data : { param : "select_pilotes" },
+        success: function (data) {
+            $('#choix_pilote_id').append(data);
+        },
+        error : function () {
+            alert("Erreur d'initialisation des pilotes");
+        }
+    });
+
+    $('#choix_nouveau_pilote_id').attr('disabled', false);
+
+    // Affichage des resultats
+    choix_affichage();
+}
+
 function choix_massif()
 {
     var selected = $("#choix_massif_id option:selected");
@@ -146,6 +191,10 @@ function soumettre_volrando()
     var np  = res[3]; // np: nom pilote
 
     // A faire : la date
+    res = check_date();
+    info_vol += res[0];
+    vol_valide &= res[1];
+    var date = res[2];
     
     info_vol += 'biplace = ' + biplace + ' => OK \n';
     info_vol += 'mobdouce = ' + mobdouce + ' => OK \n';
@@ -171,6 +220,7 @@ function soumettre_volrando()
                     cs      : cs,
                     pid     : pid,
                     np      : np,
+                    date    : date,
                     bi      : biplace,
                     md      : mobdouce,
                     cv      : comment},
@@ -382,47 +432,25 @@ function check_pilote()
     return res;
 }
 
-function init_saisie()
+/*
+ * res[0] = text
+ * res[1] = date valide ou non
+ * res[2] = date
+ */
+function check_date()
 {
-    // Activation de la saisie des massifs
-    $('#choix_massif_id').empty();
-    $('#choix_massif_id').append('<option value="0"> Choisir un massif </option>');
-    $.ajax({
-        url: 'server_queries.php',
-        data : { param : "select_massifs" },
-        success: function (data) {
-            $('#choix_massif_id').append(data);
-        },
-        error : function () {
-            alert("Erreur d'initialisation des massifs");
+    var res = new Array('', true, $("#choix_date_id").val());
+    var ds = res[2].split("/");
+
+    if (ds.length == 2) {
+        // verification grosso merdo...
+        if (ds[0] > 0 && ds[1] < 31 && ds[1] > 0 && ds[1] < 13) {
+            res[0] = 'Date saisie : ' + res[2] + ' => OK\n';
+            return res;
         }
-    });
+    }
 
-    // On desactive la saisie des sommets
-    $('#choix_sommet_id').attr('disabled', true);
-
-    $('#choix_nouveau_massif_id').attr('disabled', false);
-    $('#choix_nouveau_sommet_id').attr('disabled', false);
-    $('#choix_sommet_altitude_id').attr('disabled', false);
-    $('#choix_sommet_points_id').attr('disabled', false);
-    $('#choix_sommet_commentaire_id').attr('disabled', false);
-
-    // Activation de la saisie des pilotes
-    $('#choix_pilote_id').empty();
-    $('#choix_pilote_id').append('<option value="0"> Choisir un pilote </option>');
-    $.ajax({
-        url: 'server_queries.php',
-        data : { param : "select_pilotes" },
-        success: function (data) {
-            $('#choix_pilote_id').append(data);
-        },
-        error : function () {
-            alert("Erreur d'initialisation des pilotes");
-        }
-    });
-
-    $('#choix_nouveau_pilote_id').attr('disabled', false);
-
-    // Affichage des resultats
-    choix_affichage();
+    res[0] = 'Date invalide \n';
+    res[1] = false;
+    return res;
 }
