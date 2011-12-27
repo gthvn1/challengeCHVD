@@ -231,17 +231,18 @@ function soumettre_volrando()
                     cv      : comment},
                 success: function (data) {
                     $('#zone_resultats').html(data);
+            
+                    // On reinitialise la zone de saisie
+                    init_saisie();
+    
+                    // Affichage des volsrandos
+                    choix_affichage();
                 },
                 error : function () {
                     $('#zone_resultats').html('Failure...');
                 }
             });
 
-            // On reinitialise la zone de saisie
-            init_saisie();
-    
-            // Affichage des volsrandos
-            choix_affichage();
         }
     } else {
         info_vol = '-=( ERREUR: VOTRE VOL EST INVALIDE )=- \n\n' + info_vol;
