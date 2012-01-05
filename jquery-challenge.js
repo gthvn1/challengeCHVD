@@ -166,11 +166,8 @@ function soumettre_volrando()
 {
     var info_vol = '';
     var vol_valide = true;
-    var biplace = $("#choix_biplace_id:checked").val() == undefined ?
-        false : true;
-
-    var mobdouce = $("#choix_mobilitedouce_id:checked").val() == undefined ?
-        false : true;
+    var biplace = $("#choix_biplace_id:checked").val() == undefined ? 0 : 1;
+    var mobdouce = $("#choix_mobilitedouce_id:checked").val() == undefined ? 0 : 1;
     var comment = $("#choix_commentaire_id").val();
     var res;
 
