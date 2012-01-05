@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -13,7 +13,7 @@
 <p>
 L'idée à la base c'était de découvrir les différentes techniques pour avoir un site web dynamique.
 Il n'est donc pas impossible que certains choix techniques ne soient pas très appropriés. J'ai peut-être
-pris une hache pour couper du pain mais bon, ça coupe. Je me suis donc mis à l'AJAX pour le coté client et
+pris une hache pour couper du pain mais bon, ça coupe. Je me suis donc mis à JQery et AJAX pour le coté client et
 la combinaison PHP plus SQlite3 du coté du serveur. <br />
 Le code est disponible sur <a href="https://github.com/gthouvenin/challengeCHVD">
 https://github.com/gthouvenin/challengeCHVD</a>.
@@ -27,40 +27,38 @@ https://github.com/gthouvenin/challengeCHVD</a>.
     Il est complètement indépendant du site web et n'a pas d'utilité autre que générer le fichier initial pour la
     base de donnée. Il est appelé en mode console par la commande "php create_database.php".
     </li>
-     
+
      <li> La tables utilisées sont les suivantes:<br>
          <dl>
              <dt> SOMMETS </dt>
-             <dd>SID: INTEGER, la clé</dd>
-             <dd>NOM: TEXT, le nom du sommet</dd>
-             <dd>MID: INTEGER, la clé du massif associé au sommet</dd>
-             <dd>ALTITUDE: INTEGER, utilisé à titre indicatif</dd>
-             <dd>POINTS: INTEGER, les points rapporté par le sommet</dd>
-             <dd>ANNEE: INTEGER, utilisé dans le calcul du bonus des nouveaux sommets</dd>
-             <dd>COMMENTAIRE: TEXT, utilisé pour préciser des particularités</dd>
+             <dd> S_ID: INTEGER, la clé</dd>
+             <dd> S_NOM: TEXT, le nom du sommet</dd>
+             <dd> S_MID: INTEGER, la clé du massif associé au sommet</dd>
+             <dd> S_ALTI: INTEGER, utilisé à titre indicatif</dd>
+             <dd> S_PTS: INTEGER, les points rapporté par le sommet</dd>
+             <dd> S_ANNEE: INTEGER, utilisé dans le calcul du bonus des nouveaux sommets</dd>
+             <dd> S_COMMENT: TEXT, utilisé pour préciser des particularités</dd>
 
              <dt> MASSIFS </dt>
-             <dd>MID: INTEGER, la clé</dd>
-             <dd>NOM: TEXT, le nom du massif</dd>
-     
+             <dd> M_ID: INTEGER, la clé</dd>
+             <dd> M_NOM: TEXT, le nom du massif</dd>
+
              <dt> PILOTES </dt>
-             <dd>PID: INTEGER, la clé</dd>
-             <dd>NOM: TEXT, le nom du pilote</dd>
-             <dd>PRENOM: TEXT, le prénom du pilote</dd>
-             <dd>PSEUDO: TEXT, le pseudo utilisé pour l'affichage des résultats</dd>
-         
+             <dd> P_ID: INTEGER, la clé</dd>
+             <dd> P_PSEUDO: TEXT, le pseudo utilisé pour l'affichage des résultats</dd>
+
              <dt> VOLSRANDOS </dt>
-             <dd>VID: INTEGER, la clé</dd>
-             <dd>SID: INTEGER, la clé du sommet associé au vol</dd>
-             <dd>PID: INTEGER, la clé du pilote associé au vol</dd>
-             <dd>DATE: INTEGER, utilisation des timestamps Unix</dd>
-             <dd>BIPLACE: INTEGER, vol effectué en biplace, utilisé pour la bonification</dd>
-             <dd>BUT: REAL, compte pour 1/2 point de bonification</dd>
-             <dd>CARBONE: INTEGER, 0 = mobilite douce, 1: pas douce. Utilisé à titre informatif</dd>
-             <dd>COMMENTAIRE: TEXT, utilisé par pilote pour donner des infos sur un nouveau déco ou faire une réclamation</dd>
+             <dd> V_ID: INTEGER, la clé</dd>
+             <dd> V_SID: INTEGER, la clé du sommet associé au vol</dd>
+             <dd> V_PID: INTEGER, la clé du pilote associé au vol</dd>
+             <dd> V_DATE: INTEGER, utilisation des timestamps Unix</dd>
+             <dd> V_BI: INTEGER, vol effectué en biplace, utilisé pour la bonification</dd>
+             <dd> V_BUT: REAL, compte pour 1/2 point de bonification</dd>
+             <dd> V_CO2: INTEGER, 0 = mobilite douce, 1: pas douce. Utilisé à titre informatif</dd>
+             <dd> V_COMMENT: TEXT, utilisé par pilote pour donner des infos sur un nouveau déco ou faire une réclamation</dd>
          </dl>
     </li>
-    
+
     <li> La page principale <i>index.php</i> est écrite en HTML. Les requêtes au serveur se font en AJAX. Les menus déroulants sont crées dynamiquement.
     La gestion des différentes zones de saisies (grisées ou pas) et faite en javascript. La validation du vol rando passe également par du javascript.
     La mise en page et son contenu sont décrits dans <a href="#MiseEnPage">"Mise en page et contenu des pages"</a>.
@@ -87,11 +85,11 @@ https://github.com/gthouvenin/challengeCHVD</a>.
 <h2> <a name="MiseEnPage">Mise en page et contenu des pages</a> </h2>
 
 <p>
-J'ai tout séparé en trois pages. 
+J'ai tout séparé en trois pages.
 <ul>
     <li> Une page principale (HTML + JS) qui a pour but d'afficher le réglement, une zone de saisie et l'affichage des résultats. </li>
     <li> Une page de réglement (HTML) qui affiche ... le réglement 2012. </li>
-    <li> Des scripts PHP qui servent à interroger la base de données. Le résultat est envoyé au client via des requêtes 
+    <li> Des scripts PHP qui servent à interroger la base de données. Le résultat est envoyé au client via des requêtes
     XMLHttpRequest. </li>
 </ul>
 </p>
@@ -109,7 +107,7 @@ zone permettant d'afficher le copyright qui n'existe pas.
 
 <h4> Le contenu </h4>
 
-<p> C'est THE element de notre application. Il contient une partie gauche qui permet de saisir les informations 
+<p> C'est THE element de notre application. Il contient une partie gauche qui permet de saisir les informations
 du vol et une zone de droite permettant d'afficher les résultats.
 </p>
 
