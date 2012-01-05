@@ -245,7 +245,7 @@ function volrandos_to_html($dbh)
     echo '<th> Pilote </th>';
     echo '<th> Date </th>';
     echo '<th> Biplace </th>';
-    //echo '<th> Carbone </th>';
+    echo '<th> Carbone </th>';
     echo '<th> Commentaire </th>';
     echo '</tr>';
 
@@ -257,8 +257,8 @@ function volrandos_to_html($dbh)
             echo '<td>', $volrando["s_alti"], '</td>';
             echo '<td>', $volrando["p_pseudo"], '</td>';
             echo '<td>', $volrando["v_date"], '</td>';
-            echo '<td>', $volrando["v_bi"], '</td>';
-            //echo '<td>', $volrando["v_co2"]     , '</td>';
+            echo '<td>', $volrando["v_bi"] ? "Oui" : "Non", '</td>';
+            echo '<td>', $volrando["v_co2"] ? "Sans" : "Avec", '</td>';
             echo '<td>', $volrando["v_comment"] , '</td>';
             echo '</tr>';
     }
