@@ -201,8 +201,8 @@ function sommets_to_html($dbh)
 {
     echo '<table>';
     echo '<tr>';
-    echo '<th> Nom </th>';
     echo '<th> Massif </th>';
+    echo '<th> Nom </th>';
     echo '<th> Altitude </th>';
     echo '<th> Points </th>';
     echo '<th> Année </th>';
@@ -211,13 +211,13 @@ function sommets_to_html($dbh)
 
     $result = $dbh->query('SELECT * FROM sommets
                            INNER JOIN massifs ON s_mid = m_id
-                           ORDER BY s_nom');
+                           ORDER BY m_nom, s_nom');
     $tab = $result->fetchAll();
 
     foreach ($tab as $sommet) {
         echo '<tr>';
-        echo '<td>', $sommet["s_nom"], '</td>';
         echo '<td>', $sommet["m_nom"], '</td>';
+        echo '<td>', $sommet["s_nom"], '</td>';
         echo '<td>', $sommet["s_alti"], '</td>';
         echo '<td>', $sommet["s_pts"], '</td>';
         echo '<td>', $sommet["s_annee"], '</td>';
