@@ -227,6 +227,38 @@ function sommets_to_html($dbh)
     echo '</table>';
 }
 
+function classement_to_html($dbh)
+{
+    echo 'En cours de developpement <br />';
+
+    // On recupere la liste des pilotes
+    $result = $dbh->query('SELECT * FROM pilotes');
+    $tab = $result->fetchAll();
+
+    // Pour chacuns des pilotes on recupere ses vols
+    echo '<ul>';
+    foreach ($tab as $pilote) {
+        $qry2 = $dbh->prepare('SELECT * FROM volrandos
+                               INNER JOIN sommets ON v_sid = s_id
+                               WHERE v_pid = ?');
+        $qry2->execute(array($pilote["p_id"]));
+        $res = $qry2->fetchAll();
+
+        echo '<li> Liste des vols de ', $pilote["p_pseudo"], '</li>';
+        echo '<ul>';
+        foreach ($res as $vol) {
+            echo '<li>';
+            echo 'sommet: ', $vol["s_nom"];
+            echo ' points: ', $vol["s_pts"];
+            echo ' biplace: ', $vol["v_bi"];
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</li>';
+    }
+    echo '</ul>';
+}
+
 function volrandos_to_html($dbh)
 {
     $result = $dbh->query('SELECT * FROM volrandos
@@ -314,6 +346,9 @@ try {
     }
     elseif (0 == strcmp($val, "sommets")) {
        sommets_to_html($dbh);
+    }
+    elseif (0 == strcmp($val, "classement")) {
+       classement_to_html($dbh);
     }
     elseif (0 == strcmp($val, "volrandos")) {
         volrandos_to_html($dbh);

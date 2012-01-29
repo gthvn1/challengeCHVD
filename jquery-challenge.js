@@ -141,10 +141,15 @@ function choix_affichage()
 
     if (selected.val() === "afficher_massifs") {
         parametre = "massifs";
-    } else if (selected.val() === "afficher_sommets") {
+    }
+    else if (selected.val() === "afficher_sommets") {
         parametre = "sommets";
-    } else if (selected.val() === "afficher_pilotes") {
+    }
+    else if (selected.val() === "afficher_pilotes") {
         parametre = "pilotes";
+    }
+    else if (selected.val() === "afficher_classement") {
+        parametre = "classement";
     }
 
     // Affichage des resultats volrandos
