@@ -229,14 +229,17 @@ function sommets_to_html($dbh)
 
 function classement_to_html($dbh)
 {
-    echo 'En cours de developpement <br />';
+    echo 'En cours de developpement. Il reste a prendre en compte les bonus des vols nouveaux <br />';
+    $classement = array();
+    $dbg_msg = "";
 
     // On recupere la liste des pilotes
     $result = $dbh->query('SELECT * FROM pilotes');
     $tab = $result->fetchAll();
 
     // Pour chacuns des pilotes on recupere ses vols
-    echo '<ul>';
+    $dbg_msg .= "<ul>";
+
     foreach ($tab as $pilote) {
         $qry2 = $dbh->prepare('SELECT * FROM volrandos
                                INNER JOIN sommets ON v_sid = s_id
@@ -244,19 +247,63 @@ function classement_to_html($dbh)
         $qry2->execute(array($pilote["p_id"]));
         $res = $qry2->fetchAll();
 
-        echo '<li> Liste des vols de ', $pilote["p_pseudo"], '</li>';
-        echo '<ul>';
+        $dbg_msg .= "<li> Liste des vols de " . $pilote["p_pseudo"] . "</li>";
+
+        $points = 0;
+
+        $dbg_msg .= "<ul>";
         foreach ($res as $vol) {
-            echo '<li>';
-            echo 'sommet: ', $vol["s_nom"];
-            echo ' points: ', $vol["s_pts"];
-            echo ' biplace: ', $vol["v_bi"];
-            echo '</li>';
+            // Ajout des points intrinseque des massifs
+            $points = $points + intval($vol["s_pts"]);
+            $dbg_msg .= "<li>" . $vol["s_nom"] . ": " . $vol["s_pts"] . "pts ";
+
+            // calcul des bonus 
+            if ($vol["v_bi"]) {
+                $dbg_msg .= " +1 (bonus bi) ";
+                $points ++;
+            }
+            else {
+                $dbg_msg .= " +0 (bonus bi) ";
+            }
+
+            if ($vol["s_annee"] == 2012) {
+                $dbg_msg .= " +1 (bonus nouveau sommet) ";
+                $points ++;
+            }
+            else {
+                $dbg_msg .= " +0 (bonus nouveau sommet) ";
+            }
+            
+            $dbg_msg .= "</li>";
         }
-        echo '</ul>';
-        echo '</li>';
+
+        $dbg_msg .= "<li> <strong>Total des points de " . $pilote["p_pseudo"] . " = " . $points . "</strong></li>";
+        $dbg_msg .= "</ul>";
+        
+        $dbg_msg .= "</li>";
+        
+        $classement[$pilote["p_pseudo"]] = $points;
     }
-    echo '</ul>';
+
+    $dbg_msg .= "</ul>";
+
+    arsort($classement);
+    $pos = 1;
+    
+    echo '<table>';
+    echo '<tr>';
+    echo '<th> Classement </th> <th> Pilote </th> <th> Points </th>';
+    echo '</tr>';
+
+    foreach ($classement as $key => $val) {
+        echo '<tr>';
+        echo "<td> $pos </td><td> $key </td><td> $val </td>";
+        echo '</tr>';
+        $pos++;
+    } 
+    echo '</table>';
+
+    echo $dbg_msg;
 }
 
 function volrandos_to_html($dbh)
