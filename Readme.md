@@ -10,7 +10,7 @@ soient pas très appropriés. J'ai peut-être pris une hache pour couper du pain
 mais bon, ça coupe. Je me suis donc mis JQery et AJAX pour le coté client et la
 combinaison PHP plus SQlite3 du cot du serveur.
   
-Le code est disponible sur [ https://github.com/thouveng/challengeCHVD][1]. 
+Le code est visible sur http://volbivouac.free.fr/challengeCHVD
 
 ## Ce qui fonctionne 
 
@@ -132,5 +132,4 @@ Qui ne sert rien sauf le prendre ...
 Le réglement qui n'est pas jour. Pour l'instant c'est celui de 2011. Il reste
 discuter des points de bonus.
 
- [1]: https://github.com/thouveng/challengeCHVD
  [2]: http://volbivouac.free.fr#MiseEnPage
