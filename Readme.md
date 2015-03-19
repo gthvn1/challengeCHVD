@@ -1,5 +1,7 @@
 [Permalink](http://volbivouac.free.fr/challengeCHVD/README.html "Permalink to README Challenge CHVD devel")
 
+![CHVD Logo](./figures/chvd-logo.png "CHVD")
+
 # README Challenge CHVD devel
 
 ## Les choix techniques
